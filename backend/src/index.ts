@@ -1,28 +1,35 @@
-import express from 'express';
-import cors from 'cors';
-import { createServer } from 'http';
 import { Server } from 'socket.io';
-import { ClientToServerEvents, ServerToClientEvents, SocketData } from './types/types'
-import logger from './utils/logger';
-import routes from './routes';
+import { ExpressServer } from './server';
+import { ClientToServerEvents, ServerToClientEvents, SocketData } from './types/types';
+import { ConnectHandler } from './handlers';
+import { port } from './utils/constants';
 
-const app = express();
-const httpServer = createServer(app);
-const io = new Server<ClientToServerEvents, ServerToClientEvents, SocketData>(httpServer, {});
+export class SkyfallServer {
+  #io: Server<ClientToServerEvents, ServerToClientEvents, SocketData>;
 
-io.on('connection', (socket) => {
-  console.log('someone connected!');
+  #expressServer: ExpressServer;
 
-  socket.on("join", (roomNumber) => {
-    logger.info("This client joined room ", roomNumber)
-    socket.emit("youjoined", 'lmao')
-  })
+  constructor() {
+    if (!this.#io) {
+      this.#expressServer = new ExpressServer(port);
+      this.#io = new Server<ClientToServerEvents, ServerToClientEvents, SocketData>(this.#expressServer.getHttpServer(), {});
+      this.#io.on('connection', (socket) => ConnectHandler(this.#io, socket));
+    }
+  }
 
-});
+  stop() {
+    if (this.#expressServer) {
+      this.#expressServer.close();
+    }
+  }
 
-app.use(express.urlencoded({ extended: false }));
-app.use(cors());
-app.use(express.json());
-app.use(routes)
+  reset() {
+    if (this.#io) {
+      this.#io.disconnectSockets();
+    }
+  }
+}
 
-httpServer.listen(3000);
+if (process.env.NODE_ENV !== 'test') {
+  const skyfallServer = new SkyfallServer();
+}

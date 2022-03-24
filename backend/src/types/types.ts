@@ -1,3 +1,4 @@
+import { Server, Socket } from 'socket.io';
 /**
  * Emitting message from server to clients
  * io.on("connection", (socket)=>{
@@ -6,7 +7,9 @@
  * })
  */
 interface ServerToClientEvents {
-  youjoined: (a: string) => void;
+  'room:join-success': () => void;
+  'room:join-fail': () => void;
+  'broadcast:list-participant': (participantNames: Array<String>) => void;
 }
 
 /**
@@ -18,7 +21,7 @@ interface ServerToClientEvents {
  * })
  */
 interface ClientToServerEvents {
-  join: (roomNumber: string) => void;
+  'room:join': (roomNumber: string) => void;
 }
 
 /**
@@ -32,8 +35,13 @@ interface SocketData {
   age: number;
 }
 
+type SocketType = Socket<ClientToServerEvents, ServerToClientEvents, SocketData, any>
+type ServerType = Server<ClientToServerEvents, ServerToClientEvents, SocketData>
+
 export {
   ServerToClientEvents,
   ClientToServerEvents,
   SocketData,
+  SocketType,
+  ServerType,
 };
