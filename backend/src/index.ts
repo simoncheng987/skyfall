@@ -4,6 +4,7 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import { ClientToServerEvents, ServerToClientEvents, SocketData } from './types/types'
 import logger from './utils/logger';
+import routes from './routes';
 
 const app = express();
 const httpServer = createServer(app);
@@ -22,8 +23,6 @@ io.on('connection', (socket) => {
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 app.use(express.json());
-app.use('/', (req, res) => {
-  res.send('hello!').end();
-});
+app.use(routes)
 
 httpServer.listen(3000);
