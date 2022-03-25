@@ -1,7 +1,6 @@
-import { io } from 'socket.io-client';
 import { SkyfallServer } from '../../index';
-import { port } from '../../utils/constants';
 import { gameCodes } from '../../controllers/game.controller';
+import { createClients } from './util';
 
 describe('Client room:join', () => {
   let server: SkyfallServer;
@@ -96,14 +95,3 @@ describe('Client room:join', () => {
     }, 2000);
   });
 });
-
-/**
- * Utility functions
- */
-const createClients = (number: Number) => {
-  const clients: Array<any> = [];
-  for (let i = 0; i < number; i++) {
-    clients.push(io(`ws://localhost:${port}`));
-  }
-  return clients;
-};
