@@ -1,15 +1,27 @@
 import { io } from 'socket.io-client';
 import { SkyfallServer } from '../../index';
 import { port } from '../../utils/constants';
+import { gameCodes } from '../../controllers/game.controller';
 
 describe('Client room:join', () => {
   let server: SkyfallServer;
   let clients: any[];
+
   beforeAll(() => {
     server = new SkyfallServer();
   });
 
-  afterEach(() => clients.forEach((client) => client.close()));
+  beforeEach(() => {
+    gameCodes.push(1234);
+    gameCodes.push(4321);
+  });
+
+  afterEach(() => {
+    clients.forEach((client) => {
+      client.close();
+    });
+    gameCodes.length = 0;
+  });
 
   afterAll(() => {
     server.stop();
@@ -22,6 +34,7 @@ describe('Client room:join', () => {
   it('2 sockets joining same room', (done) => {
     const joinSuccessMock = jest.fn();
     const joinFailMock = jest.fn();
+    gameCodes.push(1234);
 
     clients = createClients(2);
     clients.forEach((clientSocket) => {
@@ -44,6 +57,7 @@ describe('Client room:join', () => {
      * When 3 sockets join the same room, one of them should receive join-fail message
      */
   it('3 sockets joining same room', (done) => {
+    gameCodes.push(1234);
     clients = createClients(3);
     clients.forEach((clientSocket) => {
       clientSocket.on('room:join-fail', () => done());
@@ -57,6 +71,8 @@ describe('Client room:join', () => {
   it('2 clients room 1234, 2 clients room 4321', (done) => {
     const joinSuccessMock = jest.fn();
     const joinFailMock = jest.fn();
+    gameCodes.push(1234);
+    gameCodes.push(4321);
 
     clients = createClients(4);
     clients.forEach((clientSocket) => {

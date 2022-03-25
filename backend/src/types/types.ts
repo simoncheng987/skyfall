@@ -10,6 +10,8 @@ interface ServerToClientEvents {
   'room:join-success': () => void;
   'room:join-fail': () => void;
   'broadcast:list-participant': (participantNames: Array<String>) => void;
+  'game:start-success': () => void;
+  'game:start-fail': (reason: String) => void;
 }
 
 /**
@@ -22,6 +24,7 @@ interface ServerToClientEvents {
  */
 interface ClientToServerEvents {
   'room:join': (roomNumber: string) => void;
+  'game:start': () => void;
 }
 
 /**

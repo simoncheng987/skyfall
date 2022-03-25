@@ -1,5 +1,5 @@
-import { createGameCode } from './../controllers/game.controller';
 import { Router } from 'express';
+import { createGameCode } from '../controllers/game.controller';
 
 const routes = Router();
 

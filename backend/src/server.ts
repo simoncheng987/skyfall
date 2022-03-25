@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import { createServer, Server } from 'http';
+import routes from './routes';
 
 export class ExpressServer {
   #server: Server;
@@ -11,9 +12,7 @@ export class ExpressServer {
     app.use(express.urlencoded({ extended: false }));
     app.use(cors());
     app.use(express.json());
-    app.use('/', (req, res) => {
-      res.send('hello!').end();
-    });
+    app.use('/', routes);
     this.#server.listen(port);
   }
 
