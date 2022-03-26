@@ -1,27 +1,27 @@
 .container {
-    border-radius: 15px;
-    display: inline-block;
-    background-color: #D42F2F;
-    border: 2px solid #000000;
-    box-shadow: 0px 4px 0px #1C1C1C;
+  border-radius: 15px;
+  display: inline-block;
+  background-color: #d42f2f;
+  border: 2px solid #000000;
+  box-shadow: 0px 4px 0px #1c1c1c;
 }
 
 .flexbox {
-    padding: 30px 30px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  padding: 30px 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .icon {
-    filter: drop-shadow(0px 4px 0px #1C1C1C);
-    flex-shrink: 0;
+  filter: drop-shadow(0px 4px 0px #1c1c1c);
+  flex-shrink: 0;
 }
 
 .text {
-    color: white;
-    font-family: "Poppins";
-    font-weight: 500;
-    padding-left: 15px;
-    font-size: 18px;
+  color: white;
+  font-family: 'Poppins';
+  font-weight: 500;
+  padding-left: 15px;
+  font-size: 18px;
 }

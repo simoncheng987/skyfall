@@ -17,7 +17,8 @@ export default function Button({ text, buttonStyle, onClick, className }: Button
     <button
       type="button"
       className={`${className} ${styles.button} ${styles.text} ${styles[buttonStyle as string]}`}
-      onClick={onClick}>
+      onClick={onClick}
+    >
       {text}
     </button>
   );
