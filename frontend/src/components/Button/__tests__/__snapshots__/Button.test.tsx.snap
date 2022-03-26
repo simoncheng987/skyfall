@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button matches snapshot with buttonStyle prop 1`] = `
+Object {
+  "instance": null,
+  "nodeType": "component",
+  "props": Object {
+    "buttonStyle": "secondary",
+    "className": "",
+    "onClick": [Function],
+    "text": "Button Text",
+  },
+  "rendered": Object {
+    "instance": null,
+    "nodeType": "host",
+    "props": Object {
+      "children": "Button Text",
+      "className": " button text secondary",
+      "onClick": [Function],
+      "type": "button",
+    },
+    "rendered": Array [
+      "Button Text",
+    ],
+    "type": "button",
+  },
+  "type": [Function],
+}
+`;
+
+exports[`Button matches snapshot with className prop 1`] = `
+Object {
+  "instance": null,
+  "nodeType": "component",
+  "props": Object {
+    "buttonStyle": "primary",
+    "className": "testClassName",
+    "onClick": [Function],
+    "text": "Button Text",
+  },
+  "rendered": Object {
+    "instance": null,
+    "nodeType": "host",
+    "props": Object {
+      "children": "Button Text",
+      "className": "testClassName button text primary",
+      "onClick": [Function],
+      "type": "button",
+    },
+    "rendered": Array [
+      "Button Text",
+    ],
+    "type": "button",
+  },
+  "type": [Function],
+}
+`;
+
+exports[`Button matches snapshot with no className prop 1`] = `
+Object {
+  "instance": null,
+  "nodeType": "component",
+  "props": Object {
+    "buttonStyle": "primary",
+    "className": "",
+    "onClick": [Function],
+    "text": "Button Text",
+  },
+  "rendered": Object {
+    "instance": null,
+    "nodeType": "host",
+    "props": Object {
+      "children": "Button Text",
+      "className": " button text primary",
+      "onClick": [Function],
+      "type": "button",
+    },
+    "rendered": Array [
+      "Button Text",
+    ],
+    "type": "button",
+  },
+  "type": [Function],
+}
+`;
+
+exports[`Button matches snapshot with onClick prop 1`] = `
+Object {
+  "instance": null,
+  "nodeType": "component",
+  "props": Object {
+    "buttonStyle": "primary",
+    "className": "",
+    "onClick": [Function],
+    "text": "Button Text",
+  },
+  "rendered": Object {
+    "instance": null,
+    "nodeType": "host",
+    "props": Object {
+      "children": "Button Text",
+      "className": " button text primary",
+      "onClick": [Function],
+      "type": "button",
+    },
+    "rendered": Array [
+      "Button Text",
+    ],
+    "type": "button",
+  },
+  "type": [Function],
+}
+`;

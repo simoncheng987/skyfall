@@ -1,0 +1,45 @@
+.text {
+  color: white;
+  font-family: 'Poppins';
+  font-weight: 900;
+  font-size: 24px;
+  -webkit-text-stroke: 1px black;
+  text-shadow: 0px 2px 2px #1c1c1c;
+}
+
+.primary {
+  background: #e49359;
+  box-shadow: 0 4px 0 0 #783403, 0 5px 0 0 #1c1c1c, 0 6px 6px 0 #1c1c1c;
+}
+
+.primary:hover {
+  box-shadow: 0 3px 0 0 #783403, 0 4px 0 0 #1c1c1c, 0 4px 5px 0 #1c1c1c;
+}
+
+.secondary {
+  background: #df5aeb;
+  box-shadow: 0 4px 0 0 #600768, 0 5px 0 0 #1c1c1c, 0 6px 6px 0 #1c1c1c;
+}
+
+.secondary:hover {
+  box-shadow: 0 3px 0 0 #600768, 0 4px 0 0 #1c1c1c, 0 4px 5px 0 #1c1c1c;
+}
+
+.button {
+  cursor: pointer;
+  min-width: 200px;
+  padding: 5px 30px;
+  border-width: 1px;
+  border-color: #1c1c1c;
+  border-radius: 8px;
+  transition: box-shadow 50ms, transform 50ms;
+}
+
+.button:hover {
+  transform: translateY(1px);
+}
+
+.button:active {
+  transform: translateY(4px);
+  box-shadow: none;
+}
