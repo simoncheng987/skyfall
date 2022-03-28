@@ -1,0 +1,18 @@
+.textField {
+  /*Textfield dimension*/
+  width: 415px;
+  height: 85px;
+  /*Border style*/
+  border-radius: 15px;
+  border-color: #1c1c1c;
+  border-width: 3px;
+  /*Text style*/
+  text-align: center;
+  font-size: 32px;
+  font-weight: Bold;
+  font-family: Poppins, serif;
+}
+
+::placeholder {
+  color: #c2c2c2;
+}

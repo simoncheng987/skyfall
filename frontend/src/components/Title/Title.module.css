@@ -1,0 +1,21 @@
+.pink {
+  background: linear-gradient(180deg, #ffffff 0%, #df5aeb 100%);
+}
+
+.yellow {
+  background: linear-gradient(180deg, #fce410 0%, #fab913 100%);
+}
+
+.brown {
+  background: linear-gradient(180deg, #ffffff 0%, #e49359 100%);
+}
+
+.fontStyle {
+  font-family: 'Bangers', serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 133.19%;
+  -webkit-text-stroke: 4px black;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
