@@ -1,6 +1,7 @@
-import { ServerType, SocketType } from 'src/types/types';
+import { ServerType, SocketType } from 'src/types';
 import { registerGameHandler } from './game.handler';
 import { registerRoomHandler } from './room.handler';
+import { registerWordHandler } from './word.handler';
 
 export const ConnectHandler = (
   io: ServerType,
@@ -8,4 +9,5 @@ export const ConnectHandler = (
 ) => {
   registerGameHandler(io, socket);
   registerRoomHandler(io, socket);
+  registerWordHandler(io, socket);
 };

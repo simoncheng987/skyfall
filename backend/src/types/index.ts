@@ -12,6 +12,7 @@ interface ServerToClientEvents {
   'broadcast:list-participant': (participantNames: Array<String>) => void;
   'game:start-success': () => void;
   'game:start-fail': (reason: String) => void;
+  'broadcast:word-typed': (wordId: string, success: boolean, socketId: string) => void;
 }
 
 /**
@@ -25,6 +26,7 @@ interface ServerToClientEvents {
 interface ClientToServerEvents {
   'room:join': (roomNumber: string) => void;
   'game:start': () => void;
+  'word:typed': (wordId: string, success: boolean) => void;
 }
 
 /**
@@ -34,8 +36,8 @@ interface ClientToServerEvents {
  * })
  */
 interface SocketData {
-  name: string;
-  age: number;
+  ready: boolean;
+  roomCode: string;
 }
 
 type SocketType = Socket<ClientToServerEvents, ServerToClientEvents, SocketData, any>

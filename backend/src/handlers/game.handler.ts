@@ -1,5 +1,5 @@
 import { MAX_PLAYERS } from '../utils/constants';
-import { SocketType, ServerType } from '../types/types';
+import { SocketType, ServerType } from '../types';
 
 /**
  * Handle when client requests to start the game

@@ -1,6 +1,6 @@
 import { Server } from 'socket.io';
 import { ExpressServer } from './server';
-import { ClientToServerEvents, ServerToClientEvents, SocketData } from './types/types';
+import { ClientToServerEvents, ServerToClientEvents, SocketData } from './types';
 import { ConnectHandler } from './handlers';
 import { port } from './utils/constants';
 
