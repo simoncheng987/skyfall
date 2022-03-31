@@ -27,6 +27,7 @@ describe('Client word:typed', () => {
 
   it('2 Clients in one room, one client sends word:typed', (done) => {
     const mockBroadcast = jest.fn();
+
     clients = createClients(2);
     clients.forEach((client) => {
       client.on('broadcast:word-typed', (wordId, success, socketId) => {

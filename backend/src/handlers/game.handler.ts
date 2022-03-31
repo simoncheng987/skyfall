@@ -34,10 +34,29 @@ const gameStart = (io: ServerType, socket: SocketType) => {
 
     if (gameShouldStart) {
       io.to(roomCode).emit('game:start-success');
+      setTimeout(() => {
+        sendWord(io, roomCode);
+      }, 1000);
     } else {
       socket.emit('game:start-fail', 'Not all players are ready');
     }
   });
+};
+
+const sendWord = async (io: ServerType, roomCode: string) => {
+  setTimeout(() => {
+    const socketsInRoom = io.of('/').adapter.rooms.get(roomCode);
+    const numOfSockets = !socketsInRoom ? 0 : socketsInRoom.size;
+    if (numOfSockets === MAX_PLAYERS) {
+      io.to(roomCode).emit(
+        'word',
+        '001',
+        'alphabet',
+        5000,
+      );
+      sendWord(io, roomCode);
+    }
+  }, 1000);
 };
 
 export const registerGameHandler = (
