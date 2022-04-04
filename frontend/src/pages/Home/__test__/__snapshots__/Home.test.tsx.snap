@@ -5,7 +5,7 @@ Object {
   "instance": null,
   "nodeType": "component",
   "props": Object {
-    "children": <HomePage />,
+    "children": <Home />,
     "initialEntries": Array [
       Object {
         "key": "testKey",
@@ -18,7 +18,7 @@ Object {
     "nodeType": "component",
     "props": Object {
       "basename": undefined,
-      "children": <HomePage />,
+      "children": <Home />,
       "location": Object {
         "hash": "",
         "key": "testKey",
@@ -55,28 +55,30 @@ Object {
         "instance": null,
         "nodeType": "component",
         "props": Object {
-          "children": <div
-            className="columnFlex"
-          >
+          "children": Array [
             <Title
               className=""
               colorScheme="yellow"
-              fontSize="160px"
+              fontSize="130px"
               text="Skyfall"
-            />
-            <Button
-              buttonStyle="secondary"
-              className="button"
-              onClick={[Function]}
-              text="Create Room"
-            />
-            <Button
-              buttonStyle="primary"
-              className="button"
-              onClick={[Function]}
-              text="Join Room"
-            />
-          </div>,
+            />,
+            <div
+              className="buttons"
+            >
+              <Button
+                buttonStyle="secondary"
+                className="button"
+                onClick={[Function]}
+                text="Create Room"
+              />
+              <Button
+                buttonStyle="primary"
+                className="button"
+                onClick={[Function]}
+                text="Join Room"
+              />
+            </div>,
+          ],
         },
         "rendered": Object {
           "instance": null,
@@ -86,15 +88,15 @@ Object {
               <div
                 className="children"
               >
+                <Title
+                  className=""
+                  colorScheme="yellow"
+                  fontSize="130px"
+                  text="Skyfall"
+                />
                 <div
-                  className="columnFlex"
+                  className="buttons"
                 >
-                  <Title
-                    className=""
-                    colorScheme="yellow"
-                    fontSize="160px"
-                    text="Skyfall"
-                  />
                   <Button
                     buttonStyle="secondary"
                     className="button"
@@ -122,42 +124,64 @@ Object {
               "instance": null,
               "nodeType": "host",
               "props": Object {
-                "children": <div
-                  className="columnFlex"
-                >
+                "children": Array [
                   <Title
                     className=""
                     colorScheme="yellow"
-                    fontSize="160px"
+                    fontSize="130px"
                     text="Skyfall"
-                  />
-                  <Button
-                    buttonStyle="secondary"
-                    className="button"
-                    onClick={[Function]}
-                    text="Create Room"
-                  />
-                  <Button
-                    buttonStyle="primary"
-                    className="button"
-                    onClick={[Function]}
-                    text="Join Room"
-                  />
-                </div>,
+                  />,
+                  <div
+                    className="buttons"
+                  >
+                    <Button
+                      buttonStyle="secondary"
+                      className="button"
+                      onClick={[Function]}
+                      text="Create Room"
+                    />
+                    <Button
+                      buttonStyle="primary"
+                      className="button"
+                      onClick={[Function]}
+                      text="Join Room"
+                    />
+                  </div>,
+                ],
                 "className": "children",
               },
               "rendered": Array [
                 Object {
                   "instance": null,
+                  "nodeType": "component",
+                  "props": Object {
+                    "className": "",
+                    "colorScheme": "yellow",
+                    "fontSize": "130px",
+                    "text": "Skyfall",
+                  },
+                  "rendered": Object {
+                    "instance": null,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Skyfall",
+                      "className": " fontStyle  yellow",
+                      "style": Object {
+                        "fontSize": "130px",
+                      },
+                    },
+                    "rendered": Array [
+                      "Skyfall",
+                    ],
+                    "type": "div",
+                  },
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
                   "nodeType": "host",
                   "props": Object {
                     "children": Array [
-                      <Title
-                        className=""
-                        colorScheme="yellow"
-                        fontSize="160px"
-                        text="Skyfall"
-                      />,
                       <Button
                         buttonStyle="secondary"
                         className="button"
@@ -171,35 +195,9 @@ Object {
                         text="Join Room"
                       />,
                     ],
-                    "className": "columnFlex",
+                    "className": "buttons",
                   },
                   "rendered": Array [
-                    Object {
-                      "instance": null,
-                      "nodeType": "component",
-                      "props": Object {
-                        "className": "",
-                        "colorScheme": "yellow",
-                        "fontSize": "160px",
-                        "text": "Skyfall",
-                      },
-                      "rendered": Object {
-                        "instance": null,
-                        "nodeType": "host",
-                        "props": Object {
-                          "children": "Skyfall",
-                          "className": " fontStyle  yellow",
-                          "style": Object {
-                            "fontSize": "160px",
-                          },
-                        },
-                        "rendered": Array [
-                          "Skyfall",
-                        ],
-                        "type": "div",
-                      },
-                      "type": [Function],
-                    },
                     Object {
                       "instance": null,
                       "nodeType": "component",

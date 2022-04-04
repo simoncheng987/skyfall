@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import renderer from 'react-test-renderer';
 import { MemoryRouter } from 'react-router-dom';
 import useWindowSize from '../../../utils/useWindowSize';
-import HomePage from '../HomePage';
+import Home from '../Home';
 
 jest.mock('../../../utils/useWindowSize');
 const mockUseWindowSize = useWindowSize as jest.MockedFunction<typeof useWindowSize>;
@@ -18,7 +18,7 @@ describe('Default test', () => {
       height: 1080,
     });
 
-    render(<HomePage />, { wrapper: MemoryRouter });
+    render(<Home />, { wrapper: MemoryRouter });
 
     expect(screen.getByText('Skyfall')).toBeInTheDocument();
     expect(screen.getByText(createRoomText)).toBeInTheDocument();
@@ -34,7 +34,7 @@ describe('Default test', () => {
     const tree = renderer
       .create(
         <MemoryRouter initialEntries={[{ pathname: '/', key: 'testKey' }]}>
-          <HomePage />
+          <Home />
         </MemoryRouter>,
       )
       .toTree();
@@ -47,7 +47,7 @@ describe('Default test', () => {
       height: 1080,
     });
 
-    render(<HomePage />, { wrapper: MemoryRouter });
+    render(<Home />, { wrapper: MemoryRouter });
 
     fireEvent.click(screen.getByText(createRoomText));
 
@@ -60,7 +60,7 @@ describe('Default test', () => {
       height: 1080,
     });
 
-    render(<HomePage />, { wrapper: MemoryRouter });
+    render(<Home />, { wrapper: MemoryRouter });
 
     fireEvent.click(screen.getByText(joinRoomText));
 

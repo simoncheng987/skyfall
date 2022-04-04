@@ -1,20 +1,17 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import HomePage from './components/HomePage';
+import Home from './pages/Home';
 import JoinRoom from './pages/JoinRoom';
+import CreateRoom from './pages/CreateRoom';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/">
-          <Route index element={<HomePage />} />
-
+          <Route index element={<Home />} />
           <Route path="join" element={<JoinRoom />} />
-          {/* Replace the `<p>Join</p>` with join page */}
-
-          <Route path="create" element={<p>Create Room</p>} />
-          {/* Replace the `<p>Join</p>` with join page */}
+          <Route path="create" element={<CreateRoom />} />
         </Route>
       </Routes>
     </BrowserRouter>

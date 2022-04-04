@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import PageScaffold from '../../components/PageScaffold';
+import PageScaffold from '../PageScaffold';
 import Title from '../../components/Title';
 import TextField from '../../components/TextField';
 import Button from '../../components/Button';
@@ -40,7 +40,7 @@ export default function JoinRoom() {
 
   return (
     <PageScaffold>
-      <Title className={styles.title} fontSize="100px" text="Join Room" colorScheme="brown" />
+      <Title className={styles.title} fontSize="110px" text="Join Room" colorScheme="brown" />
       <div className={styles.buttonsContainer}>
         <TextField onChange={(e) => setName(e.target.value)} placeholder="Name" />
         <TextField onChange={(e) => setRoomId(e.target.value)} placeholder="Room ID" />

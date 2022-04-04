@@ -1,17 +1,17 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from '../Button';
+import Button from '../../components/Button';
 import PageScaffold from '../PageScaffold';
-import Title from '../Title';
-import styles from './HomePage.module.css';
+import Title from '../../components/Title';
+import styles from './Home.module.css';
 
-export default function HomePage() {
+export default function Home() {
   const navigate = useNavigate();
 
   return (
     <PageScaffold>
-      <div className={styles.columnFlex}>
-        <Title text="Skyfall" colorScheme="yellow" fontSize="160px" />
+      <Title text="Skyfall" colorScheme="yellow" fontSize="130px" />
+      <div className={styles.buttons}>
         <Button
           text="Create Room"
           className={styles.button}
