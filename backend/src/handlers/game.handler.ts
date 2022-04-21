@@ -53,6 +53,7 @@ const sendWord = async (io: ServerType, roomCode: string) => {
         '001',
         'alphabet',
         5000,
+        Math.floor(Math.random() * 100),
       );
       sendWord(io, roomCode);
     }

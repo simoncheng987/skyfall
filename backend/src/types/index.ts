@@ -12,7 +12,7 @@ interface ServerToClientEvents {
   'broadcast:list-participant': (participantNames: Array<String>) => void;
   'game:start-success': () => void;
   'game:start-fail': (reason: String) => void;
-  'word': (wordId: string, word: string, timeLimit: number) => void;
+  'word': (wordId: string, word: string, timeLimit: number, horizontalOffsetPercentage: number) => void;
   'broadcast:word-typed': (wordId: string, success: boolean, socketId: string) => void;
 }
 
