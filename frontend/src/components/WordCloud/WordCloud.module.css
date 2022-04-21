@@ -1,0 +1,7 @@
+.cloud {
+  font-weight: 500;
+  display: inline-block;
+  background-size: 100% 100%;
+  font-family: 'Poppins', Serif;
+  background-image: url('/public/assets/word-cloud.png');
+}
