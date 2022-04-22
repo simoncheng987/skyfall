@@ -5,9 +5,10 @@ interface WordCloudProps {
   word: string;
   size: 'SMALL' | 'LARGE';
   className?: string;
+  style?: CSSProperties;
 }
 
-export default function WordCloud({ word, size, className }: WordCloudProps) {
+export default function WordCloud({ word, size, className, style }: WordCloudProps) {
   const SMALL_FONT_SIZE = 11;
   const LARGE_FONT_SIZE = 15;
   const fontSize = size === 'SMALL' ? SMALL_FONT_SIZE : LARGE_FONT_SIZE;
@@ -24,6 +25,7 @@ export default function WordCloud({ word, size, className }: WordCloudProps) {
   const dynamicStyle: CSSProperties = {
     fontSize: `${fontSize}px`,
     padding: `${yPadding}px ${xPadding}px`,
+    ...style,
   };
 
   return (
@@ -35,4 +37,5 @@ export default function WordCloud({ word, size, className }: WordCloudProps) {
 
 WordCloud.defaultProps = {
   className: '',
+  style: {},
 };
