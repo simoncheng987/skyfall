@@ -1,0 +1,16 @@
+.heart {
+  width: 30px;
+}
+
+.heartContainer {
+  display: flex;
+  overflow: hidden;
+}
+
+.inactive {
+  color: #434343;
+}
+
+.active {
+  color: #e53131;
+}

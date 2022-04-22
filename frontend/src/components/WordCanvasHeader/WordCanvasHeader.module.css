@@ -1,0 +1,32 @@
+.green {
+  background-color: #b0da80;
+}
+
+.brown {
+  background-color: #583b32;
+}
+
+.title {
+  color: white;
+  font-family: 'Poppins';
+  font-weight: 900;
+  font-size: 24px;
+  -webkit-text-stroke: 1px black;
+  text-shadow: 0px 2px 2px #1c1c1c;
+}
+
+.blueShadow {
+  box-shadow: 0 10px 15px -8px rgba(42, 94, 172, 0.65);
+}
+
+.brownShadow {
+  box-shadow: 0 10px 15px -8px rgba(101, 64, 53, 1);
+}
+
+.header {
+  position: relative;
+  border-radius: 15px 15px 0 0;
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-between;
+}
