@@ -8,8 +8,9 @@ import { Server, Socket } from 'socket.io';
  */
 interface ServerToClientEvents {
   'room:join-success': () => void;
-  'room:join-fail': () => void;
-  'broadcast:list-participant': (participantNames: Array<String>) => void;
+  'room:join-fail': (reason: string) => void;
+  // Map<string,string> doesn't play well with socket.io. playerNamesMap is a stringified JSON map. Need to parse string from client.
+  'broadcast:player-joined': (playerNamesMap: string) => void;
   'game:start-success': () => void;
   'game:start-fail': (reason: String) => void;
   'word': (wordId: string, word: string, timeLimit: number, horizontalOffsetPercentage: number) => void;
@@ -25,7 +26,7 @@ interface ServerToClientEvents {
  * })
  */
 interface ClientToServerEvents {
-  'room:join': (roomNumber: string) => void;
+  'room:join': (roomNumber: string, playerName: string) => void;
   'game:start': () => void;
   'word:typed': (wordId: string, success: boolean) => void;
 }
@@ -39,6 +40,7 @@ interface ClientToServerEvents {
 interface SocketData {
   ready: boolean;
   roomCode: string;
+  name: string;
 }
 
 interface Word {

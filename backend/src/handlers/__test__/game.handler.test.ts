@@ -25,7 +25,7 @@ describe('Client game:start', () => {
     clients.forEach((client) => {
       client.on('game:start-success', () => successMock());
       client.on('game:start-fail', () => failMock());
-      client.emit('room:join', roomCode);
+      client.emit('room:join', roomCode, `player called ${Math.random() * 10}`);
     });
 
     clients[0].emit('game:start');
@@ -46,7 +46,7 @@ describe('Client game:start', () => {
     clients.forEach((client) => {
       client.on('game:start-success', () => successMock());
       client.on('game:start-fail', () => failMock());
-      client.emit('room:join', roomCode);
+      client.emit('room:join', roomCode, `player called ${Math.random() * 10}`);
     });
 
     clients[0].emit('game:start');
@@ -66,7 +66,7 @@ describe('Client game:start', () => {
     clients.forEach((client) => {
       client.on('game:start-success', () => successMock());
       client.on('game:start-fail', () => failMock());
-      client.emit('room:join', roomCode);
+      client.emit('room:join', roomCode, `player called ${Math.random() * 10}`);
       client.emit('game:start');
     });
 

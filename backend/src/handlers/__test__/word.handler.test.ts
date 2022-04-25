@@ -36,7 +36,7 @@ describe('Client word:typed', () => {
         expect(success).toBe(true);
         mockBroadcast();
       });
-      client.emit('room:join', 1234);
+      client.emit('room:join', 1234, `player called ${Math.random() * 10}`);
     });
 
     clients[0].emit('word:typed', '1', true);
