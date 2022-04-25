@@ -2,6 +2,8 @@ import { MAX_PLAYERS } from '../utils/constants';
 import { SocketType, ServerType, Word } from '../types';
 import { getWordForRoom } from '../database/words';
 
+const gamesInProgess = new Set<string>();
+
 /**
  * Handle when client requests to start the game
  *
@@ -17,30 +19,23 @@ const gameStart = (io: ServerType, socket: SocketType) => {
       return;
     }
 
-    socket.data.ready = true;
-
     const socketsInRoom = await io.in(roomCode).fetchSockets();
     if (socketsInRoom.length < MAX_PLAYERS) {
       socket.emit('game:start-fail', 'Waiting for other players to join');
       return;
     }
 
-    let gameShouldStart = true;
-
-    socketsInRoom?.forEach((s) => {
-      if (!s.data.ready) {
-        gameShouldStart = false;
-      }
-    });
-
-    if (gameShouldStart) {
-      io.to(roomCode).emit('game:start-success');
-      setTimeout(() => {
-        sendWord(io, roomCode);
-      }, 1000);
-    } else {
-      socket.emit('game:start-fail', 'Not all players are ready');
+    if (gamesInProgess.has(roomCode)) {
+      socket.emit('game:start-fail', 'Game already in progress');
+      return;
     }
+
+    gamesInProgess.add(roomCode);
+
+    io.to(roomCode).emit('game:start-success');
+    setTimeout(() => {
+      sendWord(io, roomCode);
+    }, 1000);
   });
 };
 
@@ -60,6 +55,8 @@ const sendWord = async (io: ServerType, roomCode: string) => {
         Math.floor(Math.random() * 100),
       );
       sendWord(io, roomCode);
+    } else {
+      gamesInProgess.delete(roomCode);
     }
   }, 1000);
 };
