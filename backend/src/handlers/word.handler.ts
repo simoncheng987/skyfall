@@ -5,7 +5,7 @@ const wordTyped = (
   socket: SocketType,
 ) => {
   socket.on('word:typed', (wordId, success) => {
-    io.to(socket.data.roomCode).emit('broadcast:word-typed', wordId, success, socket.id);
+    io.to(socket.data.roomCode || '').emit('broadcast:word-typed', wordId, success, socket.id);
   });
 };
 

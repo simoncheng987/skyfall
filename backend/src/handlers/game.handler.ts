@@ -1,5 +1,6 @@
 import { MAX_PLAYERS } from '../utils/constants';
-import { SocketType, ServerType } from '../types';
+import { SocketType, ServerType, Word } from '../types';
+import { getWordForRoom } from '../database/words';
 
 /**
  * Handle when client requests to start the game
@@ -47,11 +48,14 @@ const sendWord = async (io: ServerType, roomCode: string) => {
   setTimeout(() => {
     const socketsInRoom = io.of('/').adapter.rooms.get(roomCode);
     const numOfSockets = !socketsInRoom ? 0 : socketsInRoom.size;
+
+    const randomWord: Word = getWordForRoom(roomCode);
+
     if (numOfSockets === MAX_PLAYERS) {
       io.to(roomCode).emit(
         'word',
-        '001',
-        'alphabet',
+        randomWord.id,
+        randomWord.word,
         5000,
         Math.floor(Math.random() * 100),
       );

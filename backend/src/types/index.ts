@@ -41,8 +41,13 @@ interface SocketData {
   roomCode: string;
 }
 
-type SocketType = Socket<ClientToServerEvents, ServerToClientEvents, SocketData, any>
-type ServerType = Server<ClientToServerEvents, ServerToClientEvents, SocketData>
+interface Word {
+  word: string;
+  id: string;
+}
+
+type SocketType = Socket<ClientToServerEvents, ServerToClientEvents, any, SocketData>
+type ServerType = Server<ClientToServerEvents, ServerToClientEvents, any, SocketData>
 
 export {
   ServerToClientEvents,
@@ -50,4 +55,5 @@ export {
   SocketData,
   SocketType,
   ServerType,
+  Word,
 };
