@@ -11,11 +11,14 @@ interface HeartsProps {
 export default function Hearts({ totalHearts, remainingHearts, className }: HeartsProps) {
   return (
     <div className={`${styles.heartContainer} ${className}`}>
-      {Array.from({ length: totalHearts - remainingHearts }, () => (
-        <HeartIcon className={`${styles.heart} ${styles.inactive}`} />
+      {Array.from({ length: totalHearts - remainingHearts }, (_, index) => (
+        <HeartIcon key={index} className={`${styles.heart} ${styles.inactive}`} />
       ))}
-      {Array.from({ length: remainingHearts }, () => (
-        <HeartIcon className={`${styles.heart} ${styles.active}`} />
+      {Array.from({ length: remainingHearts }, (_, index) => (
+        <HeartIcon
+          key={index + totalHearts - remainingHearts}
+          className={`${styles.heart} ${styles.active}`}
+        />
       ))}
     </div>
   );
