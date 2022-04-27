@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './GameStatistics.module.css';
-import GameStatisticsType from '../../types/GameStatistics';
+import GameStatisticsType from '../../../types/GameStatistics';
 
 interface GameStatisticsProps {
   data: GameStatisticsType;

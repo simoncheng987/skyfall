@@ -1,5 +1,5 @@
 import { CSSProperties } from 'react';
-import WordViewState from '../../types/WordViewState';
+import WordViewState from '../../../types/WordViewState';
 
 export default function generateWordPositionCSSProperties(
   wordViewState: WordViewState,

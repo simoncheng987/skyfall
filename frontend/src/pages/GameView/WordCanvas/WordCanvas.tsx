@@ -1,7 +1,7 @@
 import React from 'react';
 import WordCloud from '../WordCloud';
 import styles from './WordCanvas.module.css';
-import WordViewState from '../../types/WordViewState';
+import WordViewState from '../../../types/WordViewState';
 import generateWordPositionCSSProperties from './generateWordPositionCSSProperties';
 
 interface WordCanvasProps {
