@@ -1,30 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './WordInput.module.css';
 
 interface WordInputProps {
   placeholder?: string;
   className?: string;
-  onSubmit?: React.KeyboardEventHandler<HTMLInputElement> | undefined;
-  onChange?: React.ChangeEventHandler<HTMLInputElement> | undefined;
+
+  // eslint-disable-next-line no-unused-vars
+  onSubmit: (word: string) => void;
 }
 
-export default function WordInput({ placeholder, className, onSubmit, onChange }: WordInputProps) {
+export default function WordInput({ placeholder, className, onSubmit }: WordInputProps) {
+  const [word, setWord] = useState('');
+
+  const internalOnChange: React.FormEventHandler<HTMLInputElement> = (event) => {
+    setWord(event.currentTarget.value);
+  };
+
+  const internalOnSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
+    onSubmit(word);
+    setWord('');
+  };
+
   return (
-    <div>
+    <form onSubmit={internalOnSubmit}>
       <input
+        value={word}
         type="text"
         placeholder={placeholder}
         className={`${className} ${styles.textField}`}
-        onSubmit={onSubmit}
-        onChange={onChange}
+        onChange={internalOnChange}
       />
-    </div>
+    </form>
   );
 }
 
 WordInput.defaultProps = {
   className: '',
-  onSubmit: () => {},
-  onChange: () => {},
-  placeholder: '',
+  placeholder: 'Type Here',
 };
