@@ -36,15 +36,15 @@ const joinRoom = (
 
     if (numOfSockets < MAX_PLAYERS) {
       socket.join(roomCode);
+      socket.data.roomCode = roomCode;
       socket.data.name = playerName;
 
-      const socketInstancesOfRoom = await io.in(roomCode).fetchSockets();
       const playersMap = {};
+      const socketInstancesOfRoom = await io.in(roomCode).fetchSockets();
       socketInstancesOfRoom.forEach((s) => {
         playersMap[s.id] = s.data.name;
       });
 
-      socket.data.roomCode = roomCode;
       socket.emit('room:join-success');
       io.to(roomCode).emit('broadcast:player-joined', JSON.stringify(playersMap));
     } else {

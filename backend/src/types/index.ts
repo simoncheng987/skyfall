@@ -13,8 +13,9 @@ interface ServerToClientEvents {
   'broadcast:player-joined': (playerNamesMap: string) => void;
   'game:start-success': () => void;
   'game:start-fail': (reason: String) => void;
+  'game:finished': () => void;
   'word': (wordId: string, word: string, timeLimit: number, horizontalOffsetPercentage: number) => void;
-  'broadcast:word-typed': (wordId: string, success: boolean, socketId: string) => void;
+  'broadcast:word-typed': (wordId: string, success: boolean, socketId: string, livesRemaining: number) => void;
 }
 
 /**
@@ -41,6 +42,7 @@ interface SocketData {
   ready: boolean;
   roomCode: string;
   name: string;
+  lives: number;
 }
 
 interface Word {

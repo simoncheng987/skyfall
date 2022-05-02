@@ -1,8 +1,8 @@
-import { MAX_PLAYERS } from '../utils/constants';
+import { MAX_PLAYERS, STARTING_LIVES } from '../utils/constants';
 import { SocketType, ServerType, Word } from '../types';
 import { getWordForRoom } from '../database/words';
 
-const gamesInProgess = new Set<string>();
+export const gamesInProgress = new Set<string>();
 
 /**
  * Handle when client requests to start the game
@@ -25,12 +25,16 @@ const gameStart = (io: ServerType, socket: SocketType) => {
       return;
     }
 
-    if (gamesInProgess.has(roomCode)) {
+    if (gamesInProgress.has(roomCode)) {
       socket.emit('game:start-fail', 'Game already in progress');
       return;
     }
 
-    gamesInProgess.add(roomCode);
+    gamesInProgress.add(roomCode);
+
+    socketsInRoom.forEach((s) => {
+      s.data.lives = STARTING_LIVES;
+    });
 
     io.to(roomCode).emit('game:start-success');
     setTimeout(() => {
@@ -40,13 +44,12 @@ const gameStart = (io: ServerType, socket: SocketType) => {
 };
 
 const sendWord = async (io: ServerType, roomCode: string) => {
-  setTimeout(() => {
-    const socketsInRoom = io.of('/').adapter.rooms.get(roomCode);
-    const numOfSockets = !socketsInRoom ? 0 : socketsInRoom.size;
+  setTimeout(async () => {
+    const socketsInRoom = await io.in(roomCode).fetchSockets();
+    const numOfSockets = socketsInRoom.length;
 
-    const randomWord: Word = getWordForRoom(roomCode);
-
-    if (numOfSockets === MAX_PLAYERS) {
+    if (gamesInProgress.has(roomCode) && numOfSockets === MAX_PLAYERS) {
+      const randomWord: Word = getWordForRoom(roomCode);
       io.to(roomCode).emit(
         'word',
         randomWord.id,
@@ -55,8 +58,8 @@ const sendWord = async (io: ServerType, roomCode: string) => {
         Math.floor(Math.random() * 100),
       );
       sendWord(io, roomCode);
-    } else {
-      gamesInProgess.delete(roomCode);
+    } else if (gamesInProgress.delete(roomCode)) {
+      io.to(roomCode).emit('game:finished');
     }
   }, 1000);
 };

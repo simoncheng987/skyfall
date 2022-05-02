@@ -1,6 +1,8 @@
 import { SkyfallServer } from '../../index';
 import { gameCodes } from '../../controllers/game.controller';
 import { createClients } from './util';
+import { STARTING_LIVES } from '../../utils/constants';
+import { gamesInProgress } from '../game.handler';
 
 describe('Client game:start', () => {
   let server: SkyfallServer;
@@ -13,6 +15,7 @@ describe('Client game:start', () => {
 
   afterEach(() => {
     clients.forEach((client) => client.close());
+    gamesInProgress.clear();
   });
 
   afterAll(() => server.stop());
@@ -73,6 +76,29 @@ describe('Client game:start', () => {
     setTimeout(() => {
       expect(successMock).toHaveBeenCalledTimes(2);
       expect(failMock).toHaveBeenCalledTimes(1);
+      done();
+    }, 2000);
+  });
+
+  it('game ends once 1 player dies', (done) => {
+    const finishedMock = jest.fn();
+
+    clients = createClients(2);
+    clients.forEach((client) => {
+      client.on('game:finished', () => finishedMock());
+      client.emit('room:join', roomCode, `player called ${Math.random() * 10}`);
+    });
+
+    clients[0].on('game:start-success', () => {
+      for (let i = 0; i < STARTING_LIVES; i++) {
+        clients[0].emit('word:typed', '1', false);
+      }
+    });
+
+    clients[0].emit('game:start');
+
+    setTimeout(() => {
+      expect(finishedMock).toHaveBeenCalledTimes(2);
       done();
     }, 2000);
   });
