@@ -1,312 +1,224 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CreateRoom matches snapshot with className prop 1`] = `
+exports[`CreateRoom matches snapshot 1`] = `
 Object {
   "instance": null,
   "nodeType": "component",
   "props": Object {
-    "className": "testClassName",
+    "children": <MemoryRouter
+      initialEntries={
+        Array [
+          Object {
+            "key": "testKey",
+            "pathname": "/create",
+          },
+        ]
+      }
+    >
+      <CreateRoom />
+    </MemoryRouter>,
   },
   "rendered": Object {
     "instance": null,
     "nodeType": "component",
     "props": Object {
-      "children": Array [
-        <Title
-          className="title"
-          colorScheme="pink"
-          fontSize="110px"
-          text="Create Room"
-        />,
-        <TextField
-          className="textField"
-          onChange={[Function]}
-          placeholder="Your Name"
-        />,
-        <Button
-          buttonStyle="primary"
-          className="button"
-          onClick={[Function]}
-          text="Enter"
-        />,
+      "children": <CreateRoom />,
+      "initialEntries": Array [
+        Object {
+          "key": "testKey",
+          "pathname": "/create",
+        },
       ],
     },
     "rendered": Object {
       "instance": null,
-      "nodeType": "host",
+      "nodeType": "component",
       "props": Object {
-        "children": Array [
-          <div
-            className="children"
-          >
-            <div
-              className="error"
-            >
-              <ForwardRef(ExclamationCircleIcon)
-                width={35}
-              />
-              <p>
-                Oh no! Ensure that your monitor size is at least 1280 x 720, and display ratio is greater than 16:10
-              </p>
-            </div>
-          </div>,
-          <img
-            alt="grass background"
-            className="grassImage"
-            src="/assets/grass.png"
-          />,
-        ],
-        "className": "container",
+        "basename": undefined,
+        "children": <CreateRoom />,
+        "location": Object {
+          "hash": "",
+          "key": "testKey",
+          "pathname": "/create",
+          "search": "",
+          "state": null,
+        },
+        "navigationType": "POP",
+        "navigator": Object {
+          "action": "POP",
+          "back": [Function],
+          "block": [Function],
+          "createHref": [Function],
+          "forward": [Function],
+          "go": [Function],
+          "index": 0,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "key": "testKey",
+            "pathname": "/create",
+            "search": "",
+            "state": null,
+          },
+          "push": [Function],
+          "replace": [Function],
+        },
       },
-      "rendered": Array [
-        Object {
+      "rendered": Object {
+        "instance": null,
+        "nodeType": "component",
+        "props": Object {},
+        "rendered": Object {
           "instance": null,
-          "nodeType": "host",
+          "nodeType": "component",
           "props": Object {
-            "children": <div
-              className="error"
-            >
-              <ForwardRef(ExclamationCircleIcon)
-                width={35}
-              />
-              <p>
-                Oh no! Ensure that your monitor size is at least 1280 x 720, and display ratio is greater than 16:10
-              </p>
-            </div>,
-            "className": "children",
+            "children": Array [
+              <Title
+                className="title"
+                colorScheme="pink"
+                fontSize="110px"
+                text="Create Room"
+              />,
+              <TextField
+                className="textField"
+                onChange={[Function]}
+                placeholder="Your Name"
+              />,
+              <Button
+                buttonStyle="primary"
+                className="button"
+                onClick={[Function]}
+                text="Enter"
+              />,
+              false,
+            ],
           },
-          "rendered": Array [
-            Object {
-              "instance": null,
-              "nodeType": "host",
-              "props": Object {
-                "children": Array [
-                  <ForwardRef(ExclamationCircleIcon)
-                    width={35}
-                  />,
-                  <p>
-                    Oh no! Ensure that your monitor size is at least 1280 x 720, and display ratio is greater than 16:10
-                  </p>,
-                ],
-                "className": "error",
-              },
-              "rendered": Array [
-                Object {
-                  "instance": null,
-                  "nodeType": "host",
-                  "props": Object {
-                    "aria-hidden": "true",
-                    "children": <path
-                      clipRule="evenodd"
-                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-                      fillRule="evenodd"
-                    />,
-                    "fill": "currentColor",
-                    "viewBox": "0 0 20 20",
-                    "width": 35,
-                    "xmlns": "http://www.w3.org/2000/svg",
-                  },
-                  "rendered": Array [
-                    Object {
-                      "instance": null,
-                      "nodeType": "host",
-                      "props": Object {
-                        "clipRule": "evenodd",
-                        "d": "M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z",
-                        "fillRule": "evenodd",
-                      },
-                      "rendered": Array [],
-                      "type": "path",
-                    },
-                  ],
-                  "type": "svg",
-                },
-                Object {
-                  "instance": null,
-                  "nodeType": "host",
-                  "props": Object {
-                    "children": "Oh no! Ensure that your monitor size is at least 1280 x 720, and display ratio is greater than 16:10",
-                  },
-                  "rendered": Array [
-                    "Oh no! Ensure that your monitor size is at least 1280 x 720, and display ratio is greater than 16:10",
-                  ],
-                  "type": "p",
-                },
+          "rendered": Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <div
+                  className="children"
+                >
+                  <div
+                    className="error"
+                  >
+                    <ForwardRef(ExclamationCircleIcon)
+                      width={35}
+                    />
+                    <p>
+                      Oh no! Ensure that your monitor size is at least 1280 x 720, and display ratio is greater than 16:10
+                    </p>
+                  </div>
+                </div>,
+                <img
+                  alt="grass background"
+                  className="grassImage"
+                  src="/assets/grass.png"
+                />,
               ],
-              "type": "div",
+              "className": "container",
             },
-          ],
-          "type": "div",
-        },
-        Object {
-          "instance": null,
-          "nodeType": "host",
-          "props": Object {
-            "alt": "grass background",
-            "className": "grassImage",
-            "src": "/assets/grass.png",
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <div
+                    className="error"
+                  >
+                    <ForwardRef(ExclamationCircleIcon)
+                      width={35}
+                    />
+                    <p>
+                      Oh no! Ensure that your monitor size is at least 1280 x 720, and display ratio is greater than 16:10
+                    </p>
+                  </div>,
+                  "className": "children",
+                },
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": Array [
+                        <ForwardRef(ExclamationCircleIcon)
+                          width={35}
+                        />,
+                        <p>
+                          Oh no! Ensure that your monitor size is at least 1280 x 720, and display ratio is greater than 16:10
+                        </p>,
+                      ],
+                      "className": "error",
+                    },
+                    "rendered": Array [
+                      Object {
+                        "instance": null,
+                        "nodeType": "host",
+                        "props": Object {
+                          "aria-hidden": "true",
+                          "children": <path
+                            clipRule="evenodd"
+                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                            fillRule="evenodd"
+                          />,
+                          "fill": "currentColor",
+                          "viewBox": "0 0 20 20",
+                          "width": 35,
+                          "xmlns": "http://www.w3.org/2000/svg",
+                        },
+                        "rendered": Array [
+                          Object {
+                            "instance": null,
+                            "nodeType": "host",
+                            "props": Object {
+                              "clipRule": "evenodd",
+                              "d": "M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z",
+                              "fillRule": "evenodd",
+                            },
+                            "rendered": Array [],
+                            "type": "path",
+                          },
+                        ],
+                        "type": "svg",
+                      },
+                      Object {
+                        "instance": null,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": "Oh no! Ensure that your monitor size is at least 1280 x 720, and display ratio is greater than 16:10",
+                        },
+                        "rendered": Array [
+                          "Oh no! Ensure that your monitor size is at least 1280 x 720, and display ratio is greater than 16:10",
+                        ],
+                        "type": "p",
+                      },
+                    ],
+                    "type": "div",
+                  },
+                ],
+                "type": "div",
+              },
+              Object {
+                "instance": null,
+                "nodeType": "host",
+                "props": Object {
+                  "alt": "grass background",
+                  "className": "grassImage",
+                  "src": "/assets/grass.png",
+                },
+                "rendered": Array [],
+                "type": "img",
+              },
+            ],
+            "type": "div",
           },
-          "rendered": Array [],
-          "type": "img",
+          "type": [Function],
         },
-      ],
-      "type": "div",
-    },
-    "type": [Function],
-  },
-  "type": [Function],
-}
-`;
-
-exports[`CreateRoom matches snapshot with no className prop 1`] = `
-Object {
-  "instance": null,
-  "nodeType": "component",
-  "props": Object {},
-  "rendered": Object {
-    "instance": null,
-    "nodeType": "component",
-    "props": Object {
-      "children": Array [
-        <Title
-          className="title"
-          colorScheme="pink"
-          fontSize="110px"
-          text="Create Room"
-        />,
-        <TextField
-          className="textField"
-          onChange={[Function]}
-          placeholder="Your Name"
-        />,
-        <Button
-          buttonStyle="primary"
-          className="button"
-          onClick={[Function]}
-          text="Enter"
-        />,
-      ],
-    },
-    "rendered": Object {
-      "instance": null,
-      "nodeType": "host",
-      "props": Object {
-        "children": Array [
-          <div
-            className="children"
-          >
-            <div
-              className="error"
-            >
-              <ForwardRef(ExclamationCircleIcon)
-                width={35}
-              />
-              <p>
-                Oh no! Ensure that your monitor size is at least 1280 x 720, and display ratio is greater than 16:10
-              </p>
-            </div>
-          </div>,
-          <img
-            alt="grass background"
-            className="grassImage"
-            src="/assets/grass.png"
-          />,
-        ],
-        "className": "container",
+        "type": [Function],
       },
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "nodeType": "host",
-          "props": Object {
-            "children": <div
-              className="error"
-            >
-              <ForwardRef(ExclamationCircleIcon)
-                width={35}
-              />
-              <p>
-                Oh no! Ensure that your monitor size is at least 1280 x 720, and display ratio is greater than 16:10
-              </p>
-            </div>,
-            "className": "children",
-          },
-          "rendered": Array [
-            Object {
-              "instance": null,
-              "nodeType": "host",
-              "props": Object {
-                "children": Array [
-                  <ForwardRef(ExclamationCircleIcon)
-                    width={35}
-                  />,
-                  <p>
-                    Oh no! Ensure that your monitor size is at least 1280 x 720, and display ratio is greater than 16:10
-                  </p>,
-                ],
-                "className": "error",
-              },
-              "rendered": Array [
-                Object {
-                  "instance": null,
-                  "nodeType": "host",
-                  "props": Object {
-                    "aria-hidden": "true",
-                    "children": <path
-                      clipRule="evenodd"
-                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-                      fillRule="evenodd"
-                    />,
-                    "fill": "currentColor",
-                    "viewBox": "0 0 20 20",
-                    "width": 35,
-                    "xmlns": "http://www.w3.org/2000/svg",
-                  },
-                  "rendered": Array [
-                    Object {
-                      "instance": null,
-                      "nodeType": "host",
-                      "props": Object {
-                        "clipRule": "evenodd",
-                        "d": "M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z",
-                        "fillRule": "evenodd",
-                      },
-                      "rendered": Array [],
-                      "type": "path",
-                    },
-                  ],
-                  "type": "svg",
-                },
-                Object {
-                  "instance": null,
-                  "nodeType": "host",
-                  "props": Object {
-                    "children": "Oh no! Ensure that your monitor size is at least 1280 x 720, and display ratio is greater than 16:10",
-                  },
-                  "rendered": Array [
-                    "Oh no! Ensure that your monitor size is at least 1280 x 720, and display ratio is greater than 16:10",
-                  ],
-                  "type": "p",
-                },
-              ],
-              "type": "div",
-            },
-          ],
-          "type": "div",
-        },
-        Object {
-          "instance": null,
-          "nodeType": "host",
-          "props": Object {
-            "alt": "grass background",
-            "className": "grassImage",
-            "src": "/assets/grass.png",
-          },
-          "rendered": Array [],
-          "type": "img",
-        },
-      ],
-      "type": "div",
+      "type": [Function],
     },
     "type": [Function],
   },

@@ -1,17 +1,20 @@
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import renderer from 'react-test-renderer';
+import ClientContextProvider from '../../../context/ClientProvider';
 import CreateRoom from '../CreateRoom';
 
 describe('CreateRoom', () => {
-  const className = 'testClassName';
-
-  it('matches snapshot with no className prop', () => {
-    const tree = renderer.create(<CreateRoom />).toTree();
-    expect(tree).toMatchSnapshot();
-  });
-
-  it('matches snapshot with className prop', () => {
-    const tree = renderer.create(<CreateRoom className={className} />).toTree();
+  it('matches snapshot', () => {
+    const tree = renderer
+      .create(
+        <ClientContextProvider>
+          <MemoryRouter initialEntries={[{ pathname: '/create', key: 'testKey' }]}>
+            <CreateRoom />
+          </MemoryRouter>
+        </ClientContextProvider>,
+      )
+      .toTree();
     expect(tree).toMatchSnapshot();
   });
 });
