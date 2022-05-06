@@ -2,14 +2,14 @@ import React from 'react';
 import WordCanvasHeader from '../WordCanvasHeader';
 import Hearts from '../Hearts';
 import WordCanvas from '../WordCanvas';
-import WordViewState from '../../../types/WordViewState';
+import WordState from '../../../types/WordState';
 import styles from './OpponentPlayerView.module.css';
 
 interface OpponentPlayerViewProps {
   playerName: string;
   remainingLives: number;
   totalLives: number;
-  words: WordViewState[];
+  words: WordState[];
   className?: string;
 }
 

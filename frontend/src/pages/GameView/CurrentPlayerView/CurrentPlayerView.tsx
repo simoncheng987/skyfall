@@ -2,7 +2,7 @@ import React from 'react';
 import WordCanvasHeader from '../WordCanvasHeader';
 import Hearts from '../Hearts';
 import WordCanvas from '../WordCanvas';
-import WordViewState from '../../../types/WordViewState';
+import WordState from '../../../types/WordState';
 import styles from './CurrentPlayerView.module.css';
 import WordInput from '../WordInput';
 
@@ -10,7 +10,7 @@ interface CurrentPlayerViewProps {
   playerName: string;
   remainingLives: number;
   totalLives: number;
-  words: WordViewState[];
+  words: WordState[];
   className?: string;
 
   // eslint-disable-next-line no-unused-vars

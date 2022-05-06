@@ -1,11 +1,11 @@
 import React from 'react';
 import WordCloud from '../WordCloud';
 import styles from './WordCanvas.module.css';
-import WordViewState from '../../../types/WordViewState';
+import WordState from '../../../types/WordState';
 import generateWordPositionCSSProperties from './generateWordPositionCSSProperties';
 
 interface WordCanvasProps {
-  words: WordViewState[];
+  words: WordState[];
   wordSize: 'SMALL' | 'LARGE';
   className?: string;
 }

@@ -1,9 +1,7 @@
 import { CSSProperties } from 'react';
-import WordViewState from '../../../types/WordViewState';
+import WordState from '../../../types/WordState';
 
-export default function generateWordPositionCSSProperties(
-  wordViewState: WordViewState,
-): CSSProperties {
+export default function generateWordPositionCSSProperties(wordViewState: WordState): CSSProperties {
   const style: CSSProperties = {
     position: 'absolute',
     top: `${wordViewState.yPercentage}%`,

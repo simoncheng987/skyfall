@@ -1,15 +1,21 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
-import WordViewState from '../types/WordViewState';
+import { Socket } from 'socket.io-client';
+import TimedWordState from '../types/TimedWordState';
+import WordState from '../types/WordState';
 
 interface GameContextProps {
   playerScore: number;
+  playerLives: number;
   opponentScore: number;
+  opponentLives: number;
   startTime: Date;
-  playerWordList: WordViewState[];
-  opponentWordList: WordViewState[];
+  playerWordList: WordState[];
+  opponentWordList: WordState[];
   initializeStartTime: () => void;
   // eslint-disable-next-line no-unused-vars
-  onWordSubmitHandler: (arg0: string) => void;
+  onWordSubmitHandler: (arg0: string, client: Socket) => void;
+  // eslint-disable-next-line no-unused-vars
+  gameStart: (socket: Socket) => void;
 }
 
 const GameContextProvider = React.createContext<GameContextProps | null>(null);
@@ -17,128 +23,145 @@ const GameContextProvider = React.createContext<GameContextProps | null>(null);
 export const useGameContext = () => useContext(GameContextProvider) as GameContextProps;
 
 export default function GameContext({ children }: any) {
-  // This is just some words for testing the game context. This will be removed once connected to BE.
-  const wordsForTest = [
-    'lorem',
-    'ipsum',
-    'dolor',
-    'amet',
-    'consectetur',
-    'adipiscing',
-    'elit',
-    'eiusmod',
-    'tempor',
-    'incididunt',
-    'labore',
-    'dolore',
-    'magna',
-    'aliqua',
-    'minim',
-    'veniam',
-    'nostrud',
-    'exercitation',
-    'ullamco',
-    'laboris',
-    'aliquip',
-    'commodo',
-    'consequat',
-    'irure',
-    'reprehenderit',
-    'voluptate',
-    'velit',
-    'cillum',
-    'dolore',
-    'fugiat',
-    'nulla',
-    'pariatur',
-    'Excepteur',
-    'occaecat',
-    'cupidatat',
-    'proident',
-    'culpa',
-    'officia',
-    'deserunt',
-    'mollit',
-    'laborum',
-  ];
+  const PLAYER_LIVES = 3;
+  const INITIAL_SCORE = 0;
 
-  const [playerScore] = useState<number>(0);
+  const [playerLives, setPlayerLives] = useState<number>(PLAYER_LIVES);
 
-  const [opponentScore] = useState<number>(0);
+  const [opponentLives, setOpponentLives] = useState<number>(PLAYER_LIVES);
+
+  const [playerScore, setPlayerScore] = useState<number>(INITIAL_SCORE);
+
+  const [opponentScore, setOpponentScore] = useState<number>(INITIAL_SCORE);
 
   const [startTime, setStartTime] = useState<Date>(new Date());
 
-  const [playerWordList, setPlayerList] = useState<WordViewState[]>([]);
+  const [playerWordList, setPlayerList] = useState<TimedWordState[]>([]);
 
-  const [opponentWordList, setOpponentList] = useState<WordViewState[]>([]);
+  const [opponentWordList, setOpponentList] = useState<WordState[]>([]);
 
   const initializeStartTime = () => {
     setStartTime(new Date());
   };
 
-  // Random percentage generator. This will be removed if we want to get the percentage from the server.
-  const getRandomPercentage = () => Math.floor(Math.random() * 100);
-
-  // Random word generator. This is only for testing, so it will be removed.
-  const getRandomWord = () => wordsForTest[Math.floor(Math.random() * wordsForTest.length)];
-
   useEffect(() => {
-    // Generate a new word every second for player and opponent
-    const wordGenerationInterval = setInterval(() => {
+    // Update the yPercentage every 100ms
+    const wordUpdateInterval = setInterval(() => {
+      setPlayerList((oldList) =>
+        oldList.map((state) => ({
+          ...state,
+          yPercentage: state.yPercentage + (100 * 17) / state.time,
+        })),
+      );
+      setOpponentList((oldList) =>
+        oldList.map((state) => ({
+          ...state,
+          yPercentage: state.yPercentage + (100 * 17) / state.time,
+        })),
+      );
+    }, 17);
+
+    return () => {
+      clearInterval(wordUpdateInterval);
+    };
+  }, []);
+
+  const onWordSubmitHandler = (typedWord: string, client: Socket) => {
+    const state = playerWordList.find((wordState) => wordState.word === typedWord);
+    if (state) {
+      clearTimeout(state.timeout);
+      setPlayerList((old) => [...old.filter((value) => value.wordId !== state.wordId)]);
+      client.emit('word:typed', state.wordId, true);
+    }
+  };
+
+  const gameStart = (client: Socket) => {
+    client.on('word', (id: string, newWord: string, wordTime: number, wordLocation: number) => {
       setPlayerList((oldList) => [
         ...oldList,
         {
-          word: getRandomWord(),
-          xPercentage: getRandomPercentage(),
-          yPercentage: getRandomPercentage(),
+          word: newWord,
+          wordId: id,
+          xPercentage: wordLocation,
+          yPercentage: 0,
+          time: wordTime,
+          timeout: setTimeout(() => {
+            client.emit('word:typed', id, false);
+          }, wordTime as number),
         },
       ]);
 
       setOpponentList((oldList) => [
         ...oldList,
         {
-          word: getRandomWord(),
-          xPercentage: getRandomPercentage(),
-          yPercentage: getRandomPercentage(),
+          word: newWord,
+          wordId: id,
+          xPercentage: wordLocation,
+          yPercentage: 0,
+          time: wordTime,
         },
       ]);
-    }, 1000);
+    });
 
-    // Update the yPercentage every 100ms
-    const wordUpdateInterval = setInterval(() => {
-      setPlayerList((oldList) =>
-        oldList.map((state) => ({ ...state, yPercentage: state.yPercentage + 10 })),
-      );
-
-      setOpponentList((oldList) =>
-        oldList.map((state) => ({ ...state, yPercentage: state.yPercentage + 10 })),
-      );
-    }, 100);
-
-    return () => {
-      clearInterval(wordGenerationInterval);
-      clearInterval(wordUpdateInterval);
+    const getStatsSetters = (
+      id: string,
+    ): {
+      setScore: React.Dispatch<React.SetStateAction<number>>;
+      setLives: React.Dispatch<React.SetStateAction<number>>;
+    } => {
+      if (id === client.id) {
+        return { setLives: setPlayerLives, setScore: setPlayerScore };
+      }
+      return { setLives: setOpponentLives, setScore: setOpponentScore };
     };
-  }, []);
 
-  const onWordSubmitHandler = (typedWord: string) => {
-    const index = playerWordList.findIndex((wordState) => wordState.word === typedWord);
-    if (index > -1) {
-      setPlayerList((old) => [...old.slice(0, index), ...old.slice(index + 1)]);
-    }
+    client.on(
+      'broadcast:word-typed',
+      (wordId: string, success: boolean, socketId: string, lives: number) => {
+        if (socketId === client.id) {
+          setPlayerList((oldList) => [...oldList.filter((value) => value.wordId !== wordId)]);
+        } else {
+          setOpponentList((oldList) => [...oldList.filter((value) => value.wordId !== wordId)]);
+        }
+
+        const { setScore, setLives } = getStatsSetters(socketId);
+        setLives(lives);
+        if (success) {
+          setScore((old) => old + 100);
+        }
+      },
+    );
+
+    client.once('game:finished', () => {
+      client.off('word');
+      client.off('broadcast:word-typed');
+      setPlayerList([]);
+      setOpponentList([]);
+    });
   };
 
   const value: GameContextProps = useMemo(
     () => ({
       playerScore,
+      playerLives,
       opponentScore,
+      opponentLives,
       startTime,
       playerWordList,
       opponentWordList,
       initializeStartTime,
       onWordSubmitHandler,
+      gameStart,
     }),
-    [playerScore, opponentScore, startTime, playerWordList, opponentWordList],
+    [
+      playerScore,
+      playerLives,
+      opponentScore,
+      opponentLives,
+      startTime,
+      playerWordList,
+      opponentWordList,
+    ],
   );
 
   return <GameContextProvider.Provider value={value}>{children}</GameContextProvider.Provider>;
