@@ -1,8 +1,11 @@
+import { getWordList } from '../services/word-list.service';
 import { MAX_PLAYERS, STARTING_LIVES } from '../utils/constants';
 import { SocketType, ServerType, Word } from '../types';
 import { getWordForRoom } from '../database/words';
+import WordList from '../models/word-list.model';
 
-export const gamesInProgress = new Set<string>();
+// maps game to list of words
+export const gamesInProgress = new Map<string, Array<string>>();
 
 /**
  * Handle when client requests to start the game
@@ -30,7 +33,9 @@ const gameStart = (io: ServerType, socket: SocketType) => {
       return;
     }
 
-    gamesInProgress.add(roomCode);
+    // fetch default list for now, but can change this later
+    const wordList = await getWordList('default');
+    gamesInProgress.set(roomCode, wordList);
 
     socketsInRoom.forEach((s) => {
       s.data.lives = STARTING_LIVES;
@@ -49,7 +54,7 @@ const sendWord = async (io: ServerType, roomCode: string) => {
     const numOfSockets = socketsInRoom.length;
 
     if (gamesInProgress.has(roomCode) && numOfSockets === MAX_PLAYERS) {
-      const randomWord: Word = getWordForRoom(roomCode);
+      const randomWord: Word = getWordForRoom(roomCode, gamesInProgress.get(roomCode) || []);
       io.to(roomCode).emit(
         'word',
         randomWord.id,

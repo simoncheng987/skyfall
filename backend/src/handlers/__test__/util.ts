@@ -10,3 +10,6 @@ export const createClients = (number: Number) => {
   }
   return clients;
 };
+export const TIMEOUT = 1000;
+
+export const defaultWordList = ['termite', 'blizzardy', 'sagacities', 'recapped', 'purloiner', 'gratifiers', 'nonelectrolyte', 'uncrystallized'];

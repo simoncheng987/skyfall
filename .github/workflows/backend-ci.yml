@@ -27,5 +27,7 @@ jobs:
         cache-dependency-path: backend/package-lock.json
     - run: cd ./backend; npm i
     - run: cd ./backend; npx eslint . --ext .ts
+    - run: touch .env; echo "PORT=${{ secrets.PORT }}" >> .env
+      working-directory: backend
     - run: npm run test
       working-directory: backend

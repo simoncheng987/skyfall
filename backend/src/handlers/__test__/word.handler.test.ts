@@ -1,32 +1,39 @@
+import mongoose from 'mongoose';
 import { SkyfallServer } from '../../index';
 import { gameCodes } from '../../controllers/game.controller';
-import { createClients } from './util';
+import { createClients, defaultWordList, TIMEOUT } from './util';
 import { STARTING_LIVES } from '../../utils/constants';
 import { gamesInProgress } from '../game.handler';
+import databaseOperations from '../../utils/memory-database';
 
 describe('Client word:typed', () => {
   let server: SkyfallServer;
   let clients: any[];
 
-  beforeAll(() => {
+  beforeAll(async () => {
+    await databaseOperations.connectDatabase();
     server = new SkyfallServer();
   });
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    await databaseOperations.clearDatabase();
+    const coll = mongoose.connection.db.collection('wordlists');
+    await coll.insertOne({ listName: 'default', wordList: defaultWordList });
     gameCodes.push(1234);
     clients = createClients(2);
   });
 
   afterEach(() => {
-    clients.forEach((client) => {
-      client.close();
-    });
+    clients?.forEach((client) => client.close());
     gameCodes.length = 0;
     gamesInProgress.clear();
   });
 
-  afterAll(() => {
-    server.stop();
+  afterAll(async () => {
+    await databaseOperations.closeDatabase();
+    if (server) {
+      await server.stop();
+    }
   });
 
   it('2 Clients in one room, one client sends word:typed success', (done) => {
@@ -53,7 +60,7 @@ describe('Client word:typed', () => {
     setTimeout(() => {
       expect(mockBroadcast).toHaveBeenCalledTimes(2);
       done();
-    }, 2000);
+    }, TIMEOUT);
   });
 
   it('2 Clients in one room, one client sends word:typed failure', (done) => {
@@ -80,7 +87,7 @@ describe('Client word:typed', () => {
     setTimeout(() => {
       expect(mockBroadcast).toHaveBeenCalledTimes(2);
       done();
-    }, 2000);
+    }, TIMEOUT);
   });
 
   it('Client that is not in a room sends word:typed', (done) => {
@@ -97,6 +104,6 @@ describe('Client word:typed', () => {
     setTimeout(() => {
       expect(mockBroadcastCalled).toHaveBeenCalledTimes(0);
       done();
-    }, 2000);
+    }, TIMEOUT);
   });
 });

@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { createServer, Server } from 'http';
 import routes from './routes';
+import logger from './utils/logger';
 
 export class ExpressServer {
   #server: Server;
@@ -13,6 +14,11 @@ export class ExpressServer {
     app.use(cors());
     app.use(express.json());
     app.use('/', routes);
+    app.use((err, req, res, next) => {
+      res.status(500);
+      res.json(err);
+    });
+
     this.#server.listen(port);
   }
 
@@ -20,9 +26,9 @@ export class ExpressServer {
     return this.#server;
   }
 
-  close() {
+  async close() {
     if (this.#server) {
-      this.#server.close();
+      await this.#server.close();
     }
   }
 }

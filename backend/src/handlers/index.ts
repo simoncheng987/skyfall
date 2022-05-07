@@ -1,4 +1,4 @@
-import { ServerType, SocketType } from 'src/types';
+import { ServerType, SocketType } from '../types';
 import { registerGameHandler } from './game.handler';
 import { registerRoomHandler } from './room.handler';
 import { registerWordHandler } from './word.handler';

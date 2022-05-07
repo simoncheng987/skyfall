@@ -1,3 +1,4 @@
+import logger from '../utils/logger';
 import { MAX_PLAYERS } from '../utils/constants';
 import { SocketType, ServerType } from '../types';
 import { gameCodes } from '../controllers/game.controller';

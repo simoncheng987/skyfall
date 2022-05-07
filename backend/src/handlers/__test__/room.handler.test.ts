@@ -1,6 +1,6 @@
 import { SkyfallServer } from '../../index';
 import { gameCodes } from '../../controllers/game.controller';
-import { createClients } from './util';
+import { createClients, TIMEOUT } from './util';
 
 describe('Client room:join', () => {
   let server: SkyfallServer;
@@ -44,7 +44,7 @@ describe('Client room:join', () => {
       expect(joinFailMock).not.toHaveBeenCalled();
       expect(joinSuccessMock).toHaveBeenCalledTimes(2);
       done();
-    }, 2000);
+    }, TIMEOUT);
   });
 
   /**
@@ -80,7 +80,7 @@ describe('Client room:join', () => {
       expect(joinFailMock).not.toHaveBeenCalled();
       expect(joinSuccessMock).toHaveBeenCalledTimes(4);
       done();
-    }, 2000);
+    }, TIMEOUT);
   });
   /**
    * Client should not be able to join a room that does not exist
@@ -125,7 +125,7 @@ describe('Client room:join', () => {
       expect(joinFailMock).toHaveBeenCalledTimes(1);
       expect(joinSuccessMock).toHaveBeenCalledTimes(1);
       done();
-    }, 2000);
+    }, TIMEOUT);
   });
 
   /**
@@ -164,7 +164,7 @@ describe('Client room:join', () => {
         }
       });
       done();
-    }, 2000);
+    }, TIMEOUT);
   });
 });
 
@@ -182,5 +182,5 @@ const testSingleJoinFailure = (done, success, fail) => {
     expect(fail).toHaveBeenCalledTimes(1);
     expect(success).not.toHaveBeenCalled();
     done();
-  }, 2000);
+  }, TIMEOUT);
 };

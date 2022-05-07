@@ -1,8 +1,11 @@
+import { Server as HTTPServer } from 'http';
 import { Server } from 'socket.io';
+import mongoose from 'mongoose';
 import { ExpressServer } from './server';
 import { ClientToServerEvents, ServerToClientEvents, SocketData } from './types';
 import { ConnectHandler } from './handlers';
-import { port } from './utils/constants';
+import { mongodbUri, port } from './utils/constants';
+import logger from './utils/logger';
 
 export class SkyfallServer {
   #io: Server<ClientToServerEvents, ServerToClientEvents, SocketData>;
@@ -17,9 +20,13 @@ export class SkyfallServer {
     }
   }
 
-  stop() {
+  getHttpServer(): HTTPServer {
+    return this.#expressServer.getHttpServer();
+  }
+
+  async stop() {
     if (this.#expressServer) {
-      this.#expressServer.close();
+      await this.#expressServer.close();
     }
   }
 
@@ -31,5 +38,7 @@ export class SkyfallServer {
 }
 
 if (process.env.NODE_ENV !== 'test') {
-  const skyfallServer = new SkyfallServer();
+  mongoose.connect(mongodbUri)
+    .then(() => new SkyfallServer())
+    .catch((err) => logger.error(err));
 }
