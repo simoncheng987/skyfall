@@ -1,0 +1,53 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  background-color: #4b8aea;
+  padding: 30px;
+  border-radius: 8px;
+  border: 2.5px solid #1c1c1c;
+}
+
+.playerInformation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.name {
+  font-weight: bold;
+  color: white;
+  margin: 5px 0px;
+  font-size: 30px;
+  letter-spacing: -0.05em;
+  text-shadow: 0px 2px 4px #1c1c1c;
+
+  -webkit-text-stroke-color: black;
+  -webkit-text-stroke-width: 1.8px;
+}
+
+.scoreContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.statsHeading,
+.statsBody,
+.name {
+  font-family: 'Poppins';
+}
+
+.statsHeading {
+  color: #ffd960;
+  font-weight: 300;
+  font-size: 18px;
+  letter-spacing: 0.1em;
+}
+
+.statsBody {
+  font-size: 28px;
+  color: white;
+}
