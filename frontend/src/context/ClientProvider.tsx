@@ -9,6 +9,8 @@ interface ClientProviderProps {
   opponent: string | undefined;
   setOpponent: React.Dispatch<React.SetStateAction<string>>;
   clearContext: () => void;
+  isHost: boolean;
+  setHost: () => void;
 }
 
 const ClientContext = React.createContext<ClientProviderProps | null>(null);
@@ -21,14 +23,18 @@ interface ClientContextProviderProps {
 
 export default function ClientContextProvider({ children }: ClientContextProviderProps) {
   const [client, setClient] = useState<Socket | undefined>(undefined);
-
   const [name, setName] = useState<string>('');
-
   const [opponent, setOpponent] = useState<string>('');
+  const [isHost, setIsHost] = useState<boolean>(false);
+
+  const setHost = () => {
+    setIsHost(true);
+  };
 
   const clearContext = () => {
     setName('');
     setOpponent('');
+    setIsHost(false);
   };
 
   const value: ClientProviderProps = useMemo(
@@ -40,8 +46,10 @@ export default function ClientContextProvider({ children }: ClientContextProvide
       opponent,
       setOpponent,
       clearContext,
+      isHost,
+      setHost,
     }),
-    [client, name, opponent],
+    [client, name, opponent, isHost],
   );
 
   return <ClientContext.Provider value={value}>{children}</ClientContext.Provider>;
