@@ -35,6 +35,7 @@ const gameStart = (io: ServerType, socket: SocketType) => {
 
     // fetch default list for now, but can change this later
     const wordList = await getWordList('default');
+    wordList.sort((a, b) => a.length - b.length);
     gamesInProgress.set(roomCode, wordList);
 
     socketsInRoom.forEach((s) => {
@@ -43,12 +44,12 @@ const gameStart = (io: ServerType, socket: SocketType) => {
 
     io.to(roomCode).emit('game:start-success');
     setTimeout(() => {
-      sendWord(io, roomCode);
+      sendWord(io, roomCode, 5000);
     }, 1000);
   });
 };
 
-const sendWord = async (io: ServerType, roomCode: string) => {
+const sendWord = async (io: ServerType, roomCode: string, timeToAnswer: number) => {
   setTimeout(async () => {
     const socketsInRoom = await io.in(roomCode).fetchSockets();
     const numOfSockets = socketsInRoom.length;
@@ -59,14 +60,14 @@ const sendWord = async (io: ServerType, roomCode: string) => {
         'word',
         randomWord.id,
         randomWord.word,
-        5000,
+        timeToAnswer,
         Math.floor(Math.random() * 100),
       );
-      sendWord(io, roomCode);
+      sendWord(io, roomCode, Math.round(timeToAnswer * 0.99));
     } else if (gamesInProgress.delete(roomCode)) {
       io.to(roomCode).emit('game:finished');
     }
-  }, 1000);
+  }, 2000);
 };
 
 export const registerGameHandler = (

@@ -7,7 +7,7 @@
         "start": "ts-node src/index.ts",
         "dev": "ts-node-dev --respawn src/index.ts",
         "dev:debug": "DEBUG=socket.io:socket ts-node-dev --respawn src/index.ts",
-        "test": "DEBUG=socket.io:socket npx jest --detectOpenHandles",
+        "test": "npx jest --detectOpenHandles",
         "lint": "eslint --ext .ts .",
         "lint:fix": "eslint --ext .ts . --fix"
     },
