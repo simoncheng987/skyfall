@@ -79,6 +79,7 @@ Object {
               />
             </div>,
           ],
+          "grassEnabled": true,
         },
         "rendered": Object {
           "instance": null,

@@ -18,11 +18,11 @@ interface GameContextProps {
   gameStart: (socket: Socket) => void;
 }
 
-const GameContextProvider = React.createContext<GameContextProps | null>(null);
+const GameContext = React.createContext<GameContextProps | null>(null);
 
-export const useGameContext = () => useContext(GameContextProvider) as GameContextProps;
+export const useGameContext = () => useContext(GameContext) as GameContextProps;
 
-export default function GameContext({ children }: any) {
+export default function GameContextProvider({ children }: any) {
   const PLAYER_LIVES = 3;
   const INITIAL_SCORE = 0;
 
@@ -164,5 +164,5 @@ export default function GameContext({ children }: any) {
     ],
   );
 
-  return <GameContextProvider.Provider value={value}>{children}</GameContextProvider.Provider>;
+  return <GameContext.Provider value={value}>{children}</GameContext.Provider>;
 }

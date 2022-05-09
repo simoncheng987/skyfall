@@ -5,9 +5,10 @@ import useWindowSize from '../../utils/useWindowSize';
 
 interface PageScaffoldProps {
   children: React.ReactNode;
+  grassEnabled?: boolean;
 }
 
-export default function PageScaffold({ children }: PageScaffoldProps) {
+export default function PageScaffold({ children, grassEnabled }: PageScaffoldProps) {
   const { width, height } = useWindowSize();
 
   /*
@@ -30,7 +31,13 @@ export default function PageScaffold({ children }: PageScaffoldProps) {
           </div>
         )}
       </div>
-      <img className={styles.grassImage} src="/assets/grass.png" alt="grass background" />
+      {grassEnabled && (
+        <img className={styles.grassImage} src="/assets/grass.png" alt="grass background" />
+      )}
     </div>
   );
 }
+
+PageScaffold.defaultProps = {
+  grassEnabled: true,
+};

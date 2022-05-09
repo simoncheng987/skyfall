@@ -96,6 +96,7 @@ Object {
               />,
               false,
             ],
+            "grassEnabled": true,
           },
           "rendered": Object {
             "instance": null,

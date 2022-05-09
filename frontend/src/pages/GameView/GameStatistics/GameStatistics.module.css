@@ -1,3 +1,8 @@
+.rootContainer {
+  display: flex;
+  flex-direction: column;
+}
+
 .board {
   width: 100%;
   height: 100%;
@@ -12,17 +17,32 @@
 .title {
   font-family: 'Poppins';
   font-size: 16px;
-  line-height: 133.19%;
+  /*line-height: 133.19%;*/
   letter-spacing: 0.11em;
   text-align: center;
   color: #ffffff;
-  margin-bottom: 5px;
+  /*margin-bottom: 5px;*/
 }
 
 .value {
   font-family: 'Poppins';
   font-size: 30px;
-  line-height: 133.19%;
+  /*line-height: 133.19%;*/
   text-align: center;
   color: #ffffff;
+}
+
+.puzzle {
+  width: 30px;
+  color: white;
+}
+
+.headerContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
 }
