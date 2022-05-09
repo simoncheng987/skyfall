@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
+import { ArrowSmLeftIcon } from '@heroicons/react/solid';
 import PageScaffold from '../PageScaffold';
 import Title from '../../components/Title';
 import TextField from '../../components/TextField';
@@ -59,6 +60,7 @@ export default function JoinRoom() {
 
   return (
     <PageScaffold>
+      <ArrowSmLeftIcon className={styles.backButton} onClick={() => navigate('/')} />
       <Title className={styles.title} fontSize="110px" text="Join Room" colorScheme="brown" />
       <div className={styles.buttonsContainer}>
         <TextField onChange={(e) => setPlayerName(e.target.value)} placeholder="Name" />

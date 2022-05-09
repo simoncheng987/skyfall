@@ -73,6 +73,10 @@ Object {
           "nodeType": "component",
           "props": Object {
             "children": Array [
+              <ForwardRef(ArrowSmLeftIcon)
+                className="backButton"
+                onClick={[Function]}
+              />,
               <Title
                 className="title"
                 colorScheme="pink"

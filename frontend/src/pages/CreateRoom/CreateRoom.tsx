@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
+import { ArrowSmLeftIcon } from '@heroicons/react/solid';
 import PageScaffold from '../PageScaffold';
 import Title from '../../components/Title';
 import TextField from '../../components/TextField';
@@ -70,6 +71,7 @@ export default function CreateRoom() {
 
   return (
     <PageScaffold>
+      <ArrowSmLeftIcon className={styles.backButton} onClick={() => navigate('/')} />
       <Title className={styles.title} fontSize="110px" text="Create Room" colorScheme="pink" />
       <TextField
         className={styles.textField}
