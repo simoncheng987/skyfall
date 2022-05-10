@@ -1,7 +1,7 @@
 import React, { useContext, useMemo, useState } from 'react';
 import { Socket } from 'socket.io-client';
 
-interface ClientProviderProps {
+export interface ClientProviderProps {
   client: Socket | undefined;
   setClient: React.Dispatch<React.SetStateAction<Socket | undefined>>;
   name: string;
@@ -13,7 +13,7 @@ interface ClientProviderProps {
   setHost: () => void;
 }
 
-const ClientContext = React.createContext<ClientProviderProps | null>(null);
+export const ClientContext = React.createContext<ClientProviderProps | null>(null);
 
 export const useClient = () => useContext(ClientContext) as ClientProviderProps;
 

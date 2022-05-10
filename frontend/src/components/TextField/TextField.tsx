@@ -5,16 +5,17 @@ interface TextFieldProps {
   placeholder: string;
   className?: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement> | undefined;
+  ariaLabel?: string;
 }
 
-export default function TextField({ placeholder, className, onChange }: TextFieldProps) {
+export default function TextField({ placeholder, className, onChange, ariaLabel }: TextFieldProps) {
   const [name, setName] = useState('');
 
   return (
     <div>
       <input
         value={name}
-        aria-label="name-input"
+        aria-label={ariaLabel}
         placeholder={placeholder}
         type="text"
         className={`${className} ${styles.textField}`}
@@ -32,4 +33,5 @@ export default function TextField({ placeholder, className, onChange }: TextFiel
 TextField.defaultProps = {
   className: '',
   onChange: () => {},
+  ariaLabel: '',
 };

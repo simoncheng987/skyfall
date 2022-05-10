@@ -66,12 +66,14 @@ Object {
               className="buttons"
             >
               <Button
+                ariaLabel=""
                 buttonStyle="secondary"
                 className="button"
                 onClick={[Function]}
                 text="Create Room"
               />
               <Button
+                ariaLabel=""
                 buttonStyle="primary"
                 className="button"
                 onClick={[Function]}
@@ -99,12 +101,14 @@ Object {
                   className="buttons"
                 >
                   <Button
+                    ariaLabel=""
                     buttonStyle="secondary"
                     className="button"
                     onClick={[Function]}
                     text="Create Room"
                   />
                   <Button
+                    ariaLabel=""
                     buttonStyle="primary"
                     className="button"
                     onClick={[Function]}
@@ -136,12 +140,14 @@ Object {
                     className="buttons"
                   >
                     <Button
+                      ariaLabel=""
                       buttonStyle="secondary"
                       className="button"
                       onClick={[Function]}
                       text="Create Room"
                     />
                     <Button
+                      ariaLabel=""
                       buttonStyle="primary"
                       className="button"
                       onClick={[Function]}
@@ -184,12 +190,14 @@ Object {
                   "props": Object {
                     "children": Array [
                       <Button
+                        ariaLabel=""
                         buttonStyle="secondary"
                         className="button"
                         onClick={[Function]}
                         text="Create Room"
                       />,
                       <Button
+                        ariaLabel=""
                         buttonStyle="primary"
                         className="button"
                         onClick={[Function]}
@@ -203,6 +211,7 @@ Object {
                       "instance": null,
                       "nodeType": "component",
                       "props": Object {
+                        "ariaLabel": "",
                         "buttonStyle": "secondary",
                         "className": "button",
                         "onClick": [Function],
@@ -212,6 +221,7 @@ Object {
                         "instance": null,
                         "nodeType": "host",
                         "props": Object {
+                          "aria-label": "",
                           "children": "Create Room",
                           "className": "button button text secondary",
                           "onClick": [Function],
@@ -228,6 +238,7 @@ Object {
                       "instance": null,
                       "nodeType": "component",
                       "props": Object {
+                        "ariaLabel": "",
                         "buttonStyle": "primary",
                         "className": "button",
                         "onClick": [Function],
@@ -237,6 +248,7 @@ Object {
                         "instance": null,
                         "nodeType": "host",
                         "props": Object {
+                          "aria-label": "",
                           "children": "Join Room",
                           "className": "button button text primary",
                           "onClick": [Function],

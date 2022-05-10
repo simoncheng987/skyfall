@@ -84,11 +84,13 @@ Object {
                 text="Create Room"
               />,
               <TextField
+                ariaLabel=""
                 className="textField"
                 onChange={[Function]}
                 placeholder="Your Name"
               />,
               <Button
+                ariaLabel=""
                 buttonStyle="primary"
                 className="button"
                 onClick={[Function]}

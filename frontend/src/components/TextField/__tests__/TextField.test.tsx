@@ -8,7 +8,7 @@ describe('TextField', () => {
 
   // util method that set up and renders the `TextField` component
   const setup = () => {
-    const utils = render(<TextField placeholder={placeHolderText} />);
+    const utils = render(<TextField placeholder={placeHolderText} ariaLabel="name-input" />);
     const input = screen.getByRole('textbox', {
       name: /name-input/i,
     });

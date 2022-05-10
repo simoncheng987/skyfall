@@ -10,11 +10,13 @@ interface ButtonProps {
   buttonStyle?: ButtonStyles;
   onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
   className?: string;
+  ariaLabel?: string;
 }
 
-export default function Button({ text, buttonStyle, onClick, className }: ButtonProps) {
+export default function Button({ text, buttonStyle, onClick, className, ariaLabel }: ButtonProps) {
   return (
     <button
+      aria-label={ariaLabel}
       type="button"
       className={`${className} ${styles.button} ${styles.text} ${styles[buttonStyle as string]}`}
       onClick={onClick}
@@ -28,4 +30,5 @@ Button.defaultProps = {
   buttonStyle: 'primary',
   onClick: () => {},
   className: '',
+  ariaLabel: '',
 };

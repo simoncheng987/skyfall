@@ -23,13 +23,14 @@ export default function WordInput({ placeholder, className, onSubmit }: WordInpu
   };
 
   return (
-    <form onSubmit={internalOnSubmit}>
+    <form aria-label="word-form" onSubmit={internalOnSubmit}>
       <input
         value={word}
         type="text"
         placeholder={placeholder}
         className={`${className} ${styles.textField}`}
         onChange={internalOnChange}
+        aria-label="word-input"
       />
     </form>
   );

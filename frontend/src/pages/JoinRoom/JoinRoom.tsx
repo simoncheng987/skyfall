@@ -63,10 +63,23 @@ export default function JoinRoom() {
       <ArrowSmLeftIcon className={styles.backButton} onClick={() => navigate('/')} />
       <Title className={styles.title} fontSize="110px" text="Join Room" colorScheme="brown" />
       <div className={styles.buttonsContainer}>
-        <TextField onChange={(e) => setPlayerName(e.target.value)} placeholder="Name" />
-        <TextField onChange={(e) => setRoomId(e.target.value)} placeholder="Room ID" />
+        <TextField
+          onChange={(e) => setPlayerName(e.target.value)}
+          placeholder="Name"
+          ariaLabel="name-input"
+        />
+        <TextField
+          onChange={(e) => setRoomId(e.target.value)}
+          placeholder="Room ID"
+          ariaLabel="room-id-input"
+        />
       </div>
-      <Button className={styles.button} text="Enter" onClick={onEnterCallback} />
+      <Button
+        className={styles.button}
+        text="Enter"
+        onClick={onEnterCallback}
+        ariaLabel="join-button"
+      />
       {error && <ErrorToast className={styles.toast} text={errorMessage} />}
     </PageScaffold>
   );
