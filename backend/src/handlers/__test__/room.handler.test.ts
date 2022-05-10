@@ -1,10 +1,11 @@
+import { GlobalGameState } from '../../state';
 import { SkyfallServer } from '../../index';
-import { gameCodes } from '../../controllers/game.controller';
 import { createClients, TIMEOUT } from './util';
 
 describe('Client room:join', () => {
   const joinSuccessMock = jest.fn();
   const joinFailMock = jest.fn();
+
   let server: SkyfallServer;
   let clients: any[];
 
@@ -13,8 +14,12 @@ describe('Client room:join', () => {
   });
 
   beforeEach(() => {
-    gameCodes.set(1234, '');
-    gameCodes.set(4321, '');
+    GlobalGameState.set('1234', {
+      roomCreator: undefined, wordList: undefined, startingLives: undefined, inProgress: false,
+    });
+    GlobalGameState.set('4321', {
+      roomCreator: undefined, wordList: undefined, startingLives: undefined, inProgress: false,
+    });
   });
 
   afterEach(() => {
@@ -22,7 +27,7 @@ describe('Client room:join', () => {
     clients?.forEach((client) => {
       client.close();
     });
-    gameCodes.clear();
+    GlobalGameState.clear();
   });
 
   afterAll(() => {
@@ -31,14 +36,14 @@ describe('Client room:join', () => {
 
   /**
      * When 2 sockets join the room, none of the sockets should receive room:join-fail
-     * TODO: This test is time-dependent, so might be a good idea to change this later
      */
   it('2 sockets joining same room', (done) => {
     clients = createClients(2);
     clients.forEach((clientSocket) => {
       configureTestSocketHandlers(clientSocket, joinSuccessMock, joinFailMock);
-      clientSocket.emit('room:join', 1234, `player called ${Math.random() * 10}`);
+      clientSocket.emit('room:join', '1234', `player called ${Math.random() * 10}`);
     });
+
     setTimeout(() => {
       expect(joinFailMock).not.toHaveBeenCalled();
       expect(joinSuccessMock).toHaveBeenCalledTimes(2);
@@ -53,7 +58,7 @@ describe('Client room:join', () => {
     clients = createClients(3);
     clients.forEach((clientSocket) => {
       clientSocket.on('room:join-fail', () => done());
-      clientSocket.emit('room:join', 1234, `player called ${Math.random() * 10}`);
+      clientSocket.emit('room:join', '1234', `player called ${Math.random() * 10}`);
     });
   });
 
@@ -64,10 +69,10 @@ describe('Client room:join', () => {
     clients = createClients(4);
     clients.forEach((socket) => configureTestSocketHandlers(socket, joinSuccessMock, joinFailMock));
 
-    clients[0].emit('room:join', 1234, 'player name 1');
-    clients[1].emit('room:join', 1234, 'player name 2');
-    clients[2].emit('room:join', 4321, 'player name 3');
-    clients[3].emit('room:join', 4321, 'player name 4');
+    clients[0].emit('room:join', '1234', 'player name 1');
+    clients[1].emit('room:join', '1234', 'player name 2');
+    clients[2].emit('room:join', '4321', 'player name 3');
+    clients[3].emit('room:join', '4321', 'player name 4');
 
     setTimeout(() => {
       expect(joinFailMock).not.toHaveBeenCalled();
@@ -82,7 +87,7 @@ describe('Client room:join', () => {
   it('Client joins nonexistent room', (done) => {
     clients = createClients(1);
     clients.forEach((socket) => configureTestSocketHandlers(socket, joinSuccessMock, joinFailMock));
-    clients[0].emit('room:join', 1237, 'player name 1');
+    clients[0].emit('room:join', '1237', 'player name 1');
 
     testSingleJoinFailure(done, joinSuccessMock, joinFailMock);
   });
@@ -93,7 +98,7 @@ describe('Client room:join', () => {
   it('Client joins without player name', (done) => {
     clients = createClients(1);
     clients.forEach((socket) => configureTestSocketHandlers(socket, joinSuccessMock, joinFailMock));
-    clients[0].emit('room:join', 1234);
+    clients[0].emit('room:join', '1234');
     testSingleJoinFailure(done, joinSuccessMock, joinFailMock);
   });
 
@@ -103,8 +108,8 @@ describe('Client room:join', () => {
   it('Client will fail to rejoin a room it is already in', (done) => {
     clients = createClients(1);
     clients.forEach((socket) => configureTestSocketHandlers(socket, joinSuccessMock, joinFailMock));
-    clients[0].emit('room:join', 1234, 'room');
-    clients[0].emit('room:join', 1234, 'asdf');
+    clients[0].emit('room:join', '1234', 'room');
+    clients[0].emit('room:join', '1234', 'asdf');
 
     setTimeout(() => {
       expect(joinFailMock).toHaveBeenCalledTimes(1);
@@ -128,8 +133,8 @@ describe('Client room:join', () => {
     c2.on('broadcast:player-joined', (map) => calledWithMock(map));
 
     // When it joins a room
-    c1.emit('room:join', 1234, c1Name);
-    c2.emit('room:join', 1234, c2Name);
+    c1.emit('room:join', '1234', c1Name);
+    c2.emit('room:join', '1234', c2Name);
 
     // Then it receives a broadcast of the names
     setTimeout(() => {

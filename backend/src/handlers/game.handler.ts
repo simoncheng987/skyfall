@@ -1,11 +1,8 @@
-import { gameCodes } from '../controllers/game.controller';
+import { GlobalGameState } from '../state';
 import { getWordList } from '../services/word-list.service';
 import { MAX_PLAYERS, STARTING_LIVES } from '../utils/constants';
 import { SocketType, ServerType, Word } from '../types';
 import { getWordForRoom } from '../database/words';
-
-// maps game to list of words
-export const gamesInProgress = new Map<string, Array<string>>();
 
 /**
  * Handle when client requests to start the game
@@ -22,7 +19,12 @@ const gameStart = (io: ServerType, socket: SocketType) => {
       return;
     }
 
-    if (gameCodes.get(parseInt(roomCode, 10)) !== socket.id) {
+    const gameState = GlobalGameState.get(roomCode);
+    if (!gameState) {
+      return;
+    }
+
+    if (gameState.roomCreator !== socket.id) {
       socket.emit('game:start-fail', 'Only the room creator can start the game');
       return;
     }
@@ -33,7 +35,7 @@ const gameStart = (io: ServerType, socket: SocketType) => {
       return;
     }
 
-    if (gamesInProgress.has(roomCode)) {
+    if (gameState.inProgress) {
       socket.emit('game:start-fail', 'Game already in progress');
       return;
     }
@@ -41,11 +43,14 @@ const gameStart = (io: ServerType, socket: SocketType) => {
     // fetch default list for now, but can change this later
     const wordList = await getWordList('default');
     wordList.sort((a, b) => a.length - b.length);
-    gamesInProgress.set(roomCode, wordList);
+    gameState.wordList = wordList;
 
+    gameState.startingLives = STARTING_LIVES;
     socketsInRoom.forEach((s) => {
-      s.data.lives = STARTING_LIVES;
+      s.data.lives = gameState.startingLives;
     });
+
+    gameState.inProgress = true;
 
     io.to(roomCode).emit('game:start-success');
     setTimeout(() => {
@@ -58,9 +63,10 @@ const sendWord = async (io: ServerType, roomCode: string, timeToAnswer: number) 
   setTimeout(async () => {
     const socketsInRoom = await io.in(roomCode).fetchSockets();
     const numOfSockets = socketsInRoom.length;
+    const gameState = GlobalGameState.get(roomCode);
 
-    if (gamesInProgress.has(roomCode) && numOfSockets === MAX_PLAYERS) {
-      const randomWord: Word = getWordForRoom(roomCode, gamesInProgress.get(roomCode) || []);
+    if (gameState && numOfSockets === MAX_PLAYERS) {
+      const randomWord: Word = getWordForRoom(roomCode, gameState.wordList || []);
       io.to(roomCode).emit(
         'word',
         randomWord.id,
@@ -69,9 +75,8 @@ const sendWord = async (io: ServerType, roomCode: string, timeToAnswer: number) 
         Math.floor(Math.random() * 100),
       );
       sendWord(io, roomCode, Math.round(timeToAnswer * 0.99));
-    } else if (gamesInProgress.delete(roomCode)) {
+    } else if (GlobalGameState.delete(roomCode)) {
       io.to(roomCode).emit('game:finished');
-      gameCodes.delete(parseInt(roomCode, 10));
     }
   }, 2000);
 };

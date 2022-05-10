@@ -1,10 +1,9 @@
 import mongoose from 'mongoose';
 import databaseOperations from '../../utils/memory-database';
 import { SkyfallServer } from '../../index';
-import { gameCodes } from '../../controllers/game.controller';
 import { createClients, defaultWordList, TIMEOUT } from './util';
 import { STARTING_LIVES } from '../../utils/constants';
-import { gamesInProgress } from '../game.handler';
+import { GlobalGameState } from '../../state';
 
 describe('Client game:start', () => {
   const successMock = jest.fn();
@@ -13,24 +12,26 @@ describe('Client game:start', () => {
 
   let server: SkyfallServer;
   let clients: any[];
-  const roomCode = 1234;
+  const roomCode = '1234';
 
   beforeAll(async () => {
     await databaseOperations.connectDatabase();
     server = new SkyfallServer();
     const coll = mongoose.connection.db.collection('wordlists');
     await coll.insertOne({ listName: 'default', wordList: defaultWordList });
-    gameCodes.set(roomCode, '');
   });
 
   beforeEach(async () => {
+    GlobalGameState.set(roomCode, {
+      roomCreator: undefined, wordList: undefined, startingLives: undefined, inProgress: false,
+    });
     server.reset();
   });
 
   afterEach(() => {
     jest.clearAllMocks();
     clients?.forEach((client) => client.close());
-    gamesInProgress.clear();
+    GlobalGameState.clear();
   });
 
   afterAll(async () => {

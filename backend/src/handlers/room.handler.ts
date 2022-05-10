@@ -1,7 +1,6 @@
-import logger from '../utils/logger';
+import { GlobalGameState } from '../state';
 import { MAX_PLAYERS } from '../utils/constants';
 import { SocketType, ServerType } from '../types';
-import { gameCodes } from '../controllers/game.controller';
 
 /**
  * Handle when client requests to join room
@@ -15,7 +14,8 @@ const joinRoom = (
   socket: SocketType,
 ) => {
   socket.on('room:join', async (roomCode, playerName) => {
-    if (!gameCodes.has(parseInt(roomCode, 10))) {
+    const gameState = GlobalGameState.get(roomCode);
+    if (!gameState) {
       socket.emit('room:join-fail', `Room ${roomCode} does not exist`);
       return;
     }
@@ -36,7 +36,7 @@ const joinRoom = (
     if (numOfSockets < MAX_PLAYERS) {
       // set first player to join as room creator
       if (numOfSockets === 0) {
-        gameCodes.set(parseInt(roomCode, 10), socket.id);
+        gameState.roomCreator = socket.id;
       }
 
       socket.join(roomCode);

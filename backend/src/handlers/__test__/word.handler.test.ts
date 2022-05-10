@@ -1,14 +1,14 @@
 import mongoose from 'mongoose';
 import { SkyfallServer } from '../../index';
-import { gameCodes } from '../../controllers/game.controller';
 import { createClients, defaultWordList, TIMEOUT } from './util';
 import { STARTING_LIVES } from '../../utils/constants';
-import { gamesInProgress } from '../game.handler';
 import databaseOperations from '../../utils/memory-database';
+import { GlobalGameState } from '../../state';
 
 describe('Client word:typed', () => {
   let server: SkyfallServer;
   let clients: any[];
+  const roomCode = '1234';
 
   beforeAll(async () => {
     await databaseOperations.connectDatabase();
@@ -19,14 +19,15 @@ describe('Client word:typed', () => {
     await databaseOperations.clearDatabase();
     const coll = mongoose.connection.db.collection('wordlists');
     await coll.insertOne({ listName: 'default', wordList: defaultWordList });
-    gameCodes.set(1234, '');
+    GlobalGameState.set(roomCode, {
+      roomCreator: undefined, wordList: undefined, startingLives: undefined, inProgress: false,
+    });
     clients = createClients(2);
   });
 
   afterEach(() => {
     clients?.forEach((client) => client.close());
-    gameCodes.clear();
-    gamesInProgress.clear();
+    GlobalGameState.clear();
   });
 
   afterAll(async () => {
@@ -50,7 +51,7 @@ describe('Client word:typed', () => {
     });
 
     clients[0].on('room:join-success', () => {
-      clients[1].emit('room:join', 1234, `player called ${Math.random() * 10}`);
+      clients[1].emit('room:join', roomCode, `player called ${Math.random() * 10}`);
     });
 
     clients[1].on('room:join-success', () => {
@@ -61,7 +62,7 @@ describe('Client word:typed', () => {
       clients[0].emit('word:typed', '1', true);
     });
 
-    clients[0].emit('room:join', 1234, `player called ${Math.random() * 10}`);
+    clients[0].emit('room:join', roomCode, `player called ${Math.random() * 10}`);
 
     setTimeout(() => {
       expect(mockBroadcast).toHaveBeenCalledTimes(2);
@@ -83,7 +84,7 @@ describe('Client word:typed', () => {
     });
 
     clients[0].on('room:join-success', () => {
-      clients[1].emit('room:join', 1234, `player called ${Math.random() * 10}`);
+      clients[1].emit('room:join', roomCode, `player called ${Math.random() * 10}`);
     });
 
     clients[1].on('room:join-success', () => {
@@ -94,7 +95,7 @@ describe('Client word:typed', () => {
       clients[0].emit('word:typed', '1', false);
     });
 
-    clients[0].emit('room:join', 1234, `player called ${Math.random() * 10}`);
+    clients[0].emit('room:join', roomCode, `player called ${Math.random() * 10}`);
 
     setTimeout(() => {
       expect(mockBroadcast).toHaveBeenCalledTimes(2);

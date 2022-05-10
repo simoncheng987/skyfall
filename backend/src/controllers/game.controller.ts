@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-
-export const gameCodes = new Map<number, string>();
+import { GlobalGameState } from '../state';
 
 /**
  * Creates a unique game code
@@ -11,7 +10,11 @@ export const createGameCode = (
   res: Response,
   next: NextFunction,
 ) => {
-  res.json(generateNewGameCode());
+  const code = generateNewGameCode();
+  GlobalGameState.set(code, {
+    roomCreator: undefined, wordList: undefined, startingLives: undefined, inProgress: false,
+  });
+  res.json();
 };
 
 /**
@@ -23,9 +26,8 @@ export const createGameCode = (
 const generateNewGameCode = () => {
   const randomGameCode = (): number => Math.floor(100000 + Math.random() * 900000);
 
-  let curr = randomGameCode();
-  while (gameCodes.has(curr)) { curr = randomGameCode(); }
+  let curr = randomGameCode().toString(10);
+  while (GlobalGameState.has(curr)) { curr = randomGameCode().toString(10); }
 
-  gameCodes.set(curr, '');
   return curr;
 };
