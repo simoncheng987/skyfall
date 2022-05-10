@@ -12,6 +12,7 @@ export class ExpressServer {
     this.#server = createServer(app);
     app.use(express.urlencoded({ extended: false }));
     app.use(cors());
+    app.use(express.static('build'));
     app.use(express.json());
     app.use('/', routes);
     app.use((err, req, res, next) => {

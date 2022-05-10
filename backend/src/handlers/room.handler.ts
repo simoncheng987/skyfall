@@ -15,10 +15,11 @@ const joinRoom = (
   socket: SocketType,
 ) => {
   socket.on('room:join', async (roomCode, playerName) => {
-    if (!gameCodes.includes(parseInt(roomCode, 10))) {
+    if (!gameCodes.has(parseInt(roomCode, 10))) {
       socket.emit('room:join-fail', `Room ${roomCode} does not exist`);
       return;
     }
+
     if (!playerName) {
       socket.emit('room:join-fail', 'Player name should not be empty');
       return;
@@ -33,6 +34,11 @@ const joinRoom = (
     const numOfSockets = socketsInRoom ? socketsInRoom.size : 0;
 
     if (numOfSockets < MAX_PLAYERS) {
+      // set first player to join as room creator
+      if (numOfSockets === 0) {
+        gameCodes.set(parseInt(roomCode, 10), socket.id);
+      }
+
       socket.join(roomCode);
       socket.data.roomCode = roomCode;
       socket.data.name = playerName;

@@ -19,13 +19,13 @@ describe('Client word:typed', () => {
     await databaseOperations.clearDatabase();
     const coll = mongoose.connection.db.collection('wordlists');
     await coll.insertOne({ listName: 'default', wordList: defaultWordList });
-    gameCodes.push(1234);
+    gameCodes.set(1234, '');
     clients = createClients(2);
   });
 
   afterEach(() => {
     clients?.forEach((client) => client.close());
-    gameCodes.length = 0;
+    gameCodes.clear();
     gamesInProgress.clear();
   });
 
@@ -47,15 +47,21 @@ describe('Client word:typed', () => {
         expect(livesRemaining).toBe(STARTING_LIVES);
         mockBroadcast();
       });
+    });
 
-      client.emit('room:join', 1234, `player called ${Math.random() * 10}`);
+    clients[0].on('room:join-success', () => {
+      clients[1].emit('room:join', 1234, `player called ${Math.random() * 10}`);
+    });
+
+    clients[1].on('room:join-success', () => {
+      clients[0].emit('game:start');
     });
 
     clients[0].on('game:start-success', () => {
       clients[0].emit('word:typed', '1', true);
     });
 
-    clients[0].emit('game:start');
+    clients[0].emit('room:join', 1234, `player called ${Math.random() * 10}`);
 
     setTimeout(() => {
       expect(mockBroadcast).toHaveBeenCalledTimes(2);
@@ -74,15 +80,21 @@ describe('Client word:typed', () => {
         expect(livesRemaining).toBe(STARTING_LIVES - 1);
         mockBroadcast();
       });
+    });
 
-      client.emit('room:join', 1234, `player called ${Math.random() * 10}`);
+    clients[0].on('room:join-success', () => {
+      clients[1].emit('room:join', 1234, `player called ${Math.random() * 10}`);
+    });
+
+    clients[1].on('room:join-success', () => {
+      clients[0].emit('game:start');
     });
 
     clients[0].on('game:start-success', () => {
       clients[0].emit('word:typed', '1', false);
     });
 
-    clients[0].emit('game:start');
+    clients[0].emit('room:join', 1234, `player called ${Math.random() * 10}`);
 
     setTimeout(() => {
       expect(mockBroadcast).toHaveBeenCalledTimes(2);

@@ -7,15 +7,20 @@ import { STARTING_LIVES } from '../../utils/constants';
 import { gamesInProgress } from '../game.handler';
 
 describe('Client game:start', () => {
+  const successMock = jest.fn();
+  const failMock = jest.fn();
+  const finishedMock = jest.fn();
+
   let server: SkyfallServer;
   let clients: any[];
   const roomCode = 1234;
+
   beforeAll(async () => {
     await databaseOperations.connectDatabase();
     server = new SkyfallServer();
     const coll = mongoose.connection.db.collection('wordlists');
     await coll.insertOne({ listName: 'default', wordList: defaultWordList });
-    gameCodes.push(roomCode);
+    gameCodes.set(roomCode, '');
   });
 
   beforeEach(async () => {
@@ -23,6 +28,7 @@ describe('Client game:start', () => {
   });
 
   afterEach(() => {
+    jest.clearAllMocks();
     clients?.forEach((client) => client.close());
     gamesInProgress.clear();
   });
@@ -34,30 +40,75 @@ describe('Client game:start', () => {
     }
   });
 
-  it('2 clients join a room, then 2 clients say game:start', (done) => {
-    const successMock = jest.fn();
-    const failMock = jest.fn();
-
-    clients = createClients(2);
-    clients.forEach((client) => {
-      client.on('game:start-success', () => successMock());
-      client.on('game:start-fail', () => failMock());
-      client.emit('room:join', roomCode, `player called ${Math.random() * 10}`);
+  describe('2 client game start tests', () => {
+    beforeEach(() => {
+      clients = createClients(2);
+      clients.forEach((client) => {
+        client.on('game:start-success', () => successMock());
+        client.on('game:start-fail', () => failMock());
+      });
     });
 
-    clients[0].emit('game:start');
+    it('2 clients join a room, then first client says game:start', (done) => {
+      clients[0].on('room:join-success', () => {
+        clients[1].emit('room:join', roomCode, `player called ${Math.random() * 10}`);
+      });
 
-    setTimeout(() => {
-      expect(successMock).toHaveBeenCalledTimes(2);
-      expect(failMock).not.toHaveBeenCalled();
-      done();
-    }, TIMEOUT);
+      clients[1].on('room:join-success', () => {
+        clients[0].emit('game:start');
+      });
+
+      clients[0].emit('room:join', roomCode, `player called ${Math.random() * 10}`);
+
+      setTimeout(() => {
+        expect(successMock).toHaveBeenCalledTimes(2);
+        expect(failMock).not.toHaveBeenCalled();
+        done();
+      }, TIMEOUT);
+    });
+
+    it('2 clients join a room, then second client says game:start', (done) => {
+      clients[0].on('room:join-success', () => {
+        clients[1].emit('room:join', roomCode, `player called ${Math.random() * 10}`);
+      });
+
+      clients[1].on('room:join-success', () => {
+        clients[1].emit('game:start');
+      });
+
+      clients[0].emit('room:join', roomCode, `player called ${Math.random() * 10}`);
+
+      setTimeout(() => {
+        expect(successMock).toHaveBeenCalledTimes(0);
+        expect(failMock).toHaveBeenCalledTimes(1);
+        done();
+      }, TIMEOUT);
+    });
+
+    it('1 client join, start, 1 client join, first client starts', (done) => {
+      clients[0].on('room:join-success', () => {
+        clients[0].emit('game:start');
+      });
+
+      clients[0].on('game:start-fail', () => {
+        clients[1].emit('room:join', roomCode, `player called ${Math.random() * 10}`);
+      });
+
+      clients[1].on('room:join-success', () => {
+        clients[0].emit('game:start');
+      });
+
+      clients[0].emit('room:join', roomCode, `player called ${Math.random() * 10}`);
+
+      setTimeout(() => {
+        expect(successMock).toHaveBeenCalledTimes(2);
+        expect(failMock).toHaveBeenCalledTimes(1);
+        done();
+      }, TIMEOUT);
+    });
   });
 
   it('1 client join, start', (done) => {
-    const successMock = jest.fn();
-    const failMock = jest.fn();
-
     clients = createClients(1);
     clients.forEach((client) => {
       client.on('game:start-success', () => successMock());
@@ -74,45 +125,18 @@ describe('Client game:start', () => {
     }, TIMEOUT);
   });
 
-  it('1 client join, start, 1 client join, start', (done) => {
-    const successMock = jest.fn();
-    const failMock = jest.fn();
-
-    clients = createClients(2);
-
-    clients[0].on('game:start-success', () => successMock());
-    clients[1].on('game:start-success', () => successMock());
-    // 3. c1 fails. now wait for c2 to join
-    clients[0].on('game:start-fail', () => {
-      failMock();
-      // 4. c2 joins
-      clients[1].emit('room:join', roomCode, `player called ${Math.random() * 10}`);
-      // 5. c2 tries to start, and will successfully start
-      clients[1].emit('game:start');
-    });
-    clients[1].on('game:start-fail', () => {
-      failMock();
-    });
-
-    // 1. c1 joins
-    clients[0].emit('room:join', roomCode, `player called ${Math.random() * 10}`);
-    // 2. c1 tries to start, gets failure.
-    clients[0].emit('game:start');
-
-    setTimeout(() => {
-      expect(successMock).toHaveBeenCalledTimes(2);
-      expect(failMock).toHaveBeenCalledTimes(1);
-      done();
-    }, TIMEOUT);
-  });
-
   it('game ends once 1 player dies', (done) => {
-    const finishedMock = jest.fn();
-
     clients = createClients(2);
     clients.forEach((client) => {
       client.on('game:finished', () => finishedMock());
-      client.emit('room:join', roomCode, `player called ${Math.random() * 10}`);
+    });
+
+    clients[0].on('room:join-success', () => {
+      clients[1].emit('room:join', roomCode, `player called ${Math.random() * 10}`);
+    });
+
+    clients[1].on('room:join-success', () => {
+      clients[0].emit('game:start');
     });
 
     clients[0].on('game:start-success', () => {
@@ -121,7 +145,7 @@ describe('Client game:start', () => {
       }
     });
 
-    clients[0].emit('game:start');
+    clients[0].emit('room:join', roomCode, `player called ${Math.random() * 10}`);
 
     setTimeout(() => {
       expect(finishedMock).toHaveBeenCalledTimes(2);

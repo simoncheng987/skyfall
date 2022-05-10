@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-export const gameCodes: Array<Number> = [];
+export const gameCodes = new Map<number, string>();
 
 /**
  * Creates a unique game code
@@ -21,11 +21,11 @@ export const createGameCode = (
  * @returns Unique 6 digit game code
  */
 const generateNewGameCode = () => {
-  const randomGameCode = (): Number => Math.floor(100000 + Math.random() * 900000);
+  const randomGameCode = (): number => Math.floor(100000 + Math.random() * 900000);
 
   let curr = randomGameCode();
-  while (gameCodes.indexOf(curr) !== -1) { curr = randomGameCode(); }
+  while (gameCodes.has(curr)) { curr = randomGameCode(); }
 
-  gameCodes.push(curr);
+  gameCodes.set(curr, '');
   return curr;
 };

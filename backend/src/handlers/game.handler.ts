@@ -1,8 +1,8 @@
+import { gameCodes } from '../controllers/game.controller';
 import { getWordList } from '../services/word-list.service';
 import { MAX_PLAYERS, STARTING_LIVES } from '../utils/constants';
 import { SocketType, ServerType, Word } from '../types';
 import { getWordForRoom } from '../database/words';
-import WordList from '../models/word-list.model';
 
 // maps game to list of words
 export const gamesInProgress = new Map<string, Array<string>>();
@@ -19,6 +19,11 @@ const gameStart = (io: ServerType, socket: SocketType) => {
     const { roomCode } = socket.data;
     if (!roomCode) {
       socket.emit('game:start-fail', 'Not currently in a room');
+      return;
+    }
+
+    if (gameCodes.get(parseInt(roomCode, 10)) !== socket.id) {
+      socket.emit('game:start-fail', 'Only the room creator can start the game');
       return;
     }
 
@@ -66,6 +71,7 @@ const sendWord = async (io: ServerType, roomCode: string, timeToAnswer: number) 
       sendWord(io, roomCode, Math.round(timeToAnswer * 0.99));
     } else if (gamesInProgress.delete(roomCode)) {
       io.to(roomCode).emit('game:finished');
+      gameCodes.delete(parseInt(roomCode, 10));
     }
   }, 2000);
 };

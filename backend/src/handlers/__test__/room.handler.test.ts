@@ -3,6 +3,8 @@ import { gameCodes } from '../../controllers/game.controller';
 import { createClients, TIMEOUT } from './util';
 
 describe('Client room:join', () => {
+  const joinSuccessMock = jest.fn();
+  const joinFailMock = jest.fn();
   let server: SkyfallServer;
   let clients: any[];
 
@@ -11,15 +13,16 @@ describe('Client room:join', () => {
   });
 
   beforeEach(() => {
-    gameCodes.push(1234);
-    gameCodes.push(4321);
+    gameCodes.set(1234, '');
+    gameCodes.set(4321, '');
   });
 
   afterEach(() => {
+    jest.clearAllMocks();
     clients?.forEach((client) => {
       client.close();
     });
-    gameCodes.length = 0;
+    gameCodes.clear();
   });
 
   afterAll(() => {
@@ -31,10 +34,6 @@ describe('Client room:join', () => {
      * TODO: This test is time-dependent, so might be a good idea to change this later
      */
   it('2 sockets joining same room', (done) => {
-    const joinSuccessMock = jest.fn();
-    const joinFailMock = jest.fn();
-    gameCodes.push(1234);
-
     clients = createClients(2);
     clients.forEach((clientSocket) => {
       configureTestSocketHandlers(clientSocket, joinSuccessMock, joinFailMock);
@@ -51,7 +50,6 @@ describe('Client room:join', () => {
      * When 3 sockets join the same room, one of them should receive join-fail message
      */
   it('3 sockets joining same room', (done) => {
-    gameCodes.push(1234);
     clients = createClients(3);
     clients.forEach((clientSocket) => {
       clientSocket.on('room:join-fail', () => done());
@@ -63,11 +61,6 @@ describe('Client room:join', () => {
      * 2 clients join one room, 2 other clients join another room
      */
   it('2 clients room 1234, 2 clients room 4321', (done) => {
-    const joinSuccessMock = jest.fn();
-    const joinFailMock = jest.fn();
-    gameCodes.push(1234);
-    gameCodes.push(4321);
-
     clients = createClients(4);
     clients.forEach((socket) => configureTestSocketHandlers(socket, joinSuccessMock, joinFailMock));
 
@@ -82,13 +75,11 @@ describe('Client room:join', () => {
       done();
     }, TIMEOUT);
   });
+
   /**
    * Client should not be able to join a room that does not exist
   */
   it('Client joins nonexistent room', (done) => {
-    const joinSuccessMock = jest.fn();
-    const joinFailMock = jest.fn();
-
     clients = createClients(1);
     clients.forEach((socket) => configureTestSocketHandlers(socket, joinSuccessMock, joinFailMock));
     clients[0].emit('room:join', 1237, 'player name 1');
@@ -100,9 +91,6 @@ describe('Client room:join', () => {
    * Client fails to join if it doesn't supply player name
    */
   it('Client joins without player name', (done) => {
-    const joinSuccessMock = jest.fn();
-    const joinFailMock = jest.fn();
-    gameCodes.push(1234);
     clients = createClients(1);
     clients.forEach((socket) => configureTestSocketHandlers(socket, joinSuccessMock, joinFailMock));
     clients[0].emit('room:join', 1234);
@@ -113,9 +101,6 @@ describe('Client room:join', () => {
    * Client cannot rejoin a room that it's in
    */
   it('Client will fail to rejoin a room it is already in', (done) => {
-    const joinSuccessMock = jest.fn();
-    const joinFailMock = jest.fn();
-    gameCodes.push(1234);
     clients = createClients(1);
     clients.forEach((socket) => configureTestSocketHandlers(socket, joinSuccessMock, joinFailMock));
     clients[0].emit('room:join', 1234, 'room');
@@ -133,7 +118,6 @@ describe('Client room:join', () => {
    */
   it('Room is notified of new players', (done) => {
     const calledWithMock = jest.fn();
-    gameCodes.push(1234);
 
     // Given two clients
     clients = createClients(2);
