@@ -21,7 +21,7 @@ export default function CreateRoom() {
 
   const navigate = useNavigate();
 
-  const { client, setClient, setName } = useClient();
+  const { client, setClient, setName, setHost } = useClient();
 
   useEffect(() => {
     const timeout = setInterval(() => {
@@ -37,6 +37,7 @@ export default function CreateRoom() {
     if (client) {
       client.once('room:join-success', () => {
         setName(playerName);
+        setHost();
         navigate('/lobby', { state: roomId });
       });
 

@@ -5,6 +5,8 @@ import JoinRoom from './pages/JoinRoom';
 import CreateRoom from './pages/CreateRoom';
 import Lobby from './pages/Lobby';
 import ClientContextProvider from './context/ClientProvider';
+import GameView from './pages/GameView';
+import GameContextProvider from './context/GameContextProvider';
 
 function App() {
   return (
@@ -21,6 +23,7 @@ function App() {
               </ClientContextProvider>
             }
           />
+
           <Route
             path="create"
             element={
@@ -29,11 +32,23 @@ function App() {
               </ClientContextProvider>
             }
           />
+
           <Route
             path="lobby"
             element={
               <ClientContextProvider>
                 <Lobby />
+              </ClientContextProvider>
+            }
+          />
+
+          <Route
+            path="game"
+            element={
+              <ClientContextProvider>
+                <GameContextProvider>
+                  <GameView />
+                </GameContextProvider>
               </ClientContextProvider>
             }
           />
