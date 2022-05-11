@@ -2,7 +2,6 @@ import mongoose from 'mongoose';
 import databaseOperations from '../../utils/memory-database';
 import { SkyfallServer } from '../../index';
 import { createClients, defaultWordList, TIMEOUT } from './util';
-import { STARTING_LIVES } from '../../utils/constants';
 import { GlobalGameState } from '../../state';
 
 describe('Client game:start', () => {
@@ -10,15 +9,18 @@ describe('Client game:start', () => {
   const failMock = jest.fn();
   const finishedMock = jest.fn();
 
+  const startingLives = 3;
+  const wordListName = 'default';
+  const roomCode = '1234';
+
   let server: SkyfallServer;
   let clients: any[];
-  const roomCode = '1234';
 
   beforeAll(async () => {
     await databaseOperations.connectDatabase();
     server = new SkyfallServer();
     const coll = mongoose.connection.db.collection('wordlists');
-    await coll.insertOne({ listName: 'default', wordList: defaultWordList });
+    await coll.insertOne({ listName: wordListName, wordList: defaultWordList });
   });
 
   beforeEach(async () => {
@@ -45,7 +47,11 @@ describe('Client game:start', () => {
     beforeEach(() => {
       clients = createClients(2);
       clients.forEach((client) => {
-        client.on('game:start-success', () => successMock());
+        client.on('game:start-success', (lives, wordList) => {
+          expect(lives).toBe(startingLives);
+          expect(wordList).toBe(wordListName);
+          successMock();
+        });
         client.on('game:start-fail', () => failMock());
       });
     });
@@ -56,7 +62,7 @@ describe('Client game:start', () => {
       });
 
       clients[1].on('room:join-success', () => {
-        clients[0].emit('game:start');
+        clients[0].emit('game:start', startingLives, wordListName);
       });
 
       clients[0].emit('room:join', roomCode, `player called ${Math.random() * 10}`);
@@ -74,7 +80,7 @@ describe('Client game:start', () => {
       });
 
       clients[1].on('room:join-success', () => {
-        clients[1].emit('game:start');
+        clients[1].emit('game:start', startingLives, wordListName);
       });
 
       clients[0].emit('room:join', roomCode, `player called ${Math.random() * 10}`);
@@ -88,7 +94,7 @@ describe('Client game:start', () => {
 
     it('1 client join, start, 1 client join, first client starts', (done) => {
       clients[0].on('room:join-success', () => {
-        clients[0].emit('game:start');
+        clients[0].emit('game:start', startingLives, wordListName);
       });
 
       clients[0].on('game:start-fail', () => {
@@ -96,7 +102,7 @@ describe('Client game:start', () => {
       });
 
       clients[1].on('room:join-success', () => {
-        clients[0].emit('game:start');
+        clients[0].emit('game:start', startingLives, wordListName);
       });
 
       clients[0].emit('room:join', roomCode, `player called ${Math.random() * 10}`);
@@ -117,7 +123,7 @@ describe('Client game:start', () => {
       client.emit('room:join', roomCode, `player called ${Math.random() * 10}`);
     });
 
-    clients[0].emit('game:start');
+    clients[0].emit('game:start', startingLives, wordListName);
 
     setTimeout(() => {
       expect(successMock).not.toHaveBeenCalled();
@@ -137,11 +143,11 @@ describe('Client game:start', () => {
     });
 
     clients[1].on('room:join-success', () => {
-      clients[0].emit('game:start');
+      clients[0].emit('game:start', startingLives, wordListName);
     });
 
     clients[0].on('game:start-success', () => {
-      for (let i = 0; i < STARTING_LIVES; i++) {
+      for (let i = 0; i < startingLives; i++) {
         clients[0].emit('word:typed', '1', false);
       }
     });

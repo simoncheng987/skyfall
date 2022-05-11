@@ -1,14 +1,16 @@
 import mongoose from 'mongoose';
 import { SkyfallServer } from '../../index';
 import { createClients, defaultWordList, TIMEOUT } from './util';
-import { STARTING_LIVES } from '../../utils/constants';
 import databaseOperations from '../../utils/memory-database';
 import { GlobalGameState } from '../../state';
 
 describe('Client word:typed', () => {
+  const startingLives = 3;
+  const wordListName = 'default';
+  const roomCode = '1234';
+
   let server: SkyfallServer;
   let clients: any[];
-  const roomCode = '1234';
 
   beforeAll(async () => {
     await databaseOperations.connectDatabase();
@@ -18,7 +20,7 @@ describe('Client word:typed', () => {
   beforeEach(async () => {
     await databaseOperations.clearDatabase();
     const coll = mongoose.connection.db.collection('wordlists');
-    await coll.insertOne({ listName: 'default', wordList: defaultWordList });
+    await coll.insertOne({ listName: wordListName, wordList: defaultWordList });
     GlobalGameState.set(roomCode, {
       roomCreator: undefined, wordList: undefined, startingLives: undefined, inProgress: false,
     });
@@ -45,7 +47,7 @@ describe('Client word:typed', () => {
         expect(wordId).toBe('1');
         expect(success).toBe(true);
         expect(socketId).toBe(clients[0].id);
-        expect(livesRemaining).toBe(STARTING_LIVES);
+        expect(livesRemaining).toBe(startingLives);
         mockBroadcast();
       });
     });
@@ -55,7 +57,7 @@ describe('Client word:typed', () => {
     });
 
     clients[1].on('room:join-success', () => {
-      clients[0].emit('game:start');
+      clients[0].emit('game:start', startingLives, wordListName);
     });
 
     clients[0].on('game:start-success', () => {
@@ -78,7 +80,7 @@ describe('Client word:typed', () => {
         expect(wordId).toBe('1');
         expect(success).toBe(false);
         expect(socketId).toBe(clients[0].id);
-        expect(livesRemaining).toBe(STARTING_LIVES - 1);
+        expect(livesRemaining).toBe(startingLives - 1);
         mockBroadcast();
       });
     });
@@ -88,7 +90,7 @@ describe('Client word:typed', () => {
     });
 
     clients[1].on('room:join-success', () => {
-      clients[0].emit('game:start');
+      clients[0].emit('game:start', startingLives, wordListName);
     });
 
     clients[0].on('game:start-success', () => {

@@ -1,6 +1,6 @@
 import { GlobalGameState } from '../state';
 import { getWordList } from '../services/word-list.service';
-import { MAX_PLAYERS, STARTING_LIVES } from '../utils/constants';
+import { MAX_PLAYERS } from '../utils/constants';
 import { SocketType, ServerType, Word } from '../types';
 import { getWordForRoom } from '../database/words';
 
@@ -12,7 +12,7 @@ import { getWordForRoom } from '../database/words';
  *
  */
 const gameStart = (io: ServerType, socket: SocketType) => {
-  socket.on('game:start', async () => {
+  socket.on('game:start', async (startingLives, listName) => {
     const { roomCode } = socket.data;
     if (!roomCode) {
       socket.emit('game:start-fail', 'Not currently in a room');
@@ -21,6 +21,7 @@ const gameStart = (io: ServerType, socket: SocketType) => {
 
     const gameState = GlobalGameState.get(roomCode);
     if (!gameState) {
+      socket.emit('game:start-fail', 'Room code no longer valid');
       return;
     }
 
@@ -40,19 +41,18 @@ const gameStart = (io: ServerType, socket: SocketType) => {
       return;
     }
 
-    // fetch default list for now, but can change this later
-    const wordList = await getWordList('default');
+    const wordList = await getWordList(listName);
     wordList.sort((a, b) => a.length - b.length);
     gameState.wordList = wordList;
 
-    gameState.startingLives = STARTING_LIVES;
+    gameState.startingLives = startingLives;
     socketsInRoom.forEach((s) => {
       s.data.lives = gameState.startingLives;
     });
 
     gameState.inProgress = true;
 
-    io.to(roomCode).emit('game:start-success');
+    io.to(roomCode).emit('game:start-success', startingLives, listName);
     setTimeout(() => {
       sendWord(io, roomCode, 5000);
     }, 1000);
