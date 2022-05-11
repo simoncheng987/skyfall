@@ -16,6 +16,7 @@ interface GameContextProps {
   onWordSubmitHandler: (arg0: string, client: Socket) => void;
   // eslint-disable-next-line no-unused-vars
   gameStart: (socket: Socket) => void;
+  resetGame: () => void;
 }
 
 const GameContext = React.createContext<GameContextProps | null>(null);
@@ -140,6 +141,13 @@ export default function GameContextProvider({ children }: any) {
     });
   };
 
+  const resetGame = () => {
+    setPlayerLives(PLAYER_LIVES);
+    setOpponentLives(PLAYER_LIVES);
+    setPlayerScore(INITIAL_SCORE);
+    setOpponentScore(INITIAL_SCORE);
+  };
+
   const value: GameContextProps = useMemo(
     () => ({
       playerScore,
@@ -152,6 +160,7 @@ export default function GameContextProvider({ children }: any) {
       initializeStartTime,
       onWordSubmitHandler,
       gameStart,
+      resetGame,
     }),
     [
       playerScore,

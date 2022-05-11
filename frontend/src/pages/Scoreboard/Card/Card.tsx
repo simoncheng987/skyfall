@@ -5,13 +5,14 @@ import AvatarFrame from '../../../components/AvatarFrame';
 interface CardProps {
   name: String;
   score: Number;
+  guestImage?: boolean;
 }
 
-export default function Card({ name, score }: CardProps) {
+export default function Card({ name, score, guestImage }: CardProps) {
   return (
     <div className={styles.container}>
       <div className={styles.playerInformation}>
-        <AvatarFrame imgSrc="/host.png" />
+        <AvatarFrame imgSrc={guestImage ? '/guest.png' : '/host.png'} />
         <p className={styles.name}>{name}</p>
       </div>
       <div className={styles.scoreContainer}>
@@ -21,3 +22,7 @@ export default function Card({ name, score }: CardProps) {
     </div>
   );
 }
+
+Card.defaultProps = {
+  guestImage: false,
+};

@@ -7,6 +7,7 @@ import Lobby from './pages/Lobby';
 import ClientContextProvider from './context/ClientProvider';
 import GameView from './pages/GameView';
 import GameContextProvider from './context/GameContextProvider';
+import Scoreboard from './pages/Scoreboard';
 
 function App() {
   return (
@@ -48,6 +49,17 @@ function App() {
               <ClientContextProvider>
                 <GameContextProvider>
                   <GameView />
+                </GameContextProvider>
+              </ClientContextProvider>
+            }
+          />
+
+          <Route
+            path="score"
+            element={
+              <ClientContextProvider>
+                <GameContextProvider>
+                  <Scoreboard />
                 </GameContextProvider>
               </ClientContextProvider>
             }

@@ -38,6 +38,10 @@ export default function GameView() {
     } else {
       gameStart(client as Socket);
     }
+
+    client?.once('game:finished', () => {
+      navigate('/score', { state: true });
+    });
   }, []);
 
   return (
