@@ -14,7 +14,7 @@ export const createGameCode = (
   GlobalGameState.set(code, {
     roomCreator: undefined, wordList: undefined, startingLives: undefined, inProgress: false,
   });
-  res.json();
+  res.json(Number(code));
 };
 
 /**

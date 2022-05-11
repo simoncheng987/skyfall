@@ -1,0 +1,11 @@
+{
+    "name": "skyfall",
+    "version": "0.1.0",
+    "scripts": {
+        "build": "rm -r build; cd backend; npm install; cd ../frontend; npm i; npm run build; cp -r build ../.",
+        "postinstall": "cd backend; npm install --dev; npm run tsc"
+    },
+    "devDependencies": {
+        "typescript": "^4.6.2"
+    }
+}

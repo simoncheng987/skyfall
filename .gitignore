@@ -1,1 +1,4 @@
 .idea/
+build/
+.env
+node_modules
