@@ -28,6 +28,7 @@ interface ServerToClientEvents {
  * })
  */
 interface ClientToServerEvents {
+  'game:my-result': (name: string, win: boolean, score: number) => void;
   'room:join': (roomNumber: string, playerName: string) => void;
   'game:start': (startingLives: number, listName: string) => void;
   'word:typed': (wordId: string, success: boolean) => void;

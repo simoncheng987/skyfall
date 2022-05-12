@@ -6,5 +6,6 @@ const routes = Router();
 
 routes.use('/game', game);
 routes.use('/wordList', wordList);
+routes.use('/player', wordList);
 
 export default routes;
