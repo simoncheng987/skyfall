@@ -41,10 +41,9 @@ const gameStart = (io: ServerType, socket: SocketType) => {
       return;
     }
 
-    const wordList = await getWordList(listName);
+    const wordList = await getWordList('default');
     wordList.sort((a, b) => a.length - b.length);
     gameState.wordList = wordList;
-
     gameState.startingLives = startingLives;
     socketsInRoom.forEach((s) => {
       s.data.lives = gameState.startingLives;

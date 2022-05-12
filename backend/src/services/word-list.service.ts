@@ -8,9 +8,9 @@ export const checkWordListExists = async (listName: string): Promise<boolean> =>
 export const getAllWordLists = async () => WordList.find();
 
 export const getWordList = async (listName: string): Promise<string[]> => {
-  const wordListDocument = await WordList.findOne({ listName });
-  if (wordListDocument) {
-    return (wordListDocument as WordListI).wordList;
+  if (!await checkWordListExists(listName)) {
+    listName = 'default';
   }
-  return [];
+  const wordListDocument = await WordList.findOne({ listName });
+  return (wordListDocument as WordListI).wordList || ['list not available'];
 };
