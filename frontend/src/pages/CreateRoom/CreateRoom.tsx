@@ -72,14 +72,24 @@ export default function CreateRoom() {
 
   return (
     <PageScaffold>
-      <ArrowSmLeftIcon className={styles.backButton} onClick={() => navigate('/')} />
+      <ArrowSmLeftIcon
+        aria-label="back-button"
+        className={styles.backButton}
+        onClick={() => navigate('/')}
+      />
       <Title className={styles.title} fontSize="110px" text="Create Room" colorScheme="pink" />
       <TextField
         className={styles.textField}
         placeholder="Your Name"
         onChange={(e) => setPlayerName(e.target.value)}
+        ariaLabel="name-field"
       />
-      <Button className={styles.button} text="Enter" onClick={() => createRoom()} />
+      <Button
+        className={styles.button}
+        text="Enter"
+        onClick={() => createRoom()}
+        ariaLabel="enter-button"
+      />
       {error && <ErrorToast className={styles.toast} text={errorMessage} />}
     </PageScaffold>
   );

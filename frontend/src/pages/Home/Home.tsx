@@ -17,8 +17,14 @@ export default function Home() {
           className={styles.button}
           buttonStyle="secondary"
           onClick={() => navigate('create')}
+          ariaLabel="create-room-button"
         />
-        <Button text="Join Room" className={styles.button} onClick={() => navigate('join')} />
+        <Button
+          text="Join Room"
+          className={styles.button}
+          onClick={() => navigate('join')}
+          ariaLabel="join-room-button"
+        />
       </div>
     </PageScaffold>
   );

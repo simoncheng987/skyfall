@@ -1,69 +1,59 @@
+/* eslint-disable testing-library/render-result-naming-convention */
+
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import renderer from 'react-test-renderer';
-import { MemoryRouter } from 'react-router-dom';
-import useWindowSize from '../../../utils/useWindowSize';
+import { Router } from 'react-router-dom';
+import { MemoryHistory, createMemoryHistory } from 'history';
 import Home from '../Home';
+import { mockLargeWindowSize, mockSmallWindowSize } from '../../../utils/useWindowSizeMocks';
 
 jest.mock('../../../utils/useWindowSize');
-const mockUseWindowSize = useWindowSize as jest.MockedFunction<typeof useWindowSize>;
 
-const createRoomText = 'Create Room';
-const joinRoomText = 'Join Room';
+function componentWithRouterFactory(memoryHistory: MemoryHistory) {
+  return (
+    <Router location={memoryHistory.location} navigator={memoryHistory}>
+      <Home />
+    </Router>
+  );
+}
 
-describe('Default test', () => {
-  it('home page', () => {
-    mockUseWindowSize.mockReturnValue({
-      width: 1920,
-      height: 1080,
-    });
+function renderComponentWithRouter() {
+  const memoryHistory = createMemoryHistory({ initialEntries: ['/'] });
+  render(componentWithRouterFactory(memoryHistory));
+  return memoryHistory;
+}
 
-    render(<Home />, { wrapper: MemoryRouter });
+const SMALL_SCREEN_ERROR =
+  /Oh no! Ensure that your monitor size is at least 1280 x 720, and display ratio is greater than 16:10/i;
 
+describe('Home', () => {
+  test('all component are rendered to the screen', () => {
+    mockLargeWindowSize();
+    renderComponentWithRouter();
     expect(screen.getByText('Skyfall')).toBeInTheDocument();
-    expect(screen.getByText(createRoomText)).toBeInTheDocument();
-    expect(screen.getByText(joinRoomText)).toBeInTheDocument();
+    expect(screen.getByLabelText('create-room-button')).toBeInTheDocument();
+    expect(screen.getByLabelText('join-room-button')).toBeInTheDocument();
   });
 
-  it('matches snapshot with home page', () => {
-    mockUseWindowSize.mockReturnValue({
-      width: 1920,
-      height: 1080,
-    });
-
-    const tree = renderer
-      .create(
-        <MemoryRouter initialEntries={[{ pathname: '/', key: 'testKey' }]}>
-          <Home />
-        </MemoryRouter>,
-      )
-      .toTree();
-    expect(tree).toMatchSnapshot();
+  test('integration test: PageScaffold error is rendered in small screens', () => {
+    mockSmallWindowSize();
+    renderComponentWithRouter();
+    expect(screen.getByText(SMALL_SCREEN_ERROR)).toBeInTheDocument();
   });
 
-  it('routing from home page to create room page', () => {
-    mockUseWindowSize.mockReturnValue({
-      width: 1920,
-      height: 1080,
-    });
-
-    render(<Home />, { wrapper: MemoryRouter });
-
-    fireEvent.click(screen.getByText(createRoomText));
-
-    expect(screen.getByText(createRoomText)).toBeInTheDocument();
+  it('routing from Home to CreateRoom page', () => {
+    mockLargeWindowSize();
+    const history = renderComponentWithRouter();
+    const createRoomButton = screen.getByLabelText('create-room-button');
+    fireEvent.click(createRoomButton);
+    expect(history.location.pathname).toEqual('/create');
   });
 
-  it('routing from home page to join room page', () => {
-    mockUseWindowSize.mockReturnValue({
-      width: 1920,
-      height: 1080,
-    });
-
-    render(<Home />, { wrapper: MemoryRouter });
-
-    fireEvent.click(screen.getByText(joinRoomText));
-
-    expect(screen.getByText(joinRoomText)).toBeInTheDocument();
+  it('routing from Home to JoinRoom page', () => {
+    mockLargeWindowSize();
+    const history = renderComponentWithRouter();
+    const joinRoomButton = screen.getByLabelText('join-room-button');
+    fireEvent.click(joinRoomButton);
+    expect(history.location.pathname).toEqual('/join');
   });
 });

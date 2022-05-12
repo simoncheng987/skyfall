@@ -1,0 +1,469 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OpponentPlayerView snapshot test 1`] = `
+Object {
+  "instance": null,
+  "nodeType": "component",
+  "props": Object {
+    "className": "",
+    "playerName": "player-name",
+    "remainingLives": 3,
+    "totalLives": 5,
+    "words": Array [
+      Object {
+        "time": 0,
+        "word": "WordOne",
+        "wordId": "1",
+        "xPercentage": 10,
+        "yPercentage": 50,
+      },
+      Object {
+        "time": 0,
+        "word": "WordTwo",
+        "wordId": "2",
+        "xPercentage": 70,
+        "yPercentage": 100,
+      },
+    ],
+  },
+  "rendered": Object {
+    "instance": null,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <WordCanvasHeader
+          className=""
+          color="green"
+          shadowColor="blue"
+          title="player-name"
+        >
+          <Hearts
+            className=""
+            remainingHearts={3}
+            totalHearts={5}
+          />
+        </WordCanvasHeader>,
+        <WordCanvas
+          className="canvas"
+          wordSize="SMALL"
+          words={
+            Array [
+              Object {
+                "time": 0,
+                "word": "WordOne",
+                "wordId": "1",
+                "xPercentage": 10,
+                "yPercentage": 50,
+              },
+              Object {
+                "time": 0,
+                "word": "WordTwo",
+                "wordId": "2",
+                "xPercentage": 70,
+                "yPercentage": 100,
+              },
+            ]
+          }
+        />,
+        <img
+          alt="grass"
+          className="grass"
+          src="assets/grass.png"
+        />,
+      ],
+      "className": " container",
+    },
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "nodeType": "component",
+        "props": Object {
+          "children": <Hearts
+            className=""
+            remainingHearts={3}
+            totalHearts={5}
+          />,
+          "className": "",
+          "color": "green",
+          "shadowColor": "blue",
+          "title": "player-name",
+        },
+        "rendered": Object {
+          "instance": null,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <span
+                className="title"
+              >
+                player-name
+              </span>,
+              <Hearts
+                className=""
+                remainingHearts={3}
+                totalHearts={5}
+              />,
+            ],
+            "className": " green blueShadow header",
+          },
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "nodeType": "host",
+              "props": Object {
+                "children": "player-name",
+                "className": "title",
+              },
+              "rendered": Array [
+                "player-name",
+              ],
+              "type": "span",
+            },
+            Object {
+              "instance": null,
+              "nodeType": "component",
+              "props": Object {
+                "className": "",
+                "remainingHearts": 3,
+                "totalHearts": 5,
+              },
+              "rendered": Object {
+                "instance": null,
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    Array [
+                      <ForwardRef(HeartIcon)
+                        className="heart inactive"
+                      />,
+                      <ForwardRef(HeartIcon)
+                        className="heart inactive"
+                      />,
+                    ],
+                    Array [
+                      <ForwardRef(HeartIcon)
+                        className="heart active"
+                      />,
+                      <ForwardRef(HeartIcon)
+                        className="heart active"
+                      />,
+                      <ForwardRef(HeartIcon)
+                        className="heart active"
+                      />,
+                    ],
+                  ],
+                  "className": "heartContainer ",
+                },
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "nodeType": "host",
+                    "props": Object {
+                      "aria-hidden": "true",
+                      "children": <path
+                        clipRule="evenodd"
+                        d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                        fillRule="evenodd"
+                      />,
+                      "className": "heart inactive",
+                      "fill": "currentColor",
+                      "viewBox": "0 0 20 20",
+                      "xmlns": "http://www.w3.org/2000/svg",
+                    },
+                    "rendered": Array [
+                      Object {
+                        "instance": null,
+                        "nodeType": "host",
+                        "props": Object {
+                          "clipRule": "evenodd",
+                          "d": "M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z",
+                          "fillRule": "evenodd",
+                        },
+                        "rendered": Array [],
+                        "type": "path",
+                      },
+                    ],
+                    "type": "svg",
+                  },
+                  Object {
+                    "instance": null,
+                    "nodeType": "host",
+                    "props": Object {
+                      "aria-hidden": "true",
+                      "children": <path
+                        clipRule="evenodd"
+                        d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                        fillRule="evenodd"
+                      />,
+                      "className": "heart inactive",
+                      "fill": "currentColor",
+                      "viewBox": "0 0 20 20",
+                      "xmlns": "http://www.w3.org/2000/svg",
+                    },
+                    "rendered": Array [
+                      Object {
+                        "instance": null,
+                        "nodeType": "host",
+                        "props": Object {
+                          "clipRule": "evenodd",
+                          "d": "M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z",
+                          "fillRule": "evenodd",
+                        },
+                        "rendered": Array [],
+                        "type": "path",
+                      },
+                    ],
+                    "type": "svg",
+                  },
+                  Object {
+                    "instance": null,
+                    "nodeType": "host",
+                    "props": Object {
+                      "aria-hidden": "true",
+                      "children": <path
+                        clipRule="evenodd"
+                        d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                        fillRule="evenodd"
+                      />,
+                      "className": "heart active",
+                      "fill": "currentColor",
+                      "viewBox": "0 0 20 20",
+                      "xmlns": "http://www.w3.org/2000/svg",
+                    },
+                    "rendered": Array [
+                      Object {
+                        "instance": null,
+                        "nodeType": "host",
+                        "props": Object {
+                          "clipRule": "evenodd",
+                          "d": "M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z",
+                          "fillRule": "evenodd",
+                        },
+                        "rendered": Array [],
+                        "type": "path",
+                      },
+                    ],
+                    "type": "svg",
+                  },
+                  Object {
+                    "instance": null,
+                    "nodeType": "host",
+                    "props": Object {
+                      "aria-hidden": "true",
+                      "children": <path
+                        clipRule="evenodd"
+                        d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                        fillRule="evenodd"
+                      />,
+                      "className": "heart active",
+                      "fill": "currentColor",
+                      "viewBox": "0 0 20 20",
+                      "xmlns": "http://www.w3.org/2000/svg",
+                    },
+                    "rendered": Array [
+                      Object {
+                        "instance": null,
+                        "nodeType": "host",
+                        "props": Object {
+                          "clipRule": "evenodd",
+                          "d": "M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z",
+                          "fillRule": "evenodd",
+                        },
+                        "rendered": Array [],
+                        "type": "path",
+                      },
+                    ],
+                    "type": "svg",
+                  },
+                  Object {
+                    "instance": null,
+                    "nodeType": "host",
+                    "props": Object {
+                      "aria-hidden": "true",
+                      "children": <path
+                        clipRule="evenodd"
+                        d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                        fillRule="evenodd"
+                      />,
+                      "className": "heart active",
+                      "fill": "currentColor",
+                      "viewBox": "0 0 20 20",
+                      "xmlns": "http://www.w3.org/2000/svg",
+                    },
+                    "rendered": Array [
+                      Object {
+                        "instance": null,
+                        "nodeType": "host",
+                        "props": Object {
+                          "clipRule": "evenodd",
+                          "d": "M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z",
+                          "fillRule": "evenodd",
+                        },
+                        "rendered": Array [],
+                        "type": "path",
+                      },
+                    ],
+                    "type": "svg",
+                  },
+                ],
+                "type": "div",
+              },
+              "type": [Function],
+            },
+          ],
+          "type": "div",
+        },
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "nodeType": "component",
+        "props": Object {
+          "className": "canvas",
+          "wordSize": "SMALL",
+          "words": Array [
+            Object {
+              "time": 0,
+              "word": "WordOne",
+              "wordId": "1",
+              "xPercentage": 10,
+              "yPercentage": 50,
+            },
+            Object {
+              "time": 0,
+              "word": "WordTwo",
+              "wordId": "2",
+              "xPercentage": 70,
+              "yPercentage": 100,
+            },
+          ],
+        },
+        "rendered": Object {
+          "instance": null,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <WordCloud
+                className=""
+                size="SMALL"
+                style={
+                  Object {
+                    "left": "10%",
+                    "position": "absolute",
+                    "top": "50%",
+                    "transform": "translateY(-80%)",
+                  }
+                }
+                word="WordOne"
+              />,
+              <WordCloud
+                className=""
+                size="SMALL"
+                style={
+                  Object {
+                    "left": "70%",
+                    "position": "absolute",
+                    "top": "100%",
+                    "transform": "translate(-100%, -80%)",
+                  }
+                }
+                word="WordTwo"
+              />,
+            ],
+            "className": "canvas container",
+          },
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "nodeType": "component",
+              "props": Object {
+                "className": "",
+                "size": "SMALL",
+                "style": Object {
+                  "left": "10%",
+                  "position": "absolute",
+                  "top": "50%",
+                  "transform": "translateY(-80%)",
+                },
+                "word": "WordOne",
+              },
+              "rendered": Object {
+                "instance": null,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "WordOne",
+                  "className": "cloud ",
+                  "style": Object {
+                    "fontSize": "11px",
+                    "left": "10%",
+                    "padding": "20px 14px",
+                    "position": "absolute",
+                    "top": "50%",
+                    "transform": "translateY(-80%)",
+                  },
+                },
+                "rendered": Array [
+                  "WordOne",
+                ],
+                "type": "div",
+              },
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "nodeType": "component",
+              "props": Object {
+                "className": "",
+                "size": "SMALL",
+                "style": Object {
+                  "left": "70%",
+                  "position": "absolute",
+                  "top": "100%",
+                  "transform": "translate(-100%, -80%)",
+                },
+                "word": "WordTwo",
+              },
+              "rendered": Object {
+                "instance": null,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "WordTwo",
+                  "className": "cloud ",
+                  "style": Object {
+                    "fontSize": "11px",
+                    "left": "70%",
+                    "padding": "20px 14px",
+                    "position": "absolute",
+                    "top": "100%",
+                    "transform": "translate(-100%, -80%)",
+                  },
+                },
+                "rendered": Array [
+                  "WordTwo",
+                ],
+                "type": "div",
+              },
+              "type": [Function],
+            },
+          ],
+          "type": "div",
+        },
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "nodeType": "host",
+        "props": Object {
+          "alt": "grass",
+          "className": "grass",
+          "src": "assets/grass.png",
+        },
+        "rendered": Array [],
+        "type": "img",
+      },
+    ],
+    "type": "div",
+  },
+  "type": [Function],
+}
+`;

@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Avatar frame matches snapshot with className prop 1`] = `
+Object {
+  "instance": null,
+  "nodeType": "component",
+  "props": Object {
+    "className": "testClassName",
+    "imgSrc": "",
+  },
+  "rendered": Object {
+    "instance": null,
+    "nodeType": "host",
+    "props": Object {
+      "children": "",
+      "className": "testClassName frame",
+    },
+    "rendered": Array [
+      "",
+    ],
+    "type": "div",
+  },
+  "type": [Function],
+}
+`;
+
+exports[`Avatar frame matches snapshot with className prop 2`] = `
+Object {
+  "instance": null,
+  "nodeType": "component",
+  "props": Object {
+    "className": "",
+    "imgSrc": "host.png",
+  },
+  "rendered": Object {
+    "instance": null,
+    "nodeType": "host",
+    "props": Object {
+      "children": <img
+        alt="player"
+        className="image"
+        src="host.png"
+      />,
+      "className": " frame",
+    },
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "nodeType": "host",
+        "props": Object {
+          "alt": "player",
+          "className": "image",
+          "src": "host.png",
+        },
+        "rendered": Array [],
+        "type": "img",
+      },
+    ],
+    "type": "div",
+  },
+  "type": [Function],
+}
+`;
+
+exports[`Avatar frame matches snapshot with no prop 1`] = `
+Object {
+  "instance": null,
+  "nodeType": "component",
+  "props": Object {
+    "className": "",
+    "imgSrc": "",
+  },
+  "rendered": Object {
+    "instance": null,
+    "nodeType": "host",
+    "props": Object {
+      "children": "",
+      "className": " frame",
+    },
+    "rendered": Array [
+      "",
+    ],
+    "type": "div",
+  },
+  "type": [Function],
+}
+`;

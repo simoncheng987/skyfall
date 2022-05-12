@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Word Canvas Header matches snapshot with className prop 1`] = `
+Object {
+  "instance": null,
+  "nodeType": "component",
+  "props": Object {
+    "children": "testChildren",
+    "className": "testClassName",
+    "color": "green",
+    "shadowColor": "blue",
+    "title": "testTitle",
+  },
+  "rendered": Object {
+    "instance": null,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <span
+          className="title"
+        >
+          testTitle
+        </span>,
+        "testChildren",
+      ],
+      "className": "testClassName green blueShadow header",
+    },
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "nodeType": "host",
+        "props": Object {
+          "children": "testTitle",
+          "className": "title",
+        },
+        "rendered": Array [
+          "testTitle",
+        ],
+        "type": "span",
+      },
+      "testChildren",
+    ],
+    "type": "div",
+  },
+  "type": [Function],
+}
+`;
+
+exports[`Word Canvas Header matches snapshot with no className prop 1`] = `
+Object {
+  "instance": null,
+  "nodeType": "component",
+  "props": Object {
+    "children": "testChildren",
+    "className": "",
+    "color": "green",
+    "shadowColor": "blue",
+    "title": "testTitle",
+  },
+  "rendered": Object {
+    "instance": null,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <span
+          className="title"
+        >
+          testTitle
+        </span>,
+        "testChildren",
+      ],
+      "className": " green blueShadow header",
+    },
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "nodeType": "host",
+        "props": Object {
+          "children": "testTitle",
+          "className": "title",
+        },
+        "rendered": Array [
+          "testTitle",
+        ],
+        "type": "span",
+      },
+      "testChildren",
+    ],
+    "type": "div",
+  },
+  "type": [Function],
+}
+`;
