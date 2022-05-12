@@ -43,7 +43,7 @@ const gameStart = (io: ServerType, socket: SocketType) => {
       return;
     }
 
-    const wordList = await getWordList('default');
+    const wordList = await getWordList(listName);
     wordList.sort((a, b) => a.length - b.length);
     gameState.wordList = wordList;
     gameState.startingLives = startingLives;
@@ -55,7 +55,7 @@ const gameStart = (io: ServerType, socket: SocketType) => {
 
     io.to(roomCode).emit('game:start-success', startingLives, listName);
     setTimeout(() => {
-      sendWord(io, roomCode, 5000);
+      sendWord(io, roomCode, 15000);
     }, 1000);
   });
 };
@@ -79,7 +79,7 @@ const sendWord = async (io: ServerType, roomCode: string, timeToAnswer: number) 
     } else if (GlobalGameState.delete(roomCode)) {
       io.to(roomCode).emit('game:finished');
     }
-  }, 2000);
+  }, 4000);
 };
 
 const gameHandleIndividualResult = (io: ServerType, socket: SocketType) => {

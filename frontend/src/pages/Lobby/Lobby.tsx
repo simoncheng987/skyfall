@@ -17,6 +17,9 @@ export default function Lobby() {
 
   const WAITING_PLAYER = 'Waiting for player...';
   const MAX_PLAYER = 2;
+  const STARTING_LIVES = 3;
+  const WORD_LIST_NAME = 'default';
+
   const imageUrls = ['host.png', 'guest.png'];
 
   const { client, setOpponent, isHost } = useClient();
@@ -36,7 +39,7 @@ export default function Lobby() {
     };
   }, [error]);
 
-  const startGame = () => client?.emit('game:start');
+  const startGame = () => client?.emit('game:start', STARTING_LIVES, WORD_LIST_NAME);
 
   client?.on('broadcast:player-joined', (mapStr) => {
     const map = JSON.parse(mapStr);
