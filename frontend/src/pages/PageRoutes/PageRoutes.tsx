@@ -7,6 +7,7 @@ import Lobby from '../Lobby';
 import GameContextProvider from '../../context/GameContextProvider';
 import GameView from '../GameView';
 import Scoreboard from '../Scoreboard';
+import Leaderboard from '../Leaderboard';
 
 export default function PageRoutes() {
   return (
@@ -16,6 +17,7 @@ export default function PageRoutes() {
         <Route path="join" element={<JoinRoom />} />
         <Route path="create" element={<CreateRoom />} />
         <Route path="lobby" element={<Lobby />} />
+        <Route path="leaderboard" element={<Leaderboard />} />
         <Route
           path="game"
           element={
