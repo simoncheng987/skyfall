@@ -24,6 +24,12 @@
   position: absolute;
   top: 60px;
   right: 60px;
+  transition: 0.2s all ease-in-out;
+  cursor: pointer;
+}
+
+.leaderboard:hover {
+  opacity: 0.5;
 }
 
 .container {

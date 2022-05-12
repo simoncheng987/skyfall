@@ -22,14 +22,3 @@
   bottom: 5%;
   transform: translateX(-50%);
 }
-
-.backButton {
-  position: absolute;
-  width: 50px;
-  top: 60px;
-  left: 60px;
-}
-
-.backButton:hover {
-  opacity: 0.5;
-}

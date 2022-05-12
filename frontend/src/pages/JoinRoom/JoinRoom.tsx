@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
-import { ArrowSmLeftIcon } from '@heroicons/react/solid';
 import PageScaffold from '../PageScaffold';
 import Title from '../../components/Title';
 import TextField from '../../components/TextField';
@@ -9,6 +8,7 @@ import Button from '../../components/Button';
 import styles from './JoinRoom.module.css';
 import ErrorToast from '../../components/ErrorToast';
 import { useClient } from '../../context/ClientProvider';
+import BackButton from '../../components/BackButton';
 
 export default function JoinRoom() {
   const ERROR_REQUIRED_FIELDS = 'Please complete both fields';
@@ -60,7 +60,7 @@ export default function JoinRoom() {
 
   return (
     <PageScaffold>
-      <ArrowSmLeftIcon className={styles.backButton} onClick={() => navigate('/')} />
+      <BackButton />
       <Title className={styles.title} fontSize="110px" text="Join Room" colorScheme="brown" />
       <div className={styles.buttonsContainer}>
         <TextField

@@ -26,8 +26,19 @@ export default function Home() {
           onClick={() => navigate('join')}
           ariaLabel="join-room-button"
         />
+        <Button
+          text="Upload Words"
+          className={styles.button}
+          buttonStyle="grey"
+          onClick={() => navigate('upload-words')}
+          ariaLabel="upload-words-button"
+        />
       </div>
-      <ChartBarIcon className={styles.leaderboard} onClick={() => navigate('leaderboard')} />
+      <ChartBarIcon
+        aria-label="leaderboard-icon"
+        className={styles.leaderboard}
+        onClick={() => navigate('leaderboard')}
+      />
     </PageScaffold>
   );
 }

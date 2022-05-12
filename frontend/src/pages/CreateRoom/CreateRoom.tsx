@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
-import { ArrowSmLeftIcon } from '@heroicons/react/solid';
 import PageScaffold from '../PageScaffold';
 import Title from '../../components/Title';
 import TextField from '../../components/TextField';
@@ -9,6 +8,7 @@ import Button from '../../components/Button';
 import styles from './CreateRoom.module.css';
 import ErrorToast from '../../components/ErrorToast';
 import { useClient } from '../../context/ClientProvider';
+import BackButton from '../../components/BackButton';
 
 export default function CreateRoom() {
   const ERROR_INVALID_NAME = 'Please input your name.';
@@ -72,11 +72,7 @@ export default function CreateRoom() {
 
   return (
     <PageScaffold>
-      <ArrowSmLeftIcon
-        aria-label="back-button"
-        className={styles.backButton}
-        onClick={() => navigate('/')}
-      />
+      <BackButton />
       <Title className={styles.title} fontSize="110px" text="Create Room" colorScheme="pink" />
       <TextField
         className={styles.textField}

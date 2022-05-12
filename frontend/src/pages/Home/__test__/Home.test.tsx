@@ -33,6 +33,8 @@ describe('Home', () => {
     expect(screen.getByText('Skyfall')).toBeInTheDocument();
     expect(screen.getByLabelText('create-room-button')).toBeInTheDocument();
     expect(screen.getByLabelText('join-room-button')).toBeInTheDocument();
+    expect(screen.getByLabelText('upload-words-button')).toBeInTheDocument();
+    expect(screen.getByLabelText('leaderboard-icon')).toBeInTheDocument();
   });
 
   test('integration test: PageScaffold error is rendered in small screens', () => {
@@ -55,5 +57,13 @@ describe('Home', () => {
     const joinRoomButton = screen.getByLabelText('join-room-button');
     fireEvent.click(joinRoomButton);
     expect(history.location.pathname).toEqual('/join');
+  });
+
+  it('routing from Home to UploadWords page', () => {
+    mockLargeWindowSize();
+    const history = renderComponentWithRouter();
+    const uploadWordsButton = screen.getByLabelText('upload-words-button');
+    fireEvent.click(uploadWordsButton);
+    expect(history.location.pathname).toEqual('/upload-words');
   });
 });

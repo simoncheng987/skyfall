@@ -25,6 +25,11 @@
   box-shadow: 0 3px 0 0 #600768, 0 4px 0 0 #1c1c1c, 0 4px 5px 0 #1c1c1c;
 }
 
+.grey {
+  background: #bdbdbd;
+  box-shadow: 0 4px 0 0 #5b5b5b, 0 5px 0 0 #1c1c1c, 0 6px 6px 0 #1c1c1c;
+}
+
 .button {
   cursor: pointer;
   min-width: 200px;

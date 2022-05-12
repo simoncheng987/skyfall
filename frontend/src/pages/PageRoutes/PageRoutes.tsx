@@ -7,6 +7,7 @@ import Lobby from '../Lobby';
 import GameContextProvider from '../../context/GameContextProvider';
 import GameView from '../GameView';
 import Scoreboard from '../Scoreboard';
+import UploadWords from '../UploadWords';
 import Leaderboard from '../Leaderboard';
 
 export default function PageRoutes() {
@@ -17,6 +18,7 @@ export default function PageRoutes() {
         <Route path="join" element={<JoinRoom />} />
         <Route path="create" element={<CreateRoom />} />
         <Route path="lobby" element={<Lobby />} />
+        <Route path="upload-words" element={<UploadWords />} />
         <Route path="leaderboard" element={<Leaderboard />} />
         <Route
           path="game"
