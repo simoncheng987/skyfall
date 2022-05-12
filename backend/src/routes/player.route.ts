@@ -3,6 +3,6 @@ import { getTopPlayers } from '../controllers/players.controller';
 
 const routes = Router();
 
-routes.post('/', getTopPlayers);
+routes.get('/', getTopPlayers);
 
 export default routes;
