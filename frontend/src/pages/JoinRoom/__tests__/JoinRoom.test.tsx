@@ -4,7 +4,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { ClientContext, ClientProviderProps } from '../../../context/ClientProvider';
 import JoinRoom from '../index';
-import useWindowSize from '../../../utils/useWindowSize';
+import { mockLargeWindowSize } from '../../../utils/useWindowSizeMocks';
 
 if (!global.setImmediate) {
   // @ts-ignore
@@ -12,22 +12,14 @@ if (!global.setImmediate) {
 }
 
 jest.mock('../../../utils/useWindowSize');
-const mockUseWindowSize = useWindowSize as jest.MockedFunction<typeof useWindowSize>;
 
 let mockedContext: DeepMockProxy<ClientProviderProps>;
 beforeEach(() => {
   mockedContext = mockDeep<ClientProviderProps>();
 });
 
-function mockLargeScreen() {
-  mockUseWindowSize.mockReturnValue({
-    width: 1920,
-    height: 1080,
-  });
-}
-
 function renderPage() {
-  mockLargeScreen();
+  mockLargeWindowSize();
 
   render(
     <MemoryRouter initialEntries={['/join']}>

@@ -1,9 +1,12 @@
 import React from 'react';
 import styles from './Button.module.css';
 
-// Primary (defaut) color is brown.
-// Secondary color is pink.
-type ButtonStyles = 'primary' | 'secondary';
+/*
+  Primary (default) color is brown.
+  Secondary color is pink.
+  Last is a muted button with grey color.
+ */
+type ButtonStyles = 'primary' | 'secondary' | 'grey';
 
 interface ButtonProps {
   text: string;

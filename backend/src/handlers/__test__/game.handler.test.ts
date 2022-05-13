@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { PlayerI } from '../../models/player.model';
 import databaseOperations from '../../utils/memory-database';
 import { SkyfallServer } from '../../index';
 import { createClients, defaultWordList, TIMEOUT } from './util';
@@ -157,6 +158,74 @@ describe('Client game:start', () => {
     setTimeout(() => {
       expect(finishedMock).toHaveBeenCalledTimes(2);
       done();
+    }, TIMEOUT);
+  });
+});
+
+describe('Send game result', () => {
+  let server: SkyfallServer;
+  let clients: any[];
+
+  const hajinPlayer: PlayerI[] = [{
+    name: 'hajin', score: 10, win: 2, lose: 1,
+  }];
+
+  beforeAll(async () => {
+    await databaseOperations.connectDatabase();
+    server = new SkyfallServer();
+    const coll = mongoose.connection.db.collection('players');
+    await coll.insertMany(hajinPlayer);
+  });
+
+  beforeEach(async () => {
+    server.reset();
+  });
+
+  afterEach(() => {
+    clients?.forEach((client) => client.close());
+  });
+
+  afterAll(async () => {
+    await databaseOperations.closeDatabase();
+    if (server) {
+      await server.stop();
+    }
+  });
+
+  it('Server should automatically create a Player if player does not exist', (done) => {
+    clients = createClients(1);
+
+    clients[0].emit('game:my-result', 'jaemin', true, 1000);
+    setTimeout(() => {
+      const coll = mongoose.connection.db.collection('players');
+      coll.findOne({ name: 'jaemin' })
+        .then((doc) => {
+          expect(doc?.name).toBe('jaemin');
+          expect(doc?.score).toBe(1000);
+          expect(doc?.win).toBe(1);
+          expect(doc?.lose).toBe(0);
+          done();
+        });
+    }, TIMEOUT);
+  });
+
+  it('Server should update a player with new result', (done) => {
+    clients = createClients(1);
+
+    const playerName = hajinPlayer[0].name;
+    const newScore = hajinPlayer[0].score + 200;
+    const newWin = hajinPlayer[0].win;
+    const newLose = hajinPlayer[0].lose + 1;
+    clients[0].emit('game:my-result', playerName, false, newScore);
+    setTimeout(() => {
+      const coll = mongoose.connection.db.collection('players');
+      coll.findOne({ name: playerName })
+        .then((doc) => {
+          expect(doc?.name).toBe(playerName);
+          expect(doc?.score).toBe(newScore);
+          expect(doc?.win).toBe(newWin);
+          done();
+        });
     }, TIMEOUT);
   });
 });

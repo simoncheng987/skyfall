@@ -45,11 +45,11 @@ export default function GameStatistics({ data, className }: GameStatisticsProps)
         </div>
         <div className={styles.row}>
           <h1 className={styles.title}>YOUR SCORE</h1>
-          <h1 className={styles.value}>{data.yourScore} words</h1>
+          <h1 className={styles.value}>{data.yourScore}</h1>
         </div>
         <div className={styles.row}>
           <h1 className={styles.title}>OPPONENT’S SCORE</h1>
-          <h1 className={styles.value}>{data.opponentScore} words</h1>
+          <h1 className={styles.value}>{data.opponentScore}</h1>
         </div>
       </div>
     </div>

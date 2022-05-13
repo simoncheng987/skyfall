@@ -26,6 +26,8 @@ export default function GameView() {
     gameStart,
     playerLives,
     opponentLives,
+    configureInitialLives,
+    initialLives,
   } = useGameContext();
 
   const { name, opponent, client } = useClient();
@@ -36,6 +38,7 @@ export default function GameView() {
     if (!state) {
       navigate('/create');
     } else {
+      configureInitialLives(state as number);
       gameStart(client as Socket);
     }
 
@@ -52,13 +55,13 @@ export default function GameView() {
           onWordSubmit={(e) => onWordSubmitHandler(e, client as Socket)}
           remainingLives={playerLives}
           words={playerWordList}
-          totalLives={3}
+          totalLives={initialLives}
           className={styles.currentPlayerView}
         />
         <OpponentPlayerView
           words={opponentWordList}
           remainingLives={opponentLives}
-          totalLives={3}
+          totalLives={initialLives}
           playerName={opponent || ''}
           className={styles.opponentView}
         />

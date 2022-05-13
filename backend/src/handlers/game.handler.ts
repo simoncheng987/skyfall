@@ -1,3 +1,5 @@
+import { PlayerI } from '../models/player.model';
+import { editPlayer, getPlayerAndCreateIfNotPresent } from '../services/player.service';
 import { GlobalGameState } from '../state';
 import { getWordList } from '../services/word-list.service';
 import { MAX_PLAYERS } from '../utils/constants';
@@ -41,7 +43,7 @@ const gameStart = (io: ServerType, socket: SocketType) => {
       return;
     }
 
-    const wordList = await getWordList('default');
+    const wordList = await getWordList(listName);
     wordList.sort((a, b) => a.length - b.length);
     gameState.wordList = wordList;
     gameState.startingLives = startingLives;
@@ -53,7 +55,7 @@ const gameStart = (io: ServerType, socket: SocketType) => {
 
     io.to(roomCode).emit('game:start-success', startingLives, listName);
     setTimeout(() => {
-      sendWord(io, roomCode, 5000);
+      sendWord(io, roomCode, 15000);
     }, 1000);
   });
 };
@@ -77,12 +79,25 @@ const sendWord = async (io: ServerType, roomCode: string, timeToAnswer: number) 
     } else if (GlobalGameState.delete(roomCode)) {
       io.to(roomCode).emit('game:finished');
     }
-  }, 2000);
+  }, 4000);
 };
 
+const gameHandleIndividualResult = (io: ServerType, socket: SocketType) => {
+  socket.on('game:my-result', async (name: string, win: boolean, score: number) => {
+    const player: PlayerI = await getPlayerAndCreateIfNotPresent(name);
+    const newPlayerData = {
+      name,
+      score: Math.max(player.score, score),
+      win: win ? player.win + 1 : player.win,
+      lose: !win ? player.lose - 1 : player.lose,
+    };
+    await editPlayer(name, newPlayerData.score, newPlayerData.win, newPlayerData.lose);
+  });
+};
 export const registerGameHandler = (
   io: ServerType,
   socket: SocketType,
 ) => {
   gameStart(io, socket);
+  gameHandleIndividualResult(io, socket);
 };

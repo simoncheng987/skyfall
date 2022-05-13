@@ -35,6 +35,7 @@ export default function ClientContextProvider({ children }: ClientContextProvide
     setName('');
     setOpponent('');
     setIsHost(false);
+    setClient(undefined);
   };
 
   const value: ClientProviderProps = useMemo(

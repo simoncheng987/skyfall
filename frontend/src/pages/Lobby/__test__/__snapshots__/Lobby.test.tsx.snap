@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CreateRoom matches snapshot 1`] = `
+exports[`Lobby snapshot test 1`] = `
 Object {
   "instance": null,
   "nodeType": "component",
@@ -10,23 +10,23 @@ Object {
         Array [
           Object {
             "key": "testKey",
-            "pathname": "/create",
+            "pathname": "/",
           },
         ]
       }
     >
-      <CreateRoom />
+      <Lobby />
     </MemoryRouter>,
   },
   "rendered": Object {
     "instance": null,
     "nodeType": "component",
     "props": Object {
-      "children": <CreateRoom />,
+      "children": <Lobby />,
       "initialEntries": Array [
         Object {
           "key": "testKey",
-          "pathname": "/create",
+          "pathname": "/",
         },
       ],
     },
@@ -35,11 +35,11 @@ Object {
       "nodeType": "component",
       "props": Object {
         "basename": undefined,
-        "children": <CreateRoom />,
+        "children": <Lobby />,
         "location": Object {
           "hash": "",
           "key": "testKey",
-          "pathname": "/create",
+          "pathname": "/",
           "search": "",
           "state": null,
         },
@@ -56,7 +56,7 @@ Object {
           "location": Object {
             "hash": "",
             "key": "testKey",
-            "pathname": "/create",
+            "pathname": "/",
             "search": "",
             "state": null,
           },
@@ -72,32 +72,38 @@ Object {
           "instance": null,
           "nodeType": "component",
           "props": Object {
-            "children": Array [
-              <ForwardRef(ArrowSmLeftIcon)
-                className="backButton"
-                onClick={[Function]}
-              />,
+            "children": <div
+              className="root"
+            >
               <Title
                 className="title"
                 colorScheme="pink"
                 fontSize="110px"
-                text="Create Room"
-              />,
-              <TextField
-                ariaLabel=""
-                className="textField"
-                onChange={[Function]}
-                placeholder="Your Name"
-              />,
-              <Button
-                ariaLabel=""
-                buttonStyle="primary"
-                className="button"
-                onClick={[Function]}
-                text="Enter"
-              />,
-              false,
-            ],
+                text="Lobby"
+              />
+              <p
+                className="roomId defaultText"
+              >
+                Room ID: 
+              </p>
+              <div
+                className="playersContainer"
+              >
+                <div
+                  className="player"
+                >
+                  <AvatarFrame
+                    className=""
+                    imgSrc=""
+                  />
+                  <p
+                    className="playerName defaultText"
+                  >
+                    Waiting for player...
+                  </p>
+                </div>
+              </div>
+            </div>,
             "grassEnabled": true,
           },
           "rendered": Object {

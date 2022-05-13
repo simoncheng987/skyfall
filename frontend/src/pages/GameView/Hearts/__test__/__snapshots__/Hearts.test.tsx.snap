@@ -1,0 +1,389 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Hearts matches snapshot with className prop 1`] = `
+Object {
+  "instance": null,
+  "nodeType": "component",
+  "props": Object {
+    "className": "testClassName",
+    "remainingHearts": 3,
+    "totalHearts": 5,
+  },
+  "rendered": Object {
+    "instance": null,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        Array [
+          <ForwardRef(HeartIcon)
+            className="heart inactive"
+          />,
+          <ForwardRef(HeartIcon)
+            className="heart inactive"
+          />,
+        ],
+        Array [
+          <ForwardRef(HeartIcon)
+            className="heart active"
+          />,
+          <ForwardRef(HeartIcon)
+            className="heart active"
+          />,
+          <ForwardRef(HeartIcon)
+            className="heart active"
+          />,
+        ],
+      ],
+      "className": "heartContainer testClassName",
+    },
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "nodeType": "host",
+        "props": Object {
+          "aria-hidden": "true",
+          "children": <path
+            clipRule="evenodd"
+            d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+            fillRule="evenodd"
+          />,
+          "className": "heart inactive",
+          "fill": "currentColor",
+          "viewBox": "0 0 20 20",
+          "xmlns": "http://www.w3.org/2000/svg",
+        },
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "clipRule": "evenodd",
+              "d": "M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z",
+              "fillRule": "evenodd",
+            },
+            "rendered": Array [],
+            "type": "path",
+          },
+        ],
+        "type": "svg",
+      },
+      Object {
+        "instance": null,
+        "nodeType": "host",
+        "props": Object {
+          "aria-hidden": "true",
+          "children": <path
+            clipRule="evenodd"
+            d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+            fillRule="evenodd"
+          />,
+          "className": "heart inactive",
+          "fill": "currentColor",
+          "viewBox": "0 0 20 20",
+          "xmlns": "http://www.w3.org/2000/svg",
+        },
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "clipRule": "evenodd",
+              "d": "M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z",
+              "fillRule": "evenodd",
+            },
+            "rendered": Array [],
+            "type": "path",
+          },
+        ],
+        "type": "svg",
+      },
+      Object {
+        "instance": null,
+        "nodeType": "host",
+        "props": Object {
+          "aria-hidden": "true",
+          "children": <path
+            clipRule="evenodd"
+            d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+            fillRule="evenodd"
+          />,
+          "className": "heart active",
+          "fill": "currentColor",
+          "viewBox": "0 0 20 20",
+          "xmlns": "http://www.w3.org/2000/svg",
+        },
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "clipRule": "evenodd",
+              "d": "M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z",
+              "fillRule": "evenodd",
+            },
+            "rendered": Array [],
+            "type": "path",
+          },
+        ],
+        "type": "svg",
+      },
+      Object {
+        "instance": null,
+        "nodeType": "host",
+        "props": Object {
+          "aria-hidden": "true",
+          "children": <path
+            clipRule="evenodd"
+            d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+            fillRule="evenodd"
+          />,
+          "className": "heart active",
+          "fill": "currentColor",
+          "viewBox": "0 0 20 20",
+          "xmlns": "http://www.w3.org/2000/svg",
+        },
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "clipRule": "evenodd",
+              "d": "M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z",
+              "fillRule": "evenodd",
+            },
+            "rendered": Array [],
+            "type": "path",
+          },
+        ],
+        "type": "svg",
+      },
+      Object {
+        "instance": null,
+        "nodeType": "host",
+        "props": Object {
+          "aria-hidden": "true",
+          "children": <path
+            clipRule="evenodd"
+            d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+            fillRule="evenodd"
+          />,
+          "className": "heart active",
+          "fill": "currentColor",
+          "viewBox": "0 0 20 20",
+          "xmlns": "http://www.w3.org/2000/svg",
+        },
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "clipRule": "evenodd",
+              "d": "M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z",
+              "fillRule": "evenodd",
+            },
+            "rendered": Array [],
+            "type": "path",
+          },
+        ],
+        "type": "svg",
+      },
+    ],
+    "type": "div",
+  },
+  "type": [Function],
+}
+`;
+
+exports[`Hearts matches total hearts and remaining hearts 1`] = `
+Object {
+  "instance": null,
+  "nodeType": "component",
+  "props": Object {
+    "className": "",
+    "remainingHearts": 3,
+    "totalHearts": 5,
+  },
+  "rendered": Object {
+    "instance": null,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        Array [
+          <ForwardRef(HeartIcon)
+            className="heart inactive"
+          />,
+          <ForwardRef(HeartIcon)
+            className="heart inactive"
+          />,
+        ],
+        Array [
+          <ForwardRef(HeartIcon)
+            className="heart active"
+          />,
+          <ForwardRef(HeartIcon)
+            className="heart active"
+          />,
+          <ForwardRef(HeartIcon)
+            className="heart active"
+          />,
+        ],
+      ],
+      "className": "heartContainer ",
+    },
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "nodeType": "host",
+        "props": Object {
+          "aria-hidden": "true",
+          "children": <path
+            clipRule="evenodd"
+            d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+            fillRule="evenodd"
+          />,
+          "className": "heart inactive",
+          "fill": "currentColor",
+          "viewBox": "0 0 20 20",
+          "xmlns": "http://www.w3.org/2000/svg",
+        },
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "clipRule": "evenodd",
+              "d": "M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z",
+              "fillRule": "evenodd",
+            },
+            "rendered": Array [],
+            "type": "path",
+          },
+        ],
+        "type": "svg",
+      },
+      Object {
+        "instance": null,
+        "nodeType": "host",
+        "props": Object {
+          "aria-hidden": "true",
+          "children": <path
+            clipRule="evenodd"
+            d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+            fillRule="evenodd"
+          />,
+          "className": "heart inactive",
+          "fill": "currentColor",
+          "viewBox": "0 0 20 20",
+          "xmlns": "http://www.w3.org/2000/svg",
+        },
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "clipRule": "evenodd",
+              "d": "M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z",
+              "fillRule": "evenodd",
+            },
+            "rendered": Array [],
+            "type": "path",
+          },
+        ],
+        "type": "svg",
+      },
+      Object {
+        "instance": null,
+        "nodeType": "host",
+        "props": Object {
+          "aria-hidden": "true",
+          "children": <path
+            clipRule="evenodd"
+            d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+            fillRule="evenodd"
+          />,
+          "className": "heart active",
+          "fill": "currentColor",
+          "viewBox": "0 0 20 20",
+          "xmlns": "http://www.w3.org/2000/svg",
+        },
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "clipRule": "evenodd",
+              "d": "M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z",
+              "fillRule": "evenodd",
+            },
+            "rendered": Array [],
+            "type": "path",
+          },
+        ],
+        "type": "svg",
+      },
+      Object {
+        "instance": null,
+        "nodeType": "host",
+        "props": Object {
+          "aria-hidden": "true",
+          "children": <path
+            clipRule="evenodd"
+            d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+            fillRule="evenodd"
+          />,
+          "className": "heart active",
+          "fill": "currentColor",
+          "viewBox": "0 0 20 20",
+          "xmlns": "http://www.w3.org/2000/svg",
+        },
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "clipRule": "evenodd",
+              "d": "M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z",
+              "fillRule": "evenodd",
+            },
+            "rendered": Array [],
+            "type": "path",
+          },
+        ],
+        "type": "svg",
+      },
+      Object {
+        "instance": null,
+        "nodeType": "host",
+        "props": Object {
+          "aria-hidden": "true",
+          "children": <path
+            clipRule="evenodd"
+            d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+            fillRule="evenodd"
+          />,
+          "className": "heart active",
+          "fill": "currentColor",
+          "viewBox": "0 0 20 20",
+          "xmlns": "http://www.w3.org/2000/svg",
+        },
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "clipRule": "evenodd",
+              "d": "M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z",
+              "fillRule": "evenodd",
+            },
+            "rendered": Array [],
+            "type": "path",
+          },
+        ],
+        "type": "svg",
+      },
+    ],
+    "type": "div",
+  },
+  "type": [Function],
+}
+`;

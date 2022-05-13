@@ -19,13 +19,14 @@
   transform: translateX(-50%);
 }
 
-.backButton {
-  position: absolute;
-  width: 50px;
-  top: 60px;
-  left: 60px;
+.label {
+  color: white;
+  font-family: 'Poppins';
+  font-size: 24px;
+  text-align: center;
 }
 
-.backButton:hover {
-  opacity: 0.5;
+.spinbox {
+  margin-top: 5px;
+  margin-bottom: 20px;
 }

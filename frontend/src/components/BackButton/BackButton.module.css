@@ -1,0 +1,12 @@
+.backButton {
+  position: absolute;
+  width: 50px;
+  top: 60px;
+  left: 60px;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.backButton:hover {
+  opacity: 0.5;
+}

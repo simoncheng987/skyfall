@@ -1,0 +1,52 @@
+.leaderBoardTitle {
+  color: #ffffff;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  font-family: 'Poppins';
+  font-size: 48px;
+  padding-bottom: 3%;
+}
+
+.fixedHeader {
+  table-layout: fixed;
+  text-align: center;
+  font-family: 'Poppins', serif;
+}
+
+.fixedHeader tbody {
+  display: block;
+  width: 100%;
+  overflow: auto;
+  height: 50vh;
+  font-size: 24px;
+}
+
+/*Hide the scrollbar, might not work on safari*/
+.fixedHeader ::-webkit-scrollbar {
+  display: none;
+}
+
+.fixedHeader tr {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 1%;
+}
+
+.fixedHeader thead {
+  background: transparent;
+  font-size: 20px;
+  color: #fff;
+}
+
+.fixedHeader th,
+.fixedHeader td {
+  width: 20vw;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 133.19%;
+}
+
+.fixedHeader td {
+  background-color: #dceaff;
+  padding: 2%;
+}
