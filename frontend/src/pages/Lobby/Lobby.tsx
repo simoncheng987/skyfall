@@ -10,7 +10,8 @@ import PageScaffold from '../PageScaffold';
 import styles from './Lobby.module.css';
 
 interface LobbyRoomInfo {
-  lives: number;
+  lives?: number;
+  pickedList?: string;
   roomId: number;
 }
 
@@ -22,7 +23,6 @@ export default function Lobby() {
 
   const WAITING_PLAYER = 'Waiting for player...';
   const MAX_PLAYER = 2;
-  const WORD_LIST_NAME = 'default';
 
   const imageUrls = ['host.png', 'guest.png'];
 
@@ -44,7 +44,7 @@ export default function Lobby() {
   }, [error]);
 
   const startGame = () =>
-    client?.emit('game:start', (state as LobbyRoomInfo).lives, WORD_LIST_NAME);
+    client?.emit('game:start', (state as LobbyRoomInfo).lives, (state as LobbyRoomInfo).pickedList);
 
   client?.on('broadcast:player-joined', (mapStr) => {
     const map = JSON.parse(mapStr);
