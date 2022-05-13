@@ -37,7 +37,7 @@ export default function JoinRoom() {
     if (client) {
       client.once('room:join-success', () => {
         setName(name);
-        navigate('/lobby', { state: roomId });
+        navigate('/lobby', { state: { lives: 0, roomId } });
       });
 
       client.once('room:join-fail', (msg) => {

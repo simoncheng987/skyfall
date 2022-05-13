@@ -31,7 +31,7 @@ export default function Leaderboard() {
             <tr key={value.name}>
               <td>{value.name}</td>
               <td>{value.score}</td>
-              <td>{`${value.win} : ${value.lose}`}</td>
+              <td>{`${value.win} : ${-1 * value.lose}`}</td>
             </tr>
           ))}
         </tbody>

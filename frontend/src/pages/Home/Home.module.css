@@ -32,6 +32,10 @@
   opacity: 0.5;
 }
 
+.leaderboard:hover {
+  opacity: 0.7;
+}
+
 .container {
   display: flex;
   flex-direction: row;

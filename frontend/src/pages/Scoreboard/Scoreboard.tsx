@@ -38,7 +38,7 @@ export default function Scoreboard() {
 
   const { state } = useLocation();
   const navigate = useNavigate();
-  const { isHost, name, opponent } = useClient();
+  const { isHost, name, opponent, clearContext, client } = useClient();
   const { playerLives, playerScore, opponentLives, opponentScore, resetGame } = useGameContext();
 
   const [playerOne, setPlayerOne] = useState<PlayerFactoryProps>({ playerName: '', score: 0 });
@@ -67,7 +67,13 @@ export default function Scoreboard() {
         setPlayerTwo(playerProps);
         setPlayerOne(opponentProps);
       }
+
+      client?.emit('game:my-result', playerProps.playerName, playerProps.winner, playerProps.score);
     }
+
+    return () => {
+      clearContext();
+    };
   }, []);
 
   const endGame = () => {

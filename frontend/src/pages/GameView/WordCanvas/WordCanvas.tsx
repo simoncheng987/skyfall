@@ -16,7 +16,12 @@ export default function WordCanvas({ words, className, wordSize }: WordCanvasPro
       {words.map((wordState) => {
         const position = generateWordPositionCSSProperties(wordState);
         return (
-          <WordCloud key={wordState.word} style={position} size={wordSize} word={wordState.word} />
+          <WordCloud
+            key={wordState.wordId}
+            style={position}
+            size={wordSize}
+            word={wordState.word}
+          />
         );
       })}
     </div>

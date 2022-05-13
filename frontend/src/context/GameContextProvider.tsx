@@ -8,6 +8,7 @@ interface GameContextProps {
   playerLives: number;
   opponentScore: number;
   opponentLives: number;
+  initialLives: number;
   startTime: Date;
   playerWordList: WordState[];
   opponentWordList: WordState[];
@@ -17,6 +18,8 @@ interface GameContextProps {
   // eslint-disable-next-line no-unused-vars
   gameStart: (socket: Socket) => void;
   resetGame: () => void;
+  // eslint-disable-next-line no-unused-vars
+  configureInitialLives: (lives: number) => void;
 }
 
 const GameContext = React.createContext<GameContextProps | null>(null);
@@ -26,6 +29,8 @@ export const useGameContext = () => useContext(GameContext) as GameContextProps;
 export default function GameContextProvider({ children }: any) {
   const PLAYER_LIVES = 3;
   const INITIAL_SCORE = 0;
+
+  const [initialLives, setInitialLives] = useState<number>(PLAYER_LIVES);
 
   const [playerLives, setPlayerLives] = useState<number>(PLAYER_LIVES);
 
@@ -148,12 +153,19 @@ export default function GameContextProvider({ children }: any) {
     setOpponentScore(INITIAL_SCORE);
   };
 
+  const configureInitialLives = (lives: number) => {
+    setInitialLives(lives);
+    setPlayerLives(lives);
+    setOpponentLives(lives);
+  };
+
   const value: GameContextProps = useMemo(
     () => ({
       playerScore,
       playerLives,
       opponentScore,
       opponentLives,
+      initialLives,
       startTime,
       playerWordList,
       opponentWordList,
@@ -161,12 +173,14 @@ export default function GameContextProvider({ children }: any) {
       onWordSubmitHandler,
       gameStart,
       resetGame,
+      configureInitialLives,
     }),
     [
       playerScore,
       playerLives,
       opponentScore,
       opponentLives,
+      initialLives,
       startTime,
       playerWordList,
       opponentWordList,

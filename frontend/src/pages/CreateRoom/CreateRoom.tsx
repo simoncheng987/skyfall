@@ -9,6 +9,7 @@ import styles from './CreateRoom.module.css';
 import ErrorToast from '../../components/ErrorToast';
 import { useClient } from '../../context/ClientProvider';
 import BackButton from '../../components/BackButton';
+import SpinBox from '../../components/SpinBox';
 
 export default function CreateRoom() {
   const ERROR_INVALID_NAME = 'Please input your name.';
@@ -18,6 +19,7 @@ export default function CreateRoom() {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [roomId, setRoomId] = useState('');
+  const [lives, setInitialLives] = useState(3);
 
   const navigate = useNavigate();
 
@@ -38,7 +40,7 @@ export default function CreateRoom() {
       client.once('room:join-success', () => {
         setName(playerName);
         setHost();
-        navigate('/lobby', { state: roomId });
+        navigate('/lobby', { state: { lives, roomId } });
       });
 
       client.once('room:join-fail', () => {
@@ -47,7 +49,13 @@ export default function CreateRoom() {
       });
 
       client.emit('room:join', roomId, playerName);
+
+      return () => {
+        client.off('room:join-success');
+        client.off('room:join-fail');
+      };
     }
+    return () => {};
   }, [client]);
 
   function createRoom() {
@@ -74,6 +82,14 @@ export default function CreateRoom() {
     <PageScaffold>
       <BackButton />
       <Title className={styles.title} fontSize="110px" text="Create Room" colorScheme="pink" />
+      <h1 className={styles.label}>Player Lives</h1>
+      <SpinBox
+        className={styles.spinbox}
+        min={1}
+        max={6}
+        defaultValue={3}
+        onChange={(e) => setInitialLives(parseInt(e.target.value, 10))}
+      />
       <TextField
         className={styles.textField}
         placeholder="Your Name"
