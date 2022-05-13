@@ -17,6 +17,10 @@ interface PlayerFactoryProps {
   score: number;
 }
 
+/**
+ * This factory function creates a statistics card for a player, provided with the information that
+ * it needs, e.g., name and score of the player, and whether they won or lost.
+ */
 function PlayerFactory({ winner, loser, playerName, score, guest }: PlayerFactoryProps) {
   const title = winner ? 'Winner' : loser ? '💩' : '';
   return (
@@ -33,6 +37,10 @@ PlayerFactory.defaultProps = {
   guest: false,
 };
 
+/**
+ * This component is used at the end of the Skyfall game to show statistics of the winner and loser
+ * to the players. Note that it uses the ClientContext and GameContext as its dependencies.
+ */
 export default function Scoreboard() {
   GameSafetyCheck();
 
@@ -76,6 +84,10 @@ export default function Scoreboard() {
     };
   }, []);
 
+  /*
+  This function is executed when the 'Back to Home' button is pressed. It firstly clears the game
+  contexts and redirects the user back to home (/).
+   */
   const endGame = () => {
     resetGame();
     navigate('/');
@@ -84,6 +96,7 @@ export default function Scoreboard() {
   return (
     <PageScaffold>
       <div className={styles.container}>
+        {/* Container for the winner's and loser's statistics cards. */}
         <div className={styles.grid}>
           <PlayerFactory
             playerName={playerOne.playerName}
@@ -99,6 +112,8 @@ export default function Scoreboard() {
             loser={playerTwo.loser}
           />
         </div>
+
+        {/* Button to return to the home screen. */}
         <Button className={styles.button} text="Return To Home" onClick={endGame} />
       </div>
     </PageScaffold>

@@ -6,6 +6,15 @@ import PageScaffold from '../PageScaffold';
 import Title from '../../components/Title';
 import styles from './Home.module.css';
 
+/**
+ * This component is the entrypoint to the application, because it is registered with the / route
+ * of the application, and it shows the following buttons to access different parts of the game.
+ *
+ * - Create Room
+ * - Join Room
+ * - Upload Words
+ * - Leaderboard (top-right corner)
+ */
 export default function Home() {
   const navigate = useNavigate();
 

@@ -4,7 +4,15 @@ import PageScaffold from '../PageScaffold';
 import styles from './UploadWords.module.css';
 import BackButton from '../../components/BackButton';
 
+/**
+ * This component is used to take information from users, so word lists can be submitted from the
+ * Frontend to the Backend.
+ */
 export default function UploadWords() {
+  /*
+  All fields in this page are controlled components, so these states are holding information from
+  those fields.
+   */
   const [name, setName] = useState('');
   const [words, setWords] = useState('');
 
