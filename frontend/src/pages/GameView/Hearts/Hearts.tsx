@@ -3,11 +3,25 @@ import { HeartIcon } from '@heroicons/react/solid';
 import styles from './Hearts.module.css';
 
 interface HeartsProps {
+  /**
+   * Total number of hearts to be displayed.
+   */
   totalHearts: number;
+
+  /**
+   * The remaining hearts to display.
+   */
   remainingHearts: number;
+
+  /**
+   * Additional class names to style this component from the outside.
+   */
   className?: string;
 }
 
+/**
+ * Display a list of hearts. Only the remaining hearts will be colored.
+ */
 export default function Hearts({ totalHearts, remainingHearts, className }: HeartsProps) {
   return (
     <div className={`${styles.heartContainer} ${className}`}>
