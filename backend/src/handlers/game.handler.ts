@@ -3,8 +3,8 @@ import { editPlayer, getPlayerAndCreateIfNotPresent } from '../services/player.s
 import { GlobalGameState } from '../state';
 import { getWordList } from '../services/word-list.service';
 import { MAX_PLAYERS } from '../utils/constants';
-import { SocketType, ServerType, Word } from '../types';
-import { getWordForRoom } from '../database/words';
+import { SocketType, ServerType } from '../types';
+import { sendWord } from './word.handler';
 
 /**
  * Handle when client requests to start the game
@@ -22,6 +22,7 @@ const gameStart = (io: ServerType, socket: SocketType) => {
     }
 
     const gameState = GlobalGameState.get(roomCode);
+
     if (!gameState) {
       socket.emit('game:start-fail', 'Room code no longer valid');
       return;
@@ -44,8 +45,8 @@ const gameStart = (io: ServerType, socket: SocketType) => {
     }
 
     const wordList = await getWordList(listName);
-    wordList.sort((a, b) => a.length - b.length);
     gameState.wordList = wordList;
+
     gameState.startingLives = startingLives;
     socketsInRoom.forEach((s) => {
       s.data.lives = gameState.startingLives;
@@ -55,31 +56,9 @@ const gameStart = (io: ServerType, socket: SocketType) => {
 
     io.to(roomCode).emit('game:start-success', startingLives, listName);
     setTimeout(() => {
-      sendWord(io, roomCode, 15000);
+      sendWord(io, roomCode, 10000);
     }, 1000);
   });
-};
-
-const sendWord = async (io: ServerType, roomCode: string, timeToAnswer: number) => {
-  setTimeout(async () => {
-    const socketsInRoom = await io.in(roomCode).fetchSockets();
-    const numOfSockets = socketsInRoom.length;
-    const gameState = GlobalGameState.get(roomCode);
-
-    if (gameState && numOfSockets === MAX_PLAYERS) {
-      const randomWord: Word = getWordForRoom(roomCode, gameState.wordList || []);
-      io.to(roomCode).emit(
-        'word',
-        randomWord.id,
-        randomWord.word,
-        timeToAnswer,
-        Math.floor(Math.random() * 100),
-      );
-      sendWord(io, roomCode, Math.round(timeToAnswer * 0.99));
-    } else if (GlobalGameState.delete(roomCode)) {
-      io.to(roomCode).emit('game:finished');
-    }
-  }, 4000);
 };
 
 const gameHandleIndividualResult = (io: ServerType, socket: SocketType) => {
@@ -94,6 +73,7 @@ const gameHandleIndividualResult = (io: ServerType, socket: SocketType) => {
     await editPlayer(name, newPlayerData.score, newPlayerData.win, newPlayerData.lose);
   });
 };
+
 export const registerGameHandler = (
   io: ServerType,
   socket: SocketType,
