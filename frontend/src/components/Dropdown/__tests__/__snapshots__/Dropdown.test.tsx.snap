@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dropdown snapshot matches with className props 1`] = `
+Object {
+  "instance": null,
+  "nodeType": "component",
+  "props": Object {
+    "className": "testClassName",
+    "onChange": [Function],
+    "options": Array [
+      "option1",
+      "option2",
+      "option3",
+    ],
+  },
+  "rendered": Object {
+    "instance": null,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <option
+          value="option1"
+        >
+          option1
+        </option>,
+        <option
+          value="option2"
+        >
+          option2
+        </option>,
+        <option
+          value="option3"
+        >
+          option3
+        </option>,
+      ],
+      "className": "dropdownList testClassName",
+      "onChange": [Function],
+    },
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "nodeType": "host",
+        "props": Object {
+          "children": "option1",
+          "value": "option1",
+        },
+        "rendered": Array [
+          "option1",
+        ],
+        "type": "option",
+      },
+      Object {
+        "instance": null,
+        "nodeType": "host",
+        "props": Object {
+          "children": "option2",
+          "value": "option2",
+        },
+        "rendered": Array [
+          "option2",
+        ],
+        "type": "option",
+      },
+      Object {
+        "instance": null,
+        "nodeType": "host",
+        "props": Object {
+          "children": "option3",
+          "value": "option3",
+        },
+        "rendered": Array [
+          "option3",
+        ],
+        "type": "option",
+      },
+    ],
+    "type": "select",
+  },
+  "type": [Function],
+}
+`;

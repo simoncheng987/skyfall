@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dropdown snapshot matches with className props 1`] = `
+Object {
+  "instance": null,
+  "nodeType": "component",
+  "props": Object {
+    "className": "testClassName",
+    "defaultValue": 5,
+    "max": 10,
+    "min": 0,
+    "onChange": [Function],
+  },
+  "rendered": Object {
+    "instance": null,
+    "nodeType": "host",
+    "props": Object {
+      "className": "spinbox testClassName",
+      "defaultValue": 5,
+      "max": 10,
+      "min": 0,
+      "onChange": [Function],
+      "onKeyDown": [Function],
+      "type": "number",
+    },
+    "rendered": Array [],
+    "type": "input",
+  },
+  "type": [Function],
+}
+`;
