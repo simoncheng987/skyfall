@@ -37,19 +37,24 @@ export const sendWord = async (io: ServerType, roomCode: string, timeToAnswer: n
 
     if (gameState && numOfSockets === MAX_PLAYERS) {
       const randomWord: Word = getWordForRoom(roomCode, gameState.wordList || []);
+      const newTimeToAnswer = Math.round(timeToAnswer * 0.99);
       io.to(roomCode).emit(
         'word',
         randomWord.id,
         randomWord.word,
-        timeToAnswer,
+        getRandomBetweenRange(Math.round(0.8 * newTimeToAnswer), Math.round(1.2 * newTimeToAnswer)),
         Math.floor(Math.random() * 100),
       );
-      sendWord(io, roomCode, Math.round(timeToAnswer * 0.99));
+      sendWord(io, roomCode, newTimeToAnswer);
     } else if (GlobalGameState.delete(roomCode)) {
       io.to(roomCode).emit('game:finished');
     }
-  }, 3000);
+  }, getRandomBetweenRange(2000, 4000));
 };
+
+function getRandomBetweenRange(min, max) {
+  return Math.random() * (max - min) + min;
+}
 
 export const registerWordHandler = (
   io: ServerType,
