@@ -125,8 +125,6 @@ describe('game handler', () => {
         clients[0].emit('game:start', startingLives, wordListName);
       });
 
-      clients[1].on('room:join-fail', (reason) => console.log(reason));
-
       clients[0].on('game:start-success', () => {
         for (let i = 0; i < startingLives; i++) {
           clients[0].emit('word:typed', '1', false);

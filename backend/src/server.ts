@@ -4,6 +4,15 @@ import { createServer, Server } from 'http';
 import routes from './routes';
 import logger from './utils/logger';
 
+/**
+ * Class that wraps express server. The express server sets up
+ * REST endpoints, cors, serving static frontend build folder,
+ * middleware for error handling.
+ *
+ * Instantiation of this class runs a server. You can also close the server
+ * or get the underlying httpServer object.
+ *
+ */
 export class ExpressServer {
   #server: Server;
 

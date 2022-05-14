@@ -1,5 +1,10 @@
 import { model, Schema } from 'mongoose';
 
+/**
+ * A model that represents player details
+ * Used to save player stats
+ *
+ */
 export interface PlayerI {
   name: string;
   score: number;

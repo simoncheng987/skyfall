@@ -1,8 +1,14 @@
-import { getWordForRoom } from '../database/words';
+import { getWordForRoom } from './utils/words';
 import { MAX_PLAYERS } from '../utils/constants';
 import { GlobalGameState } from '../state';
 import { SocketType, ServerType, Word } from '../types';
 
+/**
+ * Handle when client writes a word (they send 'word:typed' to the server)
+ *
+ * broadcast:word-typed is sent to all the clients so that clients can update their state and screen at the same time
+ * 'game:finished' is sent to the client when it is determined that a client has died.
+ */
 const wordTyped = (
   io: ServerType,
   socket: SocketType,

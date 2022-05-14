@@ -7,6 +7,13 @@ import { ConnectHandler } from './handlers';
 import { mongodbUri, port } from './utils/constants';
 import logger from './utils/logger';
 
+/**
+ * Class that wraps express server (class ExpressServer of `server.ts`) and socket io endpoints
+ *
+ * In constructor, the express server is started and socket event handlers are bound to the express server.
+ * You can use methods like stop() and reset() to stop or end the server as a whole.
+ *
+ */
 export class SkyfallServer {
   #io: Server<ClientToServerEvents, ServerToClientEvents, SocketData>;
 
@@ -37,6 +44,11 @@ export class SkyfallServer {
   }
 }
 
+/**
+ * Under test condition, SkyfallServer is instantiated within each test files.
+ * Production database should not be run under test condition. (instead, use methods
+ * provided in `utils/memory-database.ts`)
+ */
 if (process.env.NODE_ENV !== 'test') {
   mongoose.connect(mongodbUri)
     .then(() => new SkyfallServer())

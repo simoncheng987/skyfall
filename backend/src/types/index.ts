@@ -2,10 +2,6 @@ import { Server, Socket } from 'socket.io';
 
 /**
  * Emitting message from server to clients
- * io.on("connection", (socket)=>{
- *  socket.emit("noArg")
- *  socket.emit("basicEmit", 1, "2")
- * })
  */
 interface ServerToClientEvents {
   'room:join-success': () => void;
@@ -20,12 +16,7 @@ interface ServerToClientEvents {
 }
 
 /**
- * Used when receiving events from client, eg
- * io.on("connection", (socket)=>{
- *  socket.on("hello", ()=>{
- *    //...
- *  })
- * })
+ * Message from client to the server
  */
 interface ClientToServerEvents {
   'game:my-result': (name: string, win: boolean, score: number) => void;
@@ -35,10 +26,7 @@ interface ClientToServerEvents {
 }
 
 /**
- * io.on("connection", (socket)=>{
- *  socket.data.name = "john";
- *  socket.data.age = 42;
- * })
+ * Data of the socket
  */
 interface SocketData {
   ready: boolean;

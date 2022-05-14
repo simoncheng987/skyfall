@@ -2,6 +2,12 @@ import Mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import logger from './logger';
 
+/**
+ * This is responsible for setting up an in-memory database that can be used for testing sandbox.
+ * The in-memory database can be started, closed, and cleared, and does not affect the actual production database,
+ * making it ideal for testing purpose
+ */
+
 let mongoMock;
 const connectDatabase = async () => {
   mongoMock = await MongoMemoryServer.create();

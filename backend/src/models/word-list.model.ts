@@ -1,5 +1,8 @@
 import { model, Schema } from 'mongoose';
 
+/**
+ * A model that represents word list from which the word is sent during the gameplay
+ */
 export interface WordListI {
   listName: string;
   wordList: Array<string>;
