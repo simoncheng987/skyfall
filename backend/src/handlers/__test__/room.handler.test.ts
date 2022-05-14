@@ -2,7 +2,7 @@ import { GlobalGameState } from '../../state';
 import { SkyfallServer } from '../../index';
 import { createClients, TIMEOUT } from './util';
 
-describe('Client room:join', () => {
+describe('room handler', () => {
   const joinSuccessMock = jest.fn();
   const joinFailMock = jest.fn();
 

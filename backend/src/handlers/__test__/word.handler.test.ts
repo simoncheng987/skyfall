@@ -4,7 +4,7 @@ import { createClients, defaultWordList, TIMEOUT } from './util';
 import databaseOperations from '../../utils/memory-database';
 import { GlobalGameState } from '../../state';
 
-describe('Client word:typed', () => {
+describe('word handler', () => {
   const startingLives = 3;
   const wordListName = 'default';
   const roomCode = '1234';
