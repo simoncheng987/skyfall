@@ -4,29 +4,94 @@ import TimedWordState from '../types/TimedWordState';
 import WordState from '../types/WordState';
 
 interface GameContextProps {
+  /**
+   * The score of current player.
+   */
   playerScore: number;
+
+  /**
+   * The lives of current player.
+   */
   playerLives: number;
+
+  /**
+   * Score of player's opponent.
+   */
   opponentScore: number;
+
+  /**
+   * Lives of player's opponent.
+   */
   opponentLives: number;
-  initialLives: number;
+
+  /**
+   * Starting time of the game.
+   */
   startTime: Date;
-  playerWordList: WordState[];
-  opponentWordList: WordState[];
+
+  /**
+   * Initializing the starting time of the game.
+   */
   initializeStartTime: () => void;
+
+  /**
+   * Active word list for current player.
+   */
+  playerWordList: WordState[];
+
+  /**
+   * Active word list for player's opponent.
+   */
+  opponentWordList: WordState[];
+
+  /**
+   * Handler for when a word is submitted by the player.
+   */
   // eslint-disable-next-line no-unused-vars
   onWordSubmitHandler: (arg0: string, client: Socket) => void;
+
+  /**
+   * Declaration of game starting.
+   */
   // eslint-disable-next-line no-unused-vars
   gameStart: (socket: Socket) => void;
+
+  /**
+   * Resetting the context.
+   */
   resetGame: () => void;
+
+  /**
+   * Initial lives of both player and opponent.
+   */
+  initialLives: number;
+
+  /**
+   * Configuring the initial lives.
+   */
   // eslint-disable-next-line no-unused-vars
   configureInitialLives: (lives: number) => void;
 }
 
 const GameContext = React.createContext<GameContextProps | null>(null);
 
+/**
+ * Hook for accessing the context.
+ */
 export const useGameContext = () => useContext(GameContext) as GameContextProps;
 
-export default function GameContextProvider({ children }: any) {
+interface GameContextProviderProps {
+  /**
+   * The components that will access this context.
+   */
+  children: React.ReactNode;
+}
+
+/**
+ * A context to provide information of current playing game.
+ */
+export default function GameContextProvider({ children }: GameContextProviderProps) {
+  // Default lives and score.
   const PLAYER_LIVES = 3;
   const INITIAL_SCORE = 0;
 
@@ -51,7 +116,7 @@ export default function GameContextProvider({ children }: any) {
   };
 
   useEffect(() => {
-    // Update the yPercentage every 100ms
+    // Update the yPercentage every 17ms
     const wordUpdateInterval = setInterval(() => {
       setPlayerList((oldList) =>
         oldList.map((state) => ({
@@ -82,6 +147,7 @@ export default function GameContextProvider({ children }: any) {
   };
 
   const gameStart = (client: Socket) => {
+    // Event for when word is received from the backend
     client.on('word', (id: string, newWord: string, wordTime: number, wordLocation: number) => {
       setPlayerList((oldList) => [
         ...oldList,
@@ -109,6 +175,7 @@ export default function GameContextProvider({ children }: any) {
       ]);
     });
 
+    // A helper to get the correct setter for score and lives
     const getStatsSetters = (
       id: string,
     ): {
@@ -121,6 +188,7 @@ export default function GameContextProvider({ children }: any) {
       return { setLives: setOpponentLives, setScore: setOpponentScore };
     };
 
+    // Event for when handling broadcast of when a word is typed by player or opponent
     client.on(
       'broadcast:word-typed',
       (wordId: string, success: boolean, socketId: string, lives: number) => {
@@ -138,6 +206,7 @@ export default function GameContextProvider({ children }: any) {
       },
     );
 
+    // Event for when a game is finished
     client.once('game:finished', () => {
       client.off('word');
       client.off('broadcast:word-typed');

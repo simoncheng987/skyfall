@@ -11,5 +11,8 @@ export default interface WordState {
   xPercentage: number;
   yPercentage: number;
 
+  /**
+   * The lifetime of the word in ms.
+   */
   time: number;
 }

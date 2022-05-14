@@ -28,7 +28,7 @@ export default function UploadWords() {
     // Sending the backend request to transmit the words.
     await axios.post('/wordList', {
       listName: name,
-      wordArray,
+      wordList: wordArray,
     });
 
     // Clearing the fields.

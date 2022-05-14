@@ -10,7 +10,14 @@ import PageScaffold from '../PageScaffold';
 import { useClient } from '../../context/ClientProvider';
 import GameSafetyCheck from '../../utils/GameSafetyCheck';
 
+/**
+ * This is a page that shows the current game status.
+ * Player's word list, name, and lives will be shown on the left side of the screen.
+ * Opponent's word list, name, and lives will be shown on the top right of the screen.
+ * Time since the start of the game, both player's score, will be shown on the bottom right of the screen.
+ */
 export default function GameView() {
+  // Safety check for client's socket
   GameSafetyCheck();
 
   const navigate = useNavigate();
@@ -38,6 +45,7 @@ export default function GameView() {
     if (!state) {
       navigate('/create');
     } else {
+      // Setting the number of initial lives and starting the game
       configureInitialLives(state as number);
       gameStart(client as Socket);
     }

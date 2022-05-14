@@ -1,0 +1,10 @@
+.dropdownList {
+  font-size: 32px;
+  caret-color: transparent;
+  text-align: center;
+  border-radius: 15px;
+  border-color: #1c1c1c;
+  border-width: 3px;
+  height: 55px;
+  width: 100%;
+}

@@ -11,7 +11,7 @@ input[type='number']::-webkit-inner-spin-button {
   border-radius: 15px;
   border-color: #1c1c1c;
   border-width: 3px;
-  height: 85px;
+  height: 55px;
   width: 100%;
 }
 
