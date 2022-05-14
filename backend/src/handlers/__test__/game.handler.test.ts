@@ -5,7 +5,7 @@ import { SkyfallServer } from '../../index';
 import { createClients, defaultWordList, TIMEOUT } from './util';
 import { GlobalGameState } from '../../state';
 
-describe('Client game:start', () => {
+describe('game handler', () => {
   const successMock = jest.fn();
   const failMock = jest.fn();
   const finishedMock = jest.fn();
@@ -25,10 +25,10 @@ describe('Client game:start', () => {
   });
 
   beforeEach(async () => {
+    server.reset();
     GlobalGameState.set(roomCode, {
       roomCreator: undefined, wordList: undefined, startingLives: undefined, inProgress: false,
     });
-    server.reset();
   });
 
   afterEach(() => {
@@ -54,6 +54,7 @@ describe('Client game:start', () => {
           successMock();
         });
         client.on('game:start-fail', () => failMock());
+        client.on('game:finished', () => finishedMock());
       });
     });
 
@@ -114,6 +115,32 @@ describe('Client game:start', () => {
         done();
       }, TIMEOUT);
     });
+
+    it('game ends once 1 player dies', (done) => {
+      clients[0].on('room:join-success', () => {
+        clients[1].emit('room:join', roomCode, `player called ${Math.random() * 10}`);
+      });
+
+      clients[1].on('room:join-success', () => {
+        clients[0].emit('game:start', startingLives, wordListName);
+      });
+
+      clients[1].on('room:join-fail', (reason) => console.log(reason));
+
+      clients[0].on('game:start-success', () => {
+        for (let i = 0; i < startingLives; i++) {
+          clients[0].emit('word:typed', '1', false);
+        }
+      });
+
+      clients[0].emit('room:join', roomCode, `player called ${Math.random() * 10}`);
+
+      setTimeout(() => {
+        expect(finishedMock).toHaveBeenCalledTimes(2);
+        expect(failMock).not.toHaveBeenCalled();
+        done();
+      }, TIMEOUT);
+    });
   });
 
   it('1 client join, start', (done) => {
@@ -133,99 +160,51 @@ describe('Client game:start', () => {
     }, TIMEOUT);
   });
 
-  it('game ends once 1 player dies', (done) => {
-    clients = createClients(2);
-    clients.forEach((client) => {
-      client.on('game:finished', () => finishedMock());
-    });
+  describe('Send game result', () => {
+    const hajinPlayer: PlayerI[] = [{
+      name: 'hajin', score: 10, win: 2, lose: 1,
+    }];
 
-    clients[0].on('room:join-success', () => {
-      clients[1].emit('room:join', roomCode, `player called ${Math.random() * 10}`);
-    });
-
-    clients[1].on('room:join-success', () => {
-      clients[0].emit('game:start', startingLives, wordListName);
-    });
-
-    clients[0].on('game:start-success', () => {
-      for (let i = 0; i < startingLives; i++) {
-        clients[0].emit('word:typed', '1', false);
-      }
-    });
-
-    clients[0].emit('room:join', roomCode, `player called ${Math.random() * 10}`);
-
-    setTimeout(() => {
-      expect(finishedMock).toHaveBeenCalledTimes(2);
-      done();
-    }, TIMEOUT);
-  });
-});
-
-describe('Send game result', () => {
-  let server: SkyfallServer;
-  let clients: any[];
-
-  const hajinPlayer: PlayerI[] = [{
-    name: 'hajin', score: 10, win: 2, lose: 1,
-  }];
-
-  beforeAll(async () => {
-    await databaseOperations.connectDatabase();
-    server = new SkyfallServer();
-    const coll = mongoose.connection.db.collection('players');
-    await coll.insertMany(hajinPlayer);
-  });
-
-  beforeEach(async () => {
-    server.reset();
-  });
-
-  afterEach(() => {
-    clients?.forEach((client) => client.close());
-  });
-
-  afterAll(async () => {
-    await databaseOperations.closeDatabase();
-    if (server) {
-      await server.stop();
-    }
-  });
-
-  it('Server should automatically create a Player if player does not exist', (done) => {
-    clients = createClients(1);
-
-    clients[0].emit('game:my-result', 'jaemin', true, 1000);
-    setTimeout(() => {
+    beforeAll(async () => {
       const coll = mongoose.connection.db.collection('players');
-      coll.findOne({ name: 'jaemin' })
-        .then((doc) => {
-          expect(doc?.name).toBe('jaemin');
-          expect(doc?.score).toBe(1000);
-          expect(doc?.win).toBe(1);
-          expect(doc?.lose).toBe(0);
-          done();
-        });
-    }, TIMEOUT);
-  });
+      await coll.insertMany(hajinPlayer);
+    });
 
-  it('Server should update a player with new result', (done) => {
-    clients = createClients(1);
+    it('Server should automatically create a Player if player does not exist', (done) => {
+      clients = createClients(1);
 
-    const playerName = hajinPlayer[0].name;
-    const newScore = hajinPlayer[0].score + 200;
-    const newWin = hajinPlayer[0].win;
-    const newLose = hajinPlayer[0].lose + 1;
-    clients[0].emit('game:my-result', playerName, false, newScore);
-    setTimeout(() => {
-      const coll = mongoose.connection.db.collection('players');
-      coll.findOne({ name: playerName })
-        .then((doc) => {
-          expect(doc?.name).toBe(playerName);
-          expect(doc?.score).toBe(newScore);
-          expect(doc?.win).toBe(newWin);
-          done();
-        });
-    }, TIMEOUT);
+      clients[0].emit('game:my-result', 'jaemin', true, 1000);
+      setTimeout(() => {
+        const coll = mongoose.connection.db.collection('players');
+        coll.findOne({ name: 'jaemin' })
+          .then((doc) => {
+            expect(doc?.name).toBe('jaemin');
+            expect(doc?.score).toBe(1000);
+            expect(doc?.win).toBe(1);
+            expect(doc?.lose).toBe(0);
+            done();
+          });
+      }, TIMEOUT);
+    });
+
+    it('Server should update a player with new result', (done) => {
+      clients = createClients(1);
+
+      const playerName = hajinPlayer[0].name;
+      const newScore = hajinPlayer[0].score + 200;
+      const newWin = hajinPlayer[0].win;
+      const newLose = hajinPlayer[0].lose + 1;
+      clients[0].emit('game:my-result', playerName, false, newScore);
+      setTimeout(() => {
+        const coll = mongoose.connection.db.collection('players');
+        coll.findOne({ name: playerName })
+          .then((doc) => {
+            expect(doc?.name).toBe(playerName);
+            expect(doc?.score).toBe(newScore);
+            expect(doc?.win).toBe(newWin);
+            done();
+          });
+      }, TIMEOUT);
+    });
   });
 });
