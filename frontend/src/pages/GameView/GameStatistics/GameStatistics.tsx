@@ -5,11 +5,21 @@ import GameStatisticsType from '../../../types/GameStatistics';
 import WordCanvasHeader from '../WordCanvasHeader';
 
 interface GameStatisticsProps {
+  /**
+   * Data to be shown in this component, this object is type of GameStatistics
+   */
   data: GameStatisticsType;
+  /**
+   * Additional class names to style this component from the outside.
+   */
   className?: string;
 }
 
+/**
+ * Component that shows statistics of the two players playing in the game.
+ */
 export default function GameStatistics({ data, className }: GameStatisticsProps) {
+  // Get the time of the component spawn, because it is used to show the 'Time Elapsed'.
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {

@@ -16,17 +16,22 @@ interface TextFieldProps {
    * Action to be performed when value has been changed.
    */
   onChange?: React.ChangeEventHandler<HTMLInputElement> | undefined;
-
   /**
-   * aria-label of the component.
+   * An aria label for this component.
    */
   ariaLabel?: string;
 }
 
 /**
- * This is a styled text field component.
+ * Reusable input component used across the application wherever the end-users provide their input
+ * by typing something.
  */
 export default function TextField({ placeholder, className, onChange, ariaLabel }: TextFieldProps) {
+  /*
+  The internal input component is a controlled component, meaning that everytime it changes, the
+  value inside the input will be reflected by this state. Similarly, if the internal state is
+  changed manually using the setName function, the new state will be reflected within the input.
+   */
   const [name, setName] = useState('');
 
   return (

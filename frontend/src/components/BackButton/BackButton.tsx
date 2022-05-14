@@ -8,5 +8,15 @@ import styles from './BackButton.module.css';
  */
 export default function BackButton() {
   const navigate = useNavigate();
-  return <ArrowSmLeftIcon className={styles.backButton} onClick={() => navigate('/')} />;
+
+  return (
+    <button
+      type="button"
+      className={styles.backButton}
+      onClick={() => navigate('/')}
+      aria-label="back-button"
+    >
+      <ArrowSmLeftIcon />
+    </button>
+  );
 }

@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BackButton snapshot test of the rendered back button 1`] = `
+Object {
+  "instance": null,
+  "nodeType": "component",
+  "props": Object {
+    "children": <BackButton />,
+    "initialEntries": Array [
+      Object {
+        "key": "test-key",
+        "pathname": "/test-pathname",
+      },
+    ],
+  },
+  "rendered": Object {
+    "instance": null,
+    "nodeType": "component",
+    "props": Object {
+      "basename": undefined,
+      "children": <BackButton />,
+      "location": Object {
+        "hash": "",
+        "key": "test-key",
+        "pathname": "/test-pathname",
+        "search": "",
+        "state": null,
+      },
+      "navigationType": "POP",
+      "navigator": Object {
+        "action": "POP",
+        "back": [Function],
+        "block": [Function],
+        "createHref": [Function],
+        "forward": [Function],
+        "go": [Function],
+        "index": 0,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "key": "test-key",
+          "pathname": "/test-pathname",
+          "search": "",
+          "state": null,
+        },
+        "push": [Function],
+        "replace": [Function],
+      },
+    },
+    "rendered": Object {
+      "instance": null,
+      "nodeType": "component",
+      "props": Object {},
+      "rendered": Object {
+        "instance": null,
+        "nodeType": "host",
+        "props": Object {
+          "aria-label": "back-button",
+          "children": <ForwardRef(ArrowSmLeftIcon) />,
+          "className": "backButton",
+          "onClick": [Function],
+          "type": "button",
+        },
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "aria-hidden": "true",
+              "children": <path
+                clipRule="evenodd"
+                d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z"
+                fillRule="evenodd"
+              />,
+              "fill": "currentColor",
+              "viewBox": "0 0 20 20",
+              "xmlns": "http://www.w3.org/2000/svg",
+            },
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "nodeType": "host",
+                "props": Object {
+                  "clipRule": "evenodd",
+                  "d": "M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z",
+                  "fillRule": "evenodd",
+                },
+                "rendered": Array [],
+                "type": "path",
+              },
+            ],
+            "type": "svg",
+          },
+        ],
+        "type": "button",
+      },
+      "type": [Function],
+    },
+    "type": [Function],
+  },
+  "type": [Function],
+}
+`;
