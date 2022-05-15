@@ -56,7 +56,7 @@ const gameStart = (io: ServerType, socket: SocketType) => {
 
     io.to(roomCode).emit('game:start-success', startingLives, listName);
     setTimeout(() => {
-      sendWord(io, roomCode, 10000);
+      sendWord(io, roomCode, 15000);
     }, 1000);
   });
 };
