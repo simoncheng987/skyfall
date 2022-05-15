@@ -55,7 +55,7 @@ export const sendWord = async (io: ServerType, roomCode: string, timeToAnswer: n
     } else if (GlobalGameState.delete(roomCode)) {
       io.to(roomCode).emit('game:finished');
     }
-  }, getRandomBetweenRange(2000, 4000));
+  }, getRandomBetweenRange(1500, 2000));
 };
 
 function getRandomBetweenRange(min, max) {
