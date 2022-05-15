@@ -32,8 +32,15 @@ Currently, we test the files in the following folders:
 - `routes`: Integration test that runs both server and database. Tests correctness of REST API.
 - `handlers`: Integration test that runs both server and database. Tests correctness of socket.io event handlers.
 
+### 4. To run lint:
+Run `npm run lint` to make sure your code follows the style guide. We currently have AirBnB base lint styling, with some modifications.
 
-## Structure
+## Contributing to the Backend
+When creating any addition to the repository, aim to create a test case that tests the functionality where possible. This way, whenever a change is made, any bug will be noticed by the CI pipeline (set up through github actions).
+
+Before making a pull request, check that `npm run test` and `npm run lint` runs without failure or warning. Then, create a PR (which confirms that backend builds successfully and tests/lint checks pass). We require at least one other contributor to approve the PR before merging the PR into the `main` branch.
+
+## Backend Structure
 Our backend structure is as follows (as of 14 May):
 ```
 src

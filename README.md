@@ -6,9 +6,13 @@
 <h4 align="center">The best typing game you will ever play</h4>
 
 <p align="center">
-  <img alt="GitHub" src="https://img.shields.io/badge/license-MIT-blue">
   <a href="https://github.com/UOA-CS732-SE750-Students-2022/skyfall/actions/workflows/deploy.yml">
   <img src="https://github.com/UOA-CS732-SE750-Students-2022/skyfall/actions/workflows/deploy.yml/badge.svg" alt="build"></a>
+    <a href="https://github.com/UOA-CS732-SE750-Students-2022/skyfall/actions/workflows/backend-ci.yml">
+  <img src="https://github.com/UOA-CS732-SE750-Students-2022/skyfall/actions/workflows/backend-ci.yml/badge.svg" alt="build"></a>
+      <a href="https://github.com/UOA-CS732-SE750-Students-2022/skyfall/actions/workflows/react-ci.yml">
+  <img src="https://github.com/UOA-CS732-SE750-Students-2022/skyfall/actions/workflows/react-ci.yml/badge.svg" alt="build"></a>
+
 </p>
 
 <p align="center">
@@ -40,6 +44,16 @@ $ cd skyfall
 
 After this has been cloned, please follow the instruction in [Frontend README](./frontend/README.md)
 and [Backend README](./backend/README.md) to start running the application.
+
+## Deploying to Heroku
+
+To deploy the application from `main` to `skyfall-game.herokuapp.com`, you should merge the up-to-date main branch into `production` branch. `deploy.yml` automatically deploys `production` branch to `skyfall-game.herokuapp.com`.
+
+## Contributing to the repository
+
+Refer to READMEs in `backend` and `frontend` folder to see the development flow.
+
+Generally, you should run tests and lint before making a PR. You should write clean code and write test cases that covers new features and runs reasonably quickly. `react-ci.yml` and `backend-ci.yml` will automatically run when you create a PR that points to `main` branch. 
 
 ## Wiki
 

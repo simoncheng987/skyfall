@@ -15,7 +15,7 @@
 ### Starting the application
 
 To start running the frontend application of this project, you will need to first install all the npm packages
-dependencies inside the `./frontend` directory by running
+dependencies inside the `/frontend` directory by running
 
 `npm install`
 
@@ -249,7 +249,7 @@ In this project, ESLint have been used to analyse problematic patterns found in 
 to fix the problematic patterns that can be solved automatically. For the patterns that can't be automatically resolved
 will be resolved manually by developers.
 
-### CI
+### Continuous Integration
 
 Continuous Integration have been deployed in this project to ensure code reliability. Before merging a pull request, the
 GitHub Action CI will be run. This has helped us to eliminate serious feature failure, and further improve on code
