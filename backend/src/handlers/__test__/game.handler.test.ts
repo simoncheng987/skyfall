@@ -24,7 +24,7 @@ describe('game handler', () => {
     await coll.insertOne({ listName: wordListName, wordList: defaultWordList });
   });
 
-  beforeEach(async () => {
+  beforeEach(() => {
     server.reset();
     GlobalGameState.set(roomCode, {
       roomCreator: undefined, wordList: undefined, startingLives: undefined, inProgress: false,
@@ -117,8 +117,13 @@ describe('game handler', () => {
     });
 
     it('game ends once 1 player dies', (done) => {
+      // Need to use a different code as the 1234 room was being deleted by async calls from previous tests
+      GlobalGameState.set('1111', {
+        roomCreator: undefined, wordList: undefined, startingLives: undefined, inProgress: false,
+      });
+
       clients[0].on('room:join-success', () => {
-        clients[1].emit('room:join', roomCode, `player called ${Math.random() * 10}`);
+        clients[1].emit('room:join', '1111', `player called ${Math.random() * 10}`);
       });
 
       clients[1].on('room:join-success', () => {
@@ -131,7 +136,7 @@ describe('game handler', () => {
         }
       });
 
-      clients[0].emit('room:join', roomCode, `player called ${Math.random() * 10}`);
+      clients[0].emit('room:join', '1111', `player called ${Math.random() * 10}`);
 
       setTimeout(() => {
         expect(finishedMock).toHaveBeenCalledTimes(2);
