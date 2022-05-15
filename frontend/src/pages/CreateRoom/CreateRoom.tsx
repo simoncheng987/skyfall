@@ -37,9 +37,7 @@ export default function CreateRoom() {
     // Fetching the list of word for player to pick
     fetch('/wordList')
       .then((res) => res.json())
-      .then((data) =>
-        data.map((wordList: { listName: string; wordList: string[] }) => wordList.listName),
-      )
+      .then((data) => data.map((wordList: { listName: string }) => wordList.listName))
       .then((wordlistNames) => setListNames(wordlistNames))
       .catch(() => {});
   }, []);

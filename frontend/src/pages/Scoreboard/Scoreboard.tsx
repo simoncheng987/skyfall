@@ -47,7 +47,7 @@ export default function Scoreboard() {
   const { state } = useLocation();
   const navigate = useNavigate();
   const { isHost, name, opponent, clearContext, client } = useClient();
-  const { playerLives, playerScore, opponentLives, opponentScore, resetGame } = useGameContext();
+  const { playerLives, playerScore, opponentScore, resetGame } = useGameContext();
 
   const [playerOne, setPlayerOne] = useState<PlayerFactoryProps>({ playerName: '', score: 0 });
   const [playerTwo, setPlayerTwo] = useState<PlayerFactoryProps>({ playerName: '', score: 0 });
@@ -59,14 +59,14 @@ export default function Scoreboard() {
       const playerProps: PlayerFactoryProps = {
         playerName: name,
         score: playerScore,
-        winner: playerLives > opponentLives,
-        loser: playerLives <= opponentLives,
+        winner: playerLives > 0,
+        loser: playerLives <= 0,
       };
       const opponentProps: PlayerFactoryProps = {
         playerName: opponent || '',
         score: opponentScore,
-        winner: opponentLives > playerLives,
-        loser: opponentLives <= playerLives,
+        winner: !playerProps.winner,
+        loser: playerProps.winner,
       };
       if (isHost) {
         setPlayerOne(playerProps);
