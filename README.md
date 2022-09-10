@@ -6,12 +6,12 @@
 <h4 align="center">The best typing game you will ever play</h4>
 
 <p align="center">
-  <a href="https://github.com/UOA-CS732-SE750-Students-2022/skyfall/actions/workflows/deploy.yml">
-  <img src="https://github.com/UOA-CS732-SE750-Students-2022/skyfall/actions/workflows/deploy.yml/badge.svg" alt="build"></a>
-    <a href="https://github.com/UOA-CS732-SE750-Students-2022/skyfall/actions/workflows/backend-ci.yml">
-  <img src="https://github.com/UOA-CS732-SE750-Students-2022/skyfall/actions/workflows/backend-ci.yml/badge.svg" alt="build"></a>
-      <a href="https://github.com/UOA-CS732-SE750-Students-2022/skyfall/actions/workflows/react-ci.yml">
-  <img src="https://github.com/UOA-CS732-SE750-Students-2022/skyfall/actions/workflows/react-ci.yml/badge.svg" alt="build"></a>
+  <a href="https://github.com/simoncheng987/skyfall/actions/workflows/deploy.yml">
+  <img src="https://github.com/simoncheng987/skyfall/actions/workflows/deploy.yml/badge.svg" alt="build"></a>
+    <a href="https://github.com/simoncheng987/skyfall/actions/workflows/backend-ci.yml">
+  <img src="https://github.com/simoncheng987/skyfall/actions/workflows/backend-ci.yml/badge.svg" alt="build"></a>
+      <a href="https://github.com/simoncheng987/skyfall/actions/workflows/react-ci.yml">
+  <img src="https://github.com/simoncheng987/skyfall/actions/workflows/react-ci.yml/badge.svg" alt="build"></a>
 
 </p>
 
