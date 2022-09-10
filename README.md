@@ -22,6 +22,14 @@
   <a href="http://skyfall-game.herokuapp.com/">Demo</a>
 </p>
 
+## Acknowledgement
+> This is a migrated university group project. It is developed among the following listed developers
+- [hajineats](https://github.com/hajineats)
+- [oscarli00](https://github.com/oscarli00)
+- [shreytailor](https://github.com/shreytailor)
+- [JoshXLim](https://github.com/JoshXLim)
+- [simoncheng987](https://github.com/simoncheng987)
+
 ## Key Features
 
 - Hosting and joining a lobby
