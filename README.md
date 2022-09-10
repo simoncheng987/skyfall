@@ -44,7 +44,7 @@ To clone and run this application:
 
 ```shell
 # Clone this repository
-$ git clone https://github.com/UOA-CS732-SE750-Students-2022/skyfall
+$ git clone https://github.com/simoncheng987/skyfall
 
 # Go into the repository
 $ cd skyfall
@@ -62,15 +62,6 @@ To deploy the application from `main` to `skyfall-game.herokuapp.com`, you shoul
 Refer to READMEs in `backend` and `frontend` folder to see the development flow.
 
 Generally, you should run tests and lint before making a PR. You should write clean code and write test cases that covers new features and runs reasonably quickly. `react-ci.yml` and `backend-ci.yml` will automatically run when you create a PR that points to `main` branch. 
-
-## Wiki
-
-Please visit our wiki for the information of
-
-- [Backend Meeting minutes](https://github.com/UOA-CS732-SE750-Students-2022/skyfall/wiki/Meeting-Minutes-(Backend))
-- [Frontend Meeting minutes](https://github.com/UOA-CS732-SE750-Students-2022/skyfall/wiki/Meeting-Minutes-(Frontend))
-- [Backend Api documentation](https://github.com/UOA-CS732-SE750-Students-2022/skyfall/wiki/Backend-endpoints)
-- [Project workflow](https://github.com/UOA-CS732-SE750-Students-2022/skyfall/wiki/Project-Workflow)
 
 ## Screenshots
 
