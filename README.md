@@ -18,7 +18,6 @@
 <p align="center">
   <a href="#key-features">Features</a> •
   <a href="#installation">Installation</a> •
-  <a href="https://github.com/UOA-CS732-SE750-Students-2022/skyfall/wiki">Wiki</a> •
   <a href="http://skyfall-game.herokuapp.com/">Demo</a>
 </p>
 
